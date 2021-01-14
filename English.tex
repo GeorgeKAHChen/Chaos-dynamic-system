@@ -29,6 +29,7 @@
 \newtheorem{proof}{\textit{PROOF}}[section]
 \newtheorem{example}{\textbf{E x a m p l e}}[section]
 \newtheorem{solution}{\textit{SOLUTION}}[section]
+\newtheorem{discussion}{\textit{D I S C U S S I O N}}[section]
 
 \geometry{left=2cm,right=2cm,top=3cm,bottom=2cm}
 \title{[Note] Chaos: An Introduction to Dynamical Systems}
@@ -147,7 +148,7 @@ $$
 \begin{minipage}[c][0.6\width]{
    0.5\textwidth}
    \centering
-   \includegraphics[width=1\textwidth]{figure/section1/cb04.png}
+   \includegraphics[width=1\textwidth]{figure/section1/cb04.png} \\
 \end{minipage}
 \caption{Cobweb plot in different initial value}\label{logistic-cobweb-plot}
 \end{figure}
@@ -249,13 +250,189 @@ $$
 
 and $\forall x \in (0, 1), |x - 1/2| < 1 \Rightarrow |g(x) - 1/2| < 1$, that means the distance bewteen $g(x)$ and $p$ is decreasing during time iteration and we can confirm that $1/2$ is a sink point rather than source point.
 
-Next, we will focus on a logistic model with different parameter and some property of this new model.
+Next, we will focus on a logistic model with different parameter.
+
+
+
+
+
+
 
 
 \subsection{Periodic points, family of logistic maps}
+\begin{example} Find the fixed point of $g(x) = 3.3x(1-x), x \in [0, 1]$.
+\end{example}
+
+{\color{blue}
+\begin{solution}
+It is simple to find the fixed point with $x = 3.3x(1-x)$ and $x_1 = 0, x_2 = 23/33, x_3 = 1$. Obviously, both 0 and 1 are source. And
+$$
+g'(x) = 3.3 - 6.6x, |g'(23/33)| = 1.3 > 1
+$$ 
+So all these three fixed point are source, and it is simple to find the conclusion with cobweb plot. $\blacksquare$
+\end{solution}
+}
+
+\newpage
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figure/section1/periodic-point.png} \\
+\caption{An example of periodic point}\label{periodic-point}
+\end{center}
+\end{figure}
+
+
+Hold on a second, something strange! Even we cannot find a sink fixed point, all of initial value are sank into a group of points!
+
+\begin{definition}\textbf{Period-k point, Period-k orbit}
+\\\noindent Let $f$ be a map on $R$, and $p$ is a point in domain, if $f^k(p) = p$, and $k$ is the smallest such positive integer, then called $p$ as \textbf{periodic point of period $k$}, or \textbf{period-k point};
+\\\noindent Called orbit with initial point $p$ as \textbf{periodic orbit of period k}, or \textbf{period-k orbit};
+\end{definition}
+
+\begin{definition}\textbf{Sink and Source in Period point}
+\\\noindent Let $f$ be a map and $p$ is a period-k point
+\\\noindent If $p$ is a sink, then called this period-k orbit as periodic sink;
+\\\noindent If $p$ is a source, then called this period-k orbit as periodic source.
+\end{definition}
+
+Obviously, based on the chain rule, we have $(fg)'(x) = f'(g(x))g'(x)$, let $f = g, x = p_1$, then 
+$$
+g^2(p_1) = g'(g(p_1))g'(p_1) = g'(p_2)g'(p_1)
+$$
+Summary this formula, we have 
+\begin{theorem} \label{chain-rule-period-orbit}For every map $f$ and period-k orbit $\{p_1, p_2, \ldots p_k\}$, 
+$$
+(f^k)'(p_1) = (f^k)'(p_2) = \ldots = (f^k)'(p_k) = \prod_{i = 1}^{k}f'(p_i)
+$$
+\end{theorem}
+
+{\color{blue}
+\begin{proof} \textbf{Theo. \ref{chain-rule-period-orbit}} 
+$$
+(f^k)(p_1) = (f(f^{k-1}))'(p_1) = f'(f^{k-1}(p_1))(f^{k-1})'(p_1) = \ldots = \prod_{i = 1}^{k}f'(p_i) = (f^k)(p_i) (\forall i = 1, 2, \ldots, k)
+$$
+And we proved the theorem. $\blacksquare$   
+\end{proof}
+}
+
+\newpage
+Same as Theo. \ref{sink-source-point}, we have stability test for periodic orbits.
+\begin{theorem} \textbf{Stability test for periodic orbits}
+\\\noindent Let $f$ is a map and period-k orbit $\{p_1, p_2, \ldots p_k\}$, 
+\\\noindent If $|\prod_{i = 1}^{k}f'(p_i)| < 1$ then called this periodic orbit is a sink;
+\\\noindent If $|\prod_{i = 1}^{k}f'(p_i)| > 1$ then called this periodic orbit is a source;
+\end{theorem}
+
+
+{\color{blue}
+\begin{proof} \textbf{Theo. \ref{sink-source-point}} 
+\\\noindent Consider a new map $g(x) = f^k(x)$, where $f$ be a map and $p$ is a period-k point, then $p$ is a fixed point of $g$. Based on Theo. \ref{sink-source-point}, $|g(p)| < 1$ if $p$ is sink and $|g(p)| > 1$ if $p$ is a source. On the other hand, $g(p) = f^k(p) = \prod_{i = 1}^{k}f'(p_i)$ and we proved the theorem. $\blacksquare$   
+\end{proof}
+}
+
+Now we consider another problem.
+
+\begin{example} Find the fixed point or periodic orbit of $g_{3.5}(x) = 3.5x(1-x), g_{3.86}(x) = 3.86x(1-x), x \in [0, 1]$.
+\end{example}
+
+
+\begin{figure}[H]
+\begin{minipage}[c][0.5\width]{
+   0.5\textwidth}
+   \centering
+   \includegraphics[width=0.9\textwidth]{figure/section1/logistic35.png}
+\end{minipage}
+\begin{minipage}[c][0.5\width]{
+   0.5\textwidth}
+   \centering
+   \includegraphics[width=0.9\textwidth]{figure/section1/logistic386.png} \\
+\end{minipage}
+\caption{Logistic maps in $a = 3.5$ and $a = 3.86$}\label{logistic-no-periodic}
+\end{figure}
+
+We found in $a = 3.5$, even the periodic orbit is difficult to find, the iteration still have a boundary. If we consider every $a \in [1, 4]$, we can plot a figure between parameter $a$ and orbits $x$, and the figure was made by following repearting:
+\\\noindent \textbf{[i]} Choose a value $a$, starting with $a = 1$.
+\\\noindent \textbf{[ii]} Choose a value $x \in [0, 1]$ randomly.
+\\\noindent \textbf{[iii]} Calculate the orbit of x under $g_a(x)$ in a certain iteration times $t_max$.
+\\\noindent \textbf{[iv]} Ignore the first $t_0$ iterates and plot the orbit.
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section1/logistic-stability.png} \\
+\caption{Logistic model stability interval ($a \in [1, 4]$)}\label{Logistic-stability}
+\end{center}
+\end{figure}
 
 
 
+
+\newpage
+\begin{discussion} Now we will discuss the family of logistic maps with Fig. \ref{Logistic-stability}
+\\\noindent \textbf{[i] Periodic-3 window}
+\\\noindent We found periodic-1 orbits (or point) and periodic-2 orbits, based on the image above, it seem we also have periodic-3 orbits. And now we focus on the interval of parameter $a$ rather than domain of function, we found there is a interval of $a$ inside the $[3.83, 3.86]$ and we called these kind of interval as ``periodic window''. For instance, next figure showed the periodic-3 window of $a$.
+
+\begin{figure}[H]
+\begin{minipage}[c][0.5\width]{
+   0.5\textwidth}
+   \centering
+   \includegraphics[width=0.70\textwidth]{figure/section1/periodic-3-window.png}
+\end{minipage}
+\begin{minipage}[c][0.5\width]{
+   0.5\textwidth}
+   \centering
+   \includegraphics[width=0.9\textwidth]{figure/section1/logistic384.png} \\
+\end{minipage}
+\caption{Periodic-3 window and cobweb plot in $a = 3.84$}\label{logistic-cobweb-plot1}
+\end{figure}
+
+That's fine, let's check the result by cobweb plot. Ok, hold on a second, something wrong! So we still need more analysis.
+
+Obviously, every periodic-3 orbit of $g$ is a fixed point of $g^3$, so we can also analysis $g^3$ map.\\[3ex]
+
+\begin{figure}[H]
+\begin{minipage}[c][0.33\width]{0.33\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/g3logistic-origin.png}
+\end{minipage}
+\begin{minipage}[c][0.33\width]{0.33\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/g3logistic384.png}
+\end{minipage}
+\begin{minipage}[c][0.33\width]{0.33\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/g3logistic384-001-detail.png} 
+\end{minipage}
+\\[3ex]\caption{$g^3$ map and $g^3$ cobweb plot figure}\label{logistic-cobweb-plot1}
+\end{figure}
+
+
+\newpage
+  \noindent \textbf{[ii] The Logistic Map $G(x) = 4x(1-x)$}
+\\\noindent Now we consider another logistic map where $a \equiv 4$. \\[1ex]
+
+\begin{figure}[H]
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/4-logistic-ite-1.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/4-logistic-ite-2.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/4-logistic-ite-3.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/4-logistic-ite-4.png}
+\end{minipage}
+\\[3ex]\caption{$g^1_4, g_2^4, g_3^4$ and $g_4^4$ figure}\label{4-logistic-ite}
+\end{figure}
+
+
+\end{discussion}
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
