@@ -17,6 +17,8 @@
 \usepackage{subfigure}
 \usepackage{appendix}  
 \usepackage{color}
+\usepackage{wrapfig}
+\usepackage[dvipsnames]{xcolor}
 %\usepackage{subcaption}
 
 
@@ -30,7 +32,9 @@
 \newtheorem{example}{\textbf{E x a m p l e}}[section]
 \newtheorem{solution}{\textit{SOLUTION}}[section]
 \newtheorem{discussion}{\textit{D I S C U S S I O N}}[section]
+\newtheorem{conclusion}{\textit{\textbf{CONCLUSION}}}[section]
 
+ 
 \geometry{left=2cm,right=2cm,top=3cm,bottom=2cm}
 \title{[Note] Chaos: An Introduction to Dynamical Systems}
 \author{}
@@ -165,7 +169,7 @@ $$
 $$
 If for every points sufficiently to $p$ are repelled to $p$, then called $p$ as \textbf{source}, or \textbf{repelling fixed point}.
 $$
-\text{For an } \varepsilon > 0, \forall x \in N_\varepsilon(p), \lim_{k \rightarrow \infty}f^k(x) = p \text{ then called } p \text{ as \textbf{sink}}.
+\text{For an } \varepsilon > 0, \forall x \in N_\varepsilon(p), x \neq p, \lim_{k \rightarrow \infty}f^k(x) \notin N_\varepsilon(x) \text{ then called } p \text{ as \textbf{source}}.
 $$
 \end{definition}
 
@@ -309,9 +313,8 @@ $$
 {\color{blue}
 \begin{proof} \textbf{Theo. \ref{chain-rule-period-orbit}} 
 $$
-(f^k)(p_1) = (f(f^{k-1}))'(p_1) = f'(f^{k-1}(p_1))(f^{k-1})'(p_1) = \ldots = \prod_{i = 1}^{k}f'(p_i) = (f^k)(p_i) (\forall i = 1, 2, \ldots, k)
+(f^k)(p_1) = (f(f^{k-1}))'(p_1) = f'(f^{k-1}(p_1))(f^{k-1})'(p_1) = \ldots = \prod_{i = 1}^{k}f'(p_i) = (f^k)(p_i) (\forall i = 1, 2, \ldots, k)\blacksquare
 $$
-And we proved the theorem. $\blacksquare$   
 \end{proof}
 }
 
@@ -326,7 +329,7 @@ Same as Theo. \ref{sink-source-point}, we have stability test for periodic orbit
 
 {\color{blue}
 \begin{proof} \textbf{Theo. \ref{sink-source-point}} 
-\\\noindent Consider a new map $g(x) = f^k(x)$, where $f$ be a map and $p$ is a period-k point, then $p$ is a fixed point of $g$. Based on Theo. \ref{sink-source-point}, $|g(p)| < 1$ if $p$ is sink and $|g(p)| > 1$ if $p$ is a source. On the other hand, $g(p) = f^k(p) = \prod_{i = 1}^{k}f'(p_i)$ and we proved the theorem. $\blacksquare$   
+\\\noindent Consider a new map $g(x) = f^k(x)$, where $f$ be a map and $p$ is a period-k point, then $p$ is a fixed point of $g$. Based on Theo. \ref{sink-source-point}, $|g(p)| < 1$ if $p$ is sink and $|g(p)| > 1$ if $p$ is a source. On the other hand, $g(p) = f^k(p) = \prod_{i = 1}^{k}f'(p_i) \blacksquare$   
 \end{proof}
 }
 
@@ -350,7 +353,7 @@ Now we consider another problem.
 \caption{Logistic maps in $a = 3.5$ and $a = 3.86$}\label{logistic-no-periodic}
 \end{figure}
 
-We found in $a = 3.5$, even the periodic orbit is difficult to find, the iteration still have a boundary. If we consider every $a \in [1, 4]$, we can plot a figure between parameter $a$ and orbits $x$, and the figure was made by following repearting:
+We found in $a = 3.5$, even the periodic orbit is difficult to find, the iteration still have a boundary. If we consider every $a \in [1, 4]$, we can plot a figure between parameter $a$ and orbits $x$, and this \textbf{bifurcation diagram} was made by following repearting:
 \\\noindent \textbf{[i]} Choose a value $a$, starting with $a = 1$.
 \\\noindent \textbf{[ii]} Choose a value $x \in [0, 1]$ randomly.
 \\\noindent \textbf{[iii]} Calculate the orbit of x under $g_a(x)$ in a certain iteration times $t_max$.
@@ -368,7 +371,7 @@ We found in $a = 3.5$, even the periodic orbit is difficult to find, the iterati
 
 
 \newpage
-\begin{discussion} Now we will discuss the family of logistic maps with Fig. \ref{Logistic-stability}
+\begin{discussion} Now we will discuss the family of logistic maps with Fig. \ref{Logisstic-stability}
 \\\noindent \textbf{[i] Periodic-3 window}
 \\\noindent We found periodic-1 orbits (or point) and periodic-2 orbits, based on the image above, it seem we also have periodic-3 orbits. And now we focus on the interval of parameter $a$ rather than domain of function, we found there is a interval of $a$ inside the $[3.83, 3.86]$ and we called these kind of interval as ``periodic window''. For instance, next figure showed the periodic-3 window of $a$.
 
@@ -406,10 +409,31 @@ Obviously, every periodic-3 orbit of $g$ is a fixed point of $g^3$, so we can al
 \\[3ex]\caption{$g^3$ map and $g^3$ cobweb plot figure}\label{logistic-cobweb-plot1}
 \end{figure}
 
+We found different from periodic-2 orbit, the periodic-3 orbit is nearby(rather than equal) the point and it seems we have periodic-3 orbit. Actually, we will explain all periodic-3 will implies a characteristic we called ``chaos''. 
+
+
+
+
+
 
 \newpage
   \noindent \textbf{[ii] The Logistic Map $G(x) = 4x(1-x)$}
 \\\noindent Now we consider another logistic map where $a \equiv 4$. \\[1ex]
+\\\noindent Firstly, why we are interested in $g_4(x)$, consider a quadratic function 
+$$
+g_a(x) = ax(1-x) = a(-x^2 + x - 1 + 1) = -a(x-{1\over 2})^2 +{a\over 4}
+$$
+this function have maximum at point $x = 1/2$ and the maximum is $a/4$. As we have the Theo. \ref{sink-source-point}, if we consider the sink point set, it is necessary to satisfy $|g_a(x)| < 1$, or${a \over } 4 < 1 \Rightarrow a < 4$. So at the point $a = 4$, this set is empty and this is a critical state. For every $a_{new} = a - \varepsilon (\varepsilon \rightarrow 0)$, we have the interval of sink. So at this point, some special property has been result and that is why we interested in this map.
+
+We can still find the fixed point of $g_4(x)$ to solve $g_4(x) = x$, and we have $x_{11} = 0, x_{21} = {3/4}$. If we consider periodic-k orbit, for instance, we consider periodic-2 orbit, then we have solve the function $g(g(x)) = x$ as 
+$$
+g(g(x)) = 4(4x(1-x))[1-4x(1-x)] = x \Rightarrow (4x^2-4x+1)(x-1)x+{x\over 16} = 0 
+$$
+$$
+\Rightarrow (4x-3)(16x^2 - 20x+5)x = 0 \Rightarrow x_{21} = 0, x_{22} = {3\over 4}, x_{23,24} = {5\pm \sqrt{5}\over 8}
+$$
+
+Also, it is easy to check the periodic-k orbit in the figure.\\[2ex]
 
 \begin{figure}[H]
 \begin{minipage}[c][0.24\width]{0.24\textwidth}
@@ -428,11 +452,288 @@ Obviously, every periodic-3 orbit of $g$ is a fixed point of $g^3$, so we can al
    \centering
    \includegraphics[width=\textwidth]{figure/section1/4-logistic-ite-4.png}
 \end{minipage}
-\\[3ex]\caption{$g^1_4, g_2^4, g_3^4$ and $g_4^4$ figure}\label{4-logistic-ite}
+\\[3ex]\caption{$g_4^1, g_4^2, g_4^3$ and $g_4^4$ figure}\label{4-logistic-ite}
 \end{figure}
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{figure/section1/4-logistic-cobweb-plot.png}\\
+\caption{$g_4(x)$ cobweb plot(periodic-1,2 orbits)}\label{4-logistic-ite}
+\end{center}
+\end{figure}
 
+\newpage
+We found a conclusion here
+\begin{conclusion}
+For every periodic-k, the model $g_4^k$ have $2^{k} - 1$ saddle-node bifurcation and $2^k$ fixed point. And these $2^k$ points include every fixed point for model $g_4^{i}, i = 1, 2, \ldots, k-1 \land k \equiv 0 (\text{mod } i)$
+\end{conclusion}
+
+The number of orbits of the map for each period can be tabulated in the map's periodic table.
+
+
+
+\begin{table}[H]
+\centering  
+\caption{The periodic table for the logistic4 map}  
+\begin{tabular}{|c||c|c|c|c|c|c|c|}
+\hline
+Period $k$                             & 1 & 2 & 3 & 4  & 5  & 6  & 7   \\
+\hline
+\hline
+Number of fixed points of $g_4^k$      & 2 & 4 & 8 & 16 & 32 & 64 & 128 \\
+\hline
+Orbits of Period $k$                   & 2 & 1 & 2 & 3  & 4  & 5  & 6   \\
+\hline
+Fixed points due to lower orbits       & 0 & 2 & 2 & 4  & 2  & 4  & 2   \\
+\hline
+\hline
+1                                      & / &   &   &    &    &    &   \\
+2                                      & * & / &   &    &    &    &   \\
+3                                      & * &   & / &    &    &    &   \\
+4                                      & - & * &   & /  &    &    &   \\
+5                                      & * &   &   &    & /  &    &   \\
+6                                      & - & * & * &    &    & /  &   \\
+7                                      & * &   &   &    &    &    & / \\
+\hline
+\end{tabular}  
+\end{table}
+(*: Greatest common divisor group, -: $g^k$ fixed)
 \end{discussion}
+
+
+
+
+
+
+
+\subsection{Chaos}
+We still focus on $g_4(x)$ map, we try to check the $g_4^2$ fixed point ${5 - \sqrt{5}\over 8}$.\\[2ex]
+
+\begin{figure}[H]
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/4-logistic-stable-30.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/4-logistic-stable-50.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/4-logistic-stable-100.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/4-logistic-stable-500.png}
+\end{minipage}
+\\[3ex]\caption{$g_4^1, g_4^2, g_4^3$ and $g_4^4$ figure}\label{4-logistic-ite}
+\end{figure}
+
+It seems something wrong. Because we proved that ${5 \pm \sqrt{5}\over 8}$ is a periodic orbit during the iteration, but once we growth the iteration times, the results filled all the interval.
+
+So what happened? We try to put all of our data into a same image, and we have
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section1/4-logistic-stable-check.png} \\
+\caption{Iteration and ``periodic-2 orbit'' value}\label{periodic-2-check}
+\end{center}
+\end{figure}
+
+Obviously, in about first 40 times iteration, it was worked for a while, but with the iteration increasing, the error also increaed rapidly. Ok, ok, let's check the data for more details.
+\begin{table}[H]
+\centering  
+\caption{Logistic4 periodic-2 orbit iteration}  
+\begin{tabular}{|c||c|c|c|c|}
+\hline
+1-4   & 0.3454915028125262  & 0.9045084971874737  & 0.3454915028125262  & 0.9045084971874735 \\
+\hline
+5-8   & 0.34549150281252694 & 0.9045084971874745  & 0.3454915028125237  & 0.9045084971874705 \\
+\hline
+9-12  & 0.34549150281253665 & 0.9045084971874865  & 0.3454915028124849  & 0.9045084971874225 \\
+\hline
+13-16 & 0.34549150281269186 & 0.9045084971876783  & 0.3454915028118641  & 0.9045084971866552 \\
+\hline
+17-20 & 0.3454915028151752  & 0.9045084971907479  & 0.34549150280193086 & 0.9045084971743771 \\
+\hline
+21-24 & 0.3454915028549078  & 0.9045084972398602  & 0.3454915026430002  & 0.904508496977928  \\
+\hline
+25-27 & 0.3454915034906304  & 0.9045084980256565  & 0.34549150010010987 & $\ldots$           \\
+\hline
+\end{tabular}  
+\end{table}
+
+We noticed that during the iteration, the values of periodic-2 orbit are actually changed very small. Then we realized that is beacause of ${5 - \sqrt{5}\over 8} \neq 0.3454915028125262$ and this is just a value near the periodic point.(And the computer can only calculate this estimation value rather than real value.) Even this two value are almost nearby, it still have a little difference, and this difference become larger and larger during the iteration.
+
+That is important beacause we found even two value are almost equal, after iterate, this tiny, tiny difference will become a catastrophe and eventually two orbits move apart.
+
+\begin{definition}\textbf{Sensitive dependence on initial conditions, Sensitive point}
+\\\noindent Let $f$ is a map on $R$, $x_0$ in domain.
+\\\noindent If there is a nonzero distance $d$ s.t. some points arbitrary near $x_0$ are eventually mapped at least $d$ units from the corresponding image of $x_0$, then we called $x_0$ has \textbf{sensitive dependence on initial conditions};
+\\\noindent If for this $x_0, \exists \varepsilon > 0$ s.t. $\forall x \in N_\varepsilon^o(x_0) = N_\varepsilon(x_0) \backslash \{x_0\}, \exists K$ s.t. $\forall k > K, ||f^k(x) - f^k(x_0)|| \geq \varepsilon$, then called this point is \textbf{sensitive point}.
+\end{definition}
+\begin{definition}\textbf{Eventually periodic}
+\\\noindent Let $f$ is a map on $R$, $x_0$ in domain. If for some positive integer $N, \forall n > N, f^{n+p}(x) = f^n(x)$, then we called $x$ \textbf{eventually periodic} with period p, where p is the smallest such positive integer.
+\end{definition}
+
+Now we consider another model to explain this definition in another way.
+
+\begin{example}Consider a map $f(x) = 3x (\text{mod } 1)$. (e.g. $f(4.33) = 0.33, f(-1.98) = 0.02$.)
+\end{example}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figure/section1/3xmod1.png} \\
+\caption{3x mod 1 cobweb plot(initial value: {\color{green}0.25(green)}, {\color{red}0.2501(red)})}\label{3xmod1}
+\end{center}
+\end{figure}
+
+\newpage
+Basically, we have
+\begin{theorem} For any map $f$, the source has sensitive dependence on initial conditions.
+\end{theorem}
+{\color{blue}
+\begin{proof} For a certain $\varepsilon$, as $p$ is a source, then $\forall x \in N^o_\varepsilon(p), \lim_{k \rightarrow \infty}f^k(x) \notin N^\varepsilon_d(p) \Rightarrow d(p, x) > \varepsilon$ $\blacksquare$   
+\end{proof}
+}
+
+Is there any way to investigate this sensitive dependence? Yes, and here we will introduce a method called \textbf{itinerary} of an orbit.
+
+{\color{blue}
+\begin{solution}\textbf{Itinerary}
+\\\noindent We still consider the $g_4$ model. Assign the symbol \textbf{L} to the left subinterval $[0, 1/2]$ and \textbf{R} to the right subinterval $[1/2, 1]$. Then, for every initival condition $x_0$, we can list the itinerary with \textbf{L} and \textbf{R}. 
+\\\noindent For instance, the initial point $x_0 = 1/3$ have the itinerary \textbf{LRLRLRRLLRR}
+\begin{table}[H]
+\centering  
+\caption{Logistic4 $1/3$ itinerary}  
+\begin{tabular}{|c||c|c|c|}
+\hline
+0-2   & 0.333333333333333  (\textbf{L}) & 0.888888888888889  (\textbf{R})  & 0.39506172839506154 (\textbf{L}) \\
+\hline
+3-5   & 0.9559518366102727 (\textbf{R}) & 0.16843169076687667(\textbf{L})  & 0.5602498252491516 (\textbf{R})  \\
+\hline
+6-8   & 0.9854798342297868 (\textbf{R}) & 0.05723732222487492 (\textbf{L}) & 0.21584484467760304(\textbf{L})  \\
+\hline
+9-10  & 0.6770233908148179 (\textbf{R}) & 0.874650876417697   (\textbf{R}) & $\ldots$                         \\
+\hline
+\end{tabular}  
+\end{table}
+
+And we can list all itinerary with different initial value.$\blacksquare$
+\begin{table}[H]
+\centering  
+\caption{Logistic4 itinerary with different initial value}  
+\begin{tabular}{|c||l|l|l|l|l|}
+\hline
+Val  & $1-10$              & $11-20$             & $21-30$             & $31-40$             & $\ldots$ \\
+\hline
+\hline
+0.01 & \textbf{LLLRRLLLLR} & \textbf{RRRLRLRLRR} & \textbf{LLRRRLLRRR} & \textbf{RLRRLRLRLR} & $\ldots$ \\
+\hline
+0.25 & \textbf{LRRRRRRRRR} & \textbf{RRRRRRRRRR} & \textbf{RRRRRRRRRR} & \textbf{RRRRRRRRRR} & $\ldots$ \\
+\hline
+1/3  & \textbf{LRLRLRRLLR} & \textbf{RLRLLRRRRL} & \textbf{LLLRRRRLRL} & \textbf{RRRRRRRLRR} & $\ldots$ \\
+\hline
+0.5  & \textbf{RRLLLLLLLL} & \textbf{LLLLLLLLLL} & \textbf{LLLLLLLLLL} & \textbf{LLLLLLLLLL} & $\ldots$ \\
+\hline
+1    & \textbf{RLLLLLLLLL} & \textbf{LLLLLLLLLL} & \textbf{LLLLLLLLLL} & \textbf{LLLLLLLLLL} & $\ldots$ \\
+\hline
+\end{tabular}  
+\end{table}
+
+\end{solution}
+}
+
+
+
+
+Notice that there are some conclusions.
+\begin{conclusion} For every periodic-k point, the itinerary of orbit will repeats \textbf{L} or \textbf{R} infinitely.
+\end{conclusion}
+
+\begin{conclusion} For every $k$ iterate, the itinerary have $2^k$ choice and the sum of their lengths is 1(or the length of the interval).
+\end{conclusion}
+
+Also, we have a conclusion not very obvious.
+
+\begin{conclusion} Each $2^k$ itinerary is shorter than $\pi / 2^{k+1}$.
+\end{conclusion}
+We will prove this conclusion in later sections.
+
+
+
+\newpage
+We can also analysis the problem with \textbf{transition graph}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.2\textwidth]{figure/section1/transition-graph-1.png} \\
+\caption{Transition graph}\label{transition-graph-1}
+\end{center}
+\end{figure}
+
+Finally, we focus on the title of this subsection ``chaos'', after these analysis, it is simple to summary the definition of chaos.
+
+\begin{definition}\textbf{Chaos}
+\\\noindent A chaotic orbit is a bounded, non-periodic orbit that displays sensitive dependence. Chaotic orbits seoarate exponentially fast from their neighbors as the map iterated.
+\end{definition}
+
+
+\begin{theorem} \label{p3-chaos}The existence of periodic-3 orbit alone implies the existence of a large set of sensitive points, or chaotic orbit.
+\end{theorem}
+
+We will prove this problem in appendix.
+
+\newpage
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\section{Two-Dimension and High-Dimension Maps}
+
+\begin{definition}\textbf{Neighborhood}
+\\\noindent Consider a $R^n$ space, called every point $x = (x_1, x_2, \ldots x_n)$ is a vector of $R^n$ space,
+\\\noindent Define the \textbf{Euclidean Length} $|x| = \sqrt{x_1^2 + x_2^2 + \ldots + x_n^2}$, which is equal to norm;
+\\\noindent And define the distance between two point $d(x, y) = |x - y|$;
+\\\noindent Also, the \textbf{$\mathbf{\varepsilon}$-neighborhood} is 
+$$
+\forall \varepsilon > 0, \text{the }\varepsilon \text{-neighborhood of point }p, N_\varepsilon(p) \text{ is } \{x\in R^n | |x - p| < \varepsilon\} \text{, also define }N_\varepsilon^o(p) = N_\varepsilon(p)\backslash\{p\}
+$$
+\end{definition}
+
+\begin{definition}\textbf{Sink and Source in High-dimension Map}
+\\\noindent Let $f$ is a map on $R^n$, $p$ is a vector on $R^n$ which is the fixed point and $f(p) = p$ then 
+\\\noindent If there is an $\varepsilon > 0$ s.t. $\forall x \in N_\varepsilon(p), \lim_{k \rightarrow \infty}f^k(x) = p$, then $p$ is a sink or attracting fixed point.
+\\\noindent If $\forall x \in N_\varepsilon^o(p), \exists K \text{s.t.} \forall k > K, f^k(x) \notin N_\varepsilon(p)$, then called the point $p$ as source.
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -455,5 +756,60 @@ Obviously, every periodic-3 orbit of $g$ is a fixed point of $g^3$, so we can al
 
 
 
+\newpage
+\newpage
+\appendix
+\section{Prove of periodic-3 orbit theory (Theo \ref{p3-chaos})}
+Now we try to solve the problem we discussed in periodic-3 orbit of logistic model.
+
+
+Before we solve this problem, we need some other definition.
+\begin{definition}\textbf{Critical point}
+\\\noindent Consider a function $f$ in domain $D$, we called every point $x \in D$ s.t. $f'(x) = 0$ or the derivative not exist as \textbf{critical point}.
+\end{definition}
+\begin{definition}\textbf{Unimodal}
+\\\noindent Let $f$ is a map on $R$, if $f$ has and only has one critical point, then we called $f$ is \textbf{unimodal}.
+\end{definition}
+
+\begin{example} \label{e-g-p3-orbit}Consider a map in following figure, which is a periodic-3 orbit, denoted $\{A, B, C\}$ s.t. $f(A) = B, f(B) = C, f(C) = A$.\\[4ex]
+
+\begin{figure}[H]
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/period-3-orbit.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/period-3-orbit-map.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/period-3-orbit-trans.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section1/period-3-orbit-itinerary.png}
+\end{minipage}
+\\[6ex]\caption{An example periodic-3 orbit map and analysis}\label{period-3-orbit}
+\end{figure}
+
+There are some basic conclusion here
+\begin{conclusion} \textbf{[i]} $A < B < C, f(A) = B, f(B) = C, f(C) = A$;
+\\\noindent \textbf{[ii]} $f$ is unimodal;
+\\\noindent \textbf{[iii]} $\forall x \in R \backslash [A, C], f(x) \notin [A, C]$, that means we can take no care of point out of the interval $[A, C]$.
+\\\noindent \textbf{[iv]} Let $f([A, B]) = \{y | \exists x \in [A, B] \text{ s.t. } f(x) = y\}$, then $[B, C] \subset f([A, B])$ ({\color{red}\textbf{red}} line and subinterval in second image of Fig. \ref{period-3-orbit})
+\\\noindent \textbf{[v]} $[A, B] = f([B, C])$ ({\color{Fuchsia} \textbf{purple}} line and subinterval in second image of Fig. \ref{period-3-orbit})
+\end{conclusion}
+
+\end{example}
+
+\newpage 
+Now we try to prove the Theo. \ref{p3-chaos} in e.g.\ref{e-g-p3-orbit}.
+{\color{blue}
+\begin{proof}\textbf{[i]} 
+
+$\blacksquare$
+\end{proof}
+}
 
 
