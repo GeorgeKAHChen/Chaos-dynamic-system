@@ -9,9 +9,10 @@ main:
 	rm -rf ${filename}.{ps,log,aux,out,dvi,bbl,blg,thm,toc,nav,snm}
 	open ${filename}.pdf
 
-init:
+start:
 	open ./
 	open /Applications/Slack.app
+	open /Applications/Notion.app
 	open /System/Applications/Calendar.app
 	open /System/Applications/Mail.app
 	open ${filename}.tex
@@ -21,6 +22,10 @@ init:
 	rm -rf ${filename}.{ps,log,aux,out,dvi,bbl,blg,thm,toc,nav,snm}
 	open ${filename}.pdf
 
+
+stop:
+	python /Users/kazukiamakawa/LocalCode/Sonohoka/AutoCode/killall.py
+	echo "Processing clear finished"
 
 ref:
 	xelatex ${filename}.tex
