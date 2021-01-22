@@ -2,21 +2,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import copy
+from mpl_toolkits import mplot3d
 
 DATA_OUTPUT = True
 OUTPUT_LOCATION = "./output"
 
-
+MODE = "S"      
+"""
+C: Analysis the convergence and disconvergence in circle neighborhood
+S: Analysis every point in square is convergence or disconvergence
+"""
 #============================================
 center = [-0.6, -0.6]
 epsilon = 0.1
-distance = 0.001
-iteration_time = 1
-iteration_color = ["r", "g", "b", "c", "m"]
+interval_x = [-2.5, 2.5]
+interval_y = [-2.5, 2.5]
+distance = 0.01
+iteration_time = 100
+boundary = [-2.5, 2.5, -2.5, 2.5]
+iteration_color_loop = ["r", "g", "b", "c", "m"]
 point_size = 0.1
 def f(group_x):
     #print(group_x[0], group_x[1], -group_x[0] * group_x[0] + 0.4 * group_x[1], group_x[0])
-    return [-group_x[0] * group_x[0] + 0.4 * group_x[1], group_x[0]]
+    return [1.28 - group_x[0] * group_x[0] - 0.3 * group_x[1], group_x[0]]
 #============================================
 
 
@@ -59,6 +67,8 @@ def neighborhood(center = [1, 1, 1], epsilon = 1, distance = 0.25):
                 break
     else:
         return_vec = vec_stack
+
+
     ttl_kase = len(return_vec)
     for i in range(0, ttl_kase):
         #print(return_vec[i])
@@ -80,77 +90,112 @@ def neighborhood(center = [1, 1, 1], epsilon = 1, distance = 0.25):
     return return_vec
 
 
+def square(interval_x, interval_y):
+    size_x = int((interval_x[1] - interval_x[0]) / distance) + 1
+    size_y = int((interval_y[1] - interval_y[0]) / distance) + 1
+    x_all = np.linspace(interval_x[0], interval_x[1], size_x)
+    y_all = np.linspace(interval_x[0], interval_x[1], size_y)
+    return_vec = []
+    for i in range(0, len(x_all)):
+        for j in range(0, len(y_all)):
+            return_vec.append([x_all[i], y_all[j]])
+    return return_vec
 
 
-int_x = neighborhood(center, epsilon, distance)
+
 
 
 
 def main():
-    int_y = []
-    int_y.append(int_x)
-    #print(int_x)
-    global DATA_OUTPUT
-    for kase in range(0, iteration_time):
-        print(kase , iteration_time)
+    if MODE == "C":
+        int_x = neighborhood(center, epsilon, distance)
+        int_y = []
+        int_y.append(int_x)
+        #print(int_x)
+        global DATA_OUTPUT
+        for kase in range(0, iteration_time):
+            print(kase , iteration_time)
+            #print(int_y)
+            curr_x = int_y[kase]
+            curr_y = []
+            for iteration in range(0, len(curr_x)):
+                curr_y.append(f(curr_x[iteration]))
+            int_y.append(curr_y)
         #print(int_y)
-        curr_x = int_y[kase]
-        curr_y = []
-        for iteration in range(0, len(curr_x)):
-            curr_y.append(f(curr_x[iteration]))
-        int_y.append(curr_y)
-    #print(int_y)
-    if len(center) == 2:
-        plt.figure(figsize=(9, 9)) 
-        plt.grid(True)
-        for i in range(0, len(int_y)):
-            print(i, len(int_y))
+        if len(center) == 2:
+            plt.figure(figsize=(9, 9)) 
+            plt.grid(True)
+            for i in range(0, len(int_y)):
+                print(i, len(int_y))
+                for j in range(0, len(int_y[i])):
+                    if i == 0:
+                        plt.scatter(int_y[i][j][0], int_y[i][j][1], s = point_size, color = "black")
+                    else:
+                        plt.scatter(int_y[i][j][0], int_y[i][j][1], s = point_size, color = iteration_color[i - 1])
+            
+            plt.show()
+            plt.savefig('plot.png')
+        elif len(center) == 3:
+            plt.figure(figsize=(9, 9)) 
+            plt.grid(True)
+            ax = plt.axes(projection='3d')
+            for i in range(0, len(int_y)):
+                print(i, len(int_y))
+                for j in range(0, len(int_y[i])):
+                    if i == 0:
+                        ax.scatter(int_y[i][j][0], int_y[i][j][1], int_y[i][j][2], s = point_size, color = "black")
+                    else:
+                        ax.scatter(int_y[i][j][0], int_y[i][j][1], int_y[i][j][2], s = point_size, color = iteration_color[i - 1])
+            
+            plt.show()
+            plt.savefig('plot.png')
+
+        else:
+            print("The point file will save in '" + OUTPUT_LOCATION + "'.")
+            DATA_OUTPUT = True
+
+        if DATA_OUTPUT:
+            Output_String = ""
             for j in range(0, len(int_y[i])):
-                if i == 0:
-                    plt.scatter(int_y[i][j][0], int_y[i][j][1], s = point_size, color = "black")
-                else:
-                    plt.scatter(int_y[i][j][0], int_y[i][j][1], s = point_size, color = iteration_color[i - 1])
-        
-        plt.show()
-    elif len(center) == 3:
-        pass
+                for i in range(0, len(int_y)):
+                    for k in range(0, len(int_y[i][j])):
+                        Output_String += str(int_y[i][j][k])
+                        Output_String += " "
+                    Output_String += " "
+                Output_String += "\n"
+            FileName = OUTPUT_LOCATION
+            File = open(FileName, "w")
+            File.write(Output_String)
+            File.close()
 
     else:
-        print("The point file will save in '" + OUTPUT_LOCATION + "'.")
-        DATA_OUTPUT = True
+        int_x = square(interval_x, interval_y)
+        #print(int_x)
+        mono = [0 for n in range(len(int_x))]
+        for i in range(0, len(int_x)):
+            print(i, len(int_x), end = "\r")
+            int_y = int_x[i]
+            curr_mono = 0
+            for kase in range(0, iteration_time):
+                int_y = f(int_y)
+                if int_y[0] < boundary[0] or int_y[0] > boundary[1]:
+                    if int_y[1] < boundary[2] or int_y[1] > boundary[3]:
+                        curr_mono = 1
+                        break
+            mono[i] = curr_mono
+        print()
+        plt.figure(figsize=(9, 9)) 
+        plt.grid(True)
+        for i in range(0, len(int_x)):
+            print(i, len(int_x), end = "\r")
+            if mono[i] == 0:
+                continue
+            else:
+                plt.scatter(int_x[i][0], int_x[i][1], s = point_size, color = "black")
+        print()
+        plt.savefig('plot.png')
+        plt.show()
 
-    if DATA_OUTPUT:
-        Output_String = ""
-        for j in range(0, len(int_y[i])):
-            for i in range(0, len(int_y)):
-                for k in range(0, len(int_y[i][j])):
-                    Output_String += str(int_y[i][j][k])
-                    Output_String += " "
-                Output_String += " "
-            Output_String += "\n"
-        FileName = OUTPUT_LOCATION
-        File = open(FileName, "w")
-        File.write(Output_String)
-        File.close()
-            
-
-    """
-        fx = f(initial_value[kase])
-        #print("0 " + str(fx))
-        plt.plot([x, x], [0, fx], color[kase])
-        for i in range(0, iteration_time):
-            plt.plot([x, fx], [fx, fx], color[kase])
-            #print(str(i + 1) + " " + str(fx))
-            x = fx
-            if Itinerary:
-                if x < Itinerary_Value:
-                    StringLR += "L"
-                else:
-                    StringLR += "R"
-            fx = f(x)
-            plt.plot([x, x], [x, fx], color[kase])
-    plt.show()
-    """
 
 if __name__ == '__main__':
     main()
