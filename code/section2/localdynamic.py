@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import copy
-from mpl_toolkits import mplot3d
+import Init
+
 
 DATA_OUTPUT = True
 OUTPUT_LOCATION = "./output"
@@ -17,14 +18,14 @@ center = [-0.6, -0.6]
 epsilon = 0.1
 interval_x = [-2.5, 2.5]
 interval_y = [-2.5, 2.5]
-distance = 0.01
+distance = 0.001
 iteration_time = 100
-boundary = [-2.5, 2.5, -2.5, 2.5]
+boundary = [-10, 10, -10, 10]
 iteration_color_loop = ["r", "g", "b", "c", "m"]
 point_size = 0.1
 def f(group_x):
     #print(group_x[0], group_x[1], -group_x[0] * group_x[0] + 0.4 * group_x[1], group_x[0])
-    return [1.28 - group_x[0] * group_x[0] - 0.3 * group_x[1], group_x[0]]
+    return [1.4 - group_x[0] * group_x[0] - 0.3 * group_x[1], group_x[0]]
 #============================================
 
 
@@ -96,10 +97,12 @@ def square(interval_x, interval_y):
     x_all = np.linspace(interval_x[0], interval_x[1], size_x)
     y_all = np.linspace(interval_x[0], interval_x[1], size_y)
     return_vec = []
+    return_code = []
     for i in range(0, len(x_all)):
         for j in range(0, len(y_all)):
             return_vec.append([x_all[i], y_all[j]])
-    return return_vec
+            return_code.append([i, j])
+    return return_vec, return_code, size_x, size_y
 
 
 
@@ -134,7 +137,7 @@ def main():
                         plt.scatter(int_y[i][j][0], int_y[i][j][1], s = point_size, color = iteration_color[i - 1])
             
             plt.show()
-            plt.savefig('plot.png')
+            plt.savefig('Output.png')
         elif len(center) == 3:
             plt.figure(figsize=(9, 9)) 
             plt.grid(True)
@@ -148,7 +151,7 @@ def main():
                         ax.scatter(int_y[i][j][0], int_y[i][j][1], int_y[i][j][2], s = point_size, color = iteration_color[i - 1])
             
             plt.show()
-            plt.savefig('plot.png')
+            plt.savefig('Output.png')
 
         else:
             print("The point file will save in '" + OUTPUT_LOCATION + "'.")
@@ -169,9 +172,10 @@ def main():
             File.close()
 
     else:
-        int_x = square(interval_x, interval_y)
-        #print(int_x)
-        mono = [0 for n in range(len(int_x))]
+        int_x, img_x, size_x, size_y = square(interval_x, interval_y)
+        img = [[0 for n in range(size_x)] for n in range(size_y)]
+
+        #mono = [0 for n in range(len(int_x))]
         for i in range(0, len(int_x)):
             print(i, len(int_x), end = "\r")
             int_y = int_x[i]
@@ -182,20 +186,12 @@ def main():
                     if int_y[1] < boundary[2] or int_y[1] > boundary[3]:
                         curr_mono = 1
                         break
-            mono[i] = curr_mono
-        print()
-        plt.figure(figsize=(9, 9)) 
-        plt.grid(True)
-        for i in range(0, len(int_x)):
-            print(i, len(int_x), end = "\r")
-            if mono[i] == 0:
-                continue
+            if curr_mono:
+                img[size_y - img_x[i][1] - 1][img_x[i][0]] = 0
             else:
-                plt.scatter(int_x[i][0], int_x[i][1], s = point_size, color = "black")
+                img[size_y - img_x[i][1] - 1][img_x[i][0]] = 255
         print()
-        plt.savefig('plot.png')
-        plt.show()
-
+        Init.ImageIO(file_dir = "./Output.png", img = np.float32(img), io = "o", mode = "grey", backend = "opencv")
 
 if __name__ == '__main__':
     main()
