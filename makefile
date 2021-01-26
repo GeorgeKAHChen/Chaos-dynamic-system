@@ -24,7 +24,7 @@ start:
 
 
 stop:
-	python /Users/kazukiamakawa/LocalCode/Sonohoka/AutoCode/killall.py
+	python /Users/kazukiamakawa/Desktop/LocalCode/Sonohoka/AutoCode/killall.py
 	echo "Processing clear finished"
 
 ref:

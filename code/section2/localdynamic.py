@@ -8,24 +8,33 @@ import Init
 DATA_OUTPUT = True
 OUTPUT_LOCATION = "./output"
 
-MODE = "S"      
+MODE = "C"
 """
 C: Analysis the convergence and disconvergence in circle neighborhood
 S: Analysis every point in square is convergence or disconvergence
 """
 #============================================
-center = [-0.6, -0.6]
-epsilon = 0.1
+#center = [-0.6, -0.6]
+center = [-0.3, -0.3]
+#center = [0, 0]
+epsilon = 0.3
 interval_x = [-2.5, 2.5]
 interval_y = [-2.5, 2.5]
 distance = 0.001
-iteration_time = 100
+#iteration_time = 1000
+iteration_time = 3
 boundary = [-10, 10, -10, 10]
 iteration_color_loop = ["r", "g", "b", "c", "m"]
 point_size = 0.1
+
+image_name = "./Output" + "128--03" + ".png"
 def f(group_x):
     #print(group_x[0], group_x[1], -group_x[0] * group_x[0] + 0.4 * group_x[1], group_x[0])
-    return [1.4 - group_x[0] * group_x[0] - 0.3 * group_x[1], group_x[0]]
+    #a, b = 1.4, -0.3
+    #a, b = 2, -0.3
+    #a, b = 1.28, -0.3
+    a, b = 0, 0.4
+    return [a - group_x[0] * group_x[0] + b * group_x[1], group_x[0]]
 #============================================
 
 
@@ -134,7 +143,7 @@ def main():
                     if i == 0:
                         plt.scatter(int_y[i][j][0], int_y[i][j][1], s = point_size, color = "black")
                     else:
-                        plt.scatter(int_y[i][j][0], int_y[i][j][1], s = point_size, color = iteration_color[i - 1])
+                        plt.scatter(int_y[i][j][0], int_y[i][j][1], s = point_size, color = iteration_color_loop[(i - 1) % len(iteration_color_loop)])
             
             plt.show()
             plt.savefig('Output.png')
@@ -148,7 +157,7 @@ def main():
                     if i == 0:
                         ax.scatter(int_y[i][j][0], int_y[i][j][1], int_y[i][j][2], s = point_size, color = "black")
                     else:
-                        ax.scatter(int_y[i][j][0], int_y[i][j][1], int_y[i][j][2], s = point_size, color = iteration_color[i - 1])
+                        ax.scatter(int_y[i][j][0], int_y[i][j][1], int_y[i][j][2], s = point_size, color = iteration_color_loop[(i - 1) % len(iteration_color_loop)])
             
             plt.show()
             plt.savefig('Output.png')
@@ -191,7 +200,7 @@ def main():
             else:
                 img[size_y - img_x[i][1] - 1][img_x[i][0]] = 255
         print()
-        Init.ImageIO(file_dir = "./Output.png", img = np.float32(img), io = "o", mode = "grey", backend = "opencv")
+        Init.ImageIO(file_dir = image_name, img = np.float32(img), io = "o", mode = "grey", backend = "opencv")
 
 if __name__ == '__main__':
     main()

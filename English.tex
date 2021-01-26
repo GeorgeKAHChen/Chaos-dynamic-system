@@ -30,6 +30,7 @@
 \newtheorem{lemma}{\textbf{Lemma}}[section]
 \newtheorem{proof}{\textit{PROOF}}[section]
 \newtheorem{example}{\textbf{E x a m p l e}}[section]
+\newtheorem{problem}{\textbf{P r o b l e m}}[section]
 \newtheorem{solution}{\textit{SOLUTION}}[section]
 \newtheorem{discussion}{\textit{D I S C U S S I O N}}[section]
 \newtheorem{conclusion}{\textit{\textbf{CONCLUSION}}}[section]
@@ -709,9 +710,141 @@ f(x, y) = (a - x^2 + by, x)
 $$
 
 \subsection{Basic analysis of Henon map}
-Now 
 
 
+A simple way to analysis the problem is analysis all point in the surface if they are convergence or divergence. In figures following, point in black represent initial conditions whose orbits diverge to infinity and the points in white represent initial values whose orbits converge to the period-2 orbit.\\[4ex]
+\begin{figure}[H]
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-orbit-0-0*4.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-orbit-2--0*3.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-orbit-1*4--0*3.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-orbit-1*28--0*3.png}
+\end{minipage}
+\\[6ex]\caption{Initial condition square}\label{Initial-condition-square}
+\end{figure}
+(Parameter group $(a, b) = (0, 0.4), (2, -0.3), (1.4, -0.3), (1.28, -0.3))$
+
+
+
+
+
+
+
+
+\begin{discussion} \textbf{Lorenz model, Henon map and Poincare section}
+\\\noindent The Lorenz system is a system of ordinary differential equations which notable for having chaotic solutions for certain parameter values and initial conditions. In particular, the Lorenz attractor is a set of chaotic solutions of the Lorenz system.
+
+\begin{problem}\textbf{Lorenz model}
+\\\noindent Lorenz model is a system of three ordinary differential equations now known as the Lorenz equations:
+$$
+{dx \over dt} = \sigma(y - x)
+$$
+$$
+{dy \over dt} = x(\rho - z) - y
+$$
+$$
+{dz \over dt} = xy - \beta z
+$$
+where $\sigma, \rho, \beta$ are parameters.
+\end{problem}
+
+Even solve this group of function directly is difficult, it is not difficult to find the numerical solution. 
+
+\begin{figure}[H]
+\begin{minipage}[c][0.29\width]{0.29\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Lorenz.png}
+\end{minipage}
+\begin{minipage}[c][0.4\width]{0.4\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Lorenz-z-t.png}
+\end{minipage}
+\begin{minipage}[c][0.29\width]{0.29\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Lorenz-map.png}
+\end{minipage}
+\\[3ex]\caption{Lorenz system, $z-t$ map and Lorenz map}\label{Lorenz-map}
+\end{figure}
+
+
+To analysis this problem, we can consider the problem in one dimension. In the second part of Fig. \ref{Lorenz-map}, we plot the z-t figure of Lorenz model. 
+
+Ok, we found that it is still difficult to discribe the $z-t$ figure. However, after the discussion of the logistic map $g(x) = 4x(1-x)$ as well as chaotic orbit, we know in most situation, we just care about the boundary of interval of the map. On the other hand, we found that the $z-t$ figure of Lorenz system is familiar with sine function, it is shaking during the time iteration. So if we just consider the maxinum (or the mininum) of this $z-t$ map, we can analysis the problem easier.
+
+\begin{definition}\textbf{Lorenz map}
+\\\noindent The function $z_{n+1} = f(z_n)$ satisfied the last of Fig. \ref{Lorenz-map} is called the Lorenz map. The map can be discribed in following steps.
+\\\noindent \textbf{[i]} Find the $z-t$ function in Lorenz model.
+\\\noindent \textbf{[ii]} The map $\{z_n\}$ is a point set which is the maxima of $z-t$ function. $z_{n+1} = f(z_n)$ where $z_{n}$ is a maxima point of $z-t$ function and $z_{n+1}$ is next maxima point of the function with growing of $t$.
+\end{definition}
+
+* The graph of Lorenz map is not actually a curve. It does have some trickness because it is not a well-defined function. However trickness is so small and there is so much to be gained by treating the graph as a curve, that we will simplt make this approximation keeping in mind that the sunsequence analysis is plausible.\footnote{Reference: Nonlinear Dynamics and Chaos With Applications to Physics, Biology, Chemistry, and Engineering, Steven H. Strogatz, Section 9.4, ISBN-13: 978-0813349107}
+
+To analysis this Lorenz model, Michel Henon simplified model with Poincare section, called Henon map, which is the main topic we focus on in this section. 
+
+
+
+\begin{definition}\textbf{Poincare map and Poincare section}
+\\\noindent 
+
+\end{definition}
+
+
+
+
+
+
+
+\begin{solution}\textbf{Simply Lorenz model to Henon map with Poincare section}
+\\\noindent \textbf{[i] Transfrom the continuous problem to discrete problem}
+\\\noindent Based on the definition of differential, ${dx \over dt} = {x(t+\Delta t) - x(t)\over \Delta t}$. In continuous time problem, let $\Delta t \rightarrow 0$. However, in discrete, let $\Delta t = 1$ (unit). Let $t = k$ then we have
+$$
+x_{k+1} - x_{k} = {x(k+1) - x(k) \over 1} = {dx(k) \over dt} \Rightarrow x_{k+1} = x_{k} + {dx(k) \over dt} 
+$$
+use this method in $y$ and $z$, finally we can transfrom the origin Lorenz problem into 
+$$
+x_{k+1} = x_k + \sigma(y_k - x_k) = (1 - \sigma) x_k + \sigma y_k
+$$
+$$
+y_{k+1} = y_k + x_k(\rho - z_k) - y_k = \rho x_k - x_k z_k
+$$
+$$
+z_{k+1} = z_k + x_ky_k - \beta z_k= (1- \beta) z_k - x_k y_k
+$$
+            \textbf{[ii] Use Poincare section to reduce dimension}
+Let $C$ is a constant which satisfied 
+$$
+z_1 = z_2 = \ldots = z_k = z_{k+1} = \ldots = z_{\infty} = C
+$$
+then 
+$$
+z_{k+1} = z_k + x_ky_k - \beta z_k= (1- \beta) z_k - x_k y_k \Rightarrow x_ky_k = C - (1 - \beta) C = \beta C
+$$
+and we have 
+$$
+y_{k+1} = y_k + x_k(\rho - z_k) - y_k = \rho x_k - x_k z_k = (\rho - \beta C) x_k, \text{ let } b = (\rho - \beta C) \text{ and }x^1_k = b x_k, \text{ then }, y_{k+1} = x_k^1 \text{ and}
+$$
+$$
+x_{k+1}
+$$
+
+[TODO] Explain: ``Henon map was introduced by Michel Hénon as a simplified model of the Poincaré section of the Lorenz model.''
+
+
+\end{solution}
+\end{discussion}
+
+
+Now we focus on Henon map. Familiar with 1 dim map, it is necessary to define the sink and source as well as saddle.
 
 \begin{definition}\textbf{Neighborhood}
 \\\noindent Consider a $R^n$ space, called every point $x = (x_1, x_2, \ldots x_n)$ is a vector of $R^n$ space,
@@ -729,12 +862,38 @@ $$
 \\\noindent If $\forall x \in N_\varepsilon^o(p), \exists K \text{s.t.} \forall k > K, f^k(x) \notin N_\varepsilon(p)$, then called the point $p$ as source.
 \end{definition}
 
-Now we will explain these definitions with an example
 
-\begin{example} Analysis the sink point, source point and saddle of function $f(x, y) = (-x^2 + 0.4y, x)$
+We will explain these definitions with an example
+
+\begin{example} \label{Henon-map-0-0*4}Analysis the sink point, source point and saddle of Henon map with parameter $a = 0, b = 0.4$
 \end{example}
 
+{\color{blue}
+\begin{solution} Obviously, if we consider the funcion $f(x, y) = (-x^2 + 0.4y, x) = (x, y)$, then 
+$$
+ -0.2x^2 +0.4x = x \Rightarrow x_1 = 0, x_2 = -0.6
+$$
+So the fixed points are $(0, 0)$ and $(-0.6, -0.6)$. And now we have a new problem: how to confirm a fixed point is sink or source. Even the definition of sink and source are given above, we still need theory like Theo. \ref{sink-source-point}. But here, we can analysis the problem with simulator.\\[2ex]
 
+\begin{figure}[H]
+\begin{minipage}[c][0.25\width]{0.25\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-0-0*4-sink.png}
+\end{minipage}
+\begin{minipage}[c][0.45\width]{0.45\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-0-0*4-source.png}
+\end{minipage}
+\begin{minipage}[c][0.25\width]{0.25\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-0-0*4-saddle.png} 
+\end{minipage}
+\\[3ex]\caption{Sink, source and saddle in Henon map with $a = 0, b = -0.4$}\label{sink-source-saddle-henon-map}
+\end{figure}
+(Order of color: {\color{black}Black(neighborhood)}, {\color{red} Red (Iter = 1)}, {\color{green} Green (Iter = 2)}, {\color{blue} Blue (Iter = 3)})
+
+\end{solution}
+}
 
 
 
@@ -744,6 +903,44 @@ Now we will explain these definitions with an example
 
 \subsection{Linear maps and linearization method}
 
+To solve the problem we faced in e.g.\ref{Henon-map-0-0*4}, we will discuss the simple form of the high dimension maps.
+
+\begin{definition}\textbf{High dimension linear map}
+\\\noindent A map $A: R^m \rightarrow R^m$ is \textbf{linear} if $\forall a, b \in R, \forall x, y \in R^m$, $f(ax + by) = af(x) + bf(y)$. Equivalently, a lienar map $f(x)$ can be represented as multiplication by an $m \times m$ matrix.
+\end{definition}
+
+Now we consider a system s.t. $f(x) = Ax$, if $\lambda$ is eigenvalue and $\mathbf v$ is eigenvector of $A$, based on the definition fo eigenvalue and eigenvector, we have
+Let $A$ have eigenvalue $\lambda$, based on the definition of eigenvalue, we have
+$$
+A\mathbf x = \lambda \mathbf v
+$$
+Then, for the initial point $\mathbf v$, we have
+$$
+A(\mathbf v) = A \mathbf v = \lambda \mathbf v
+$$
+let $\mathbf v_0 = \mathbf v, \mathbf v^n = A^n(\mathbf v)$, then
+$$
+\mathbf v_1 = A \mathbf v_0 = \lambda\mathbf v_0, \mathbf v_2 = A \mathbf v_1 = \lambda^2\mathbf v_1 \ldots \mathbf v_n = A \mathbf v_{n-1} = \lambda^{n}\mathbf v_0
+$$
+Futhermore, if we consider a system in random initial value $\mathbf x_0$, still define $\mathbf x_n = f(\mathbf x_{n-1})$, then 
+$$
+\mathbf x_n = f(\mathbf x_{n-1}) = A\mathbf x_{n-1} = Af(\mathbf x_{n-2}) = \ldots = A^n \mathbf x_0
+$$
+
+To analysis this problem, firstly we will review some theorems in algebra.
+
+\begin{theorem}\textbf{Similar matrices and Jordan normal form}
+\\\noindent Consider a matrix $A_{n\times n}$.
+\\\noindent \textbf{[i]} For another matrix $B_{n\times n}$, $\exists P$ s.t. $A = P^{-1} B P$, then called A and B are similar.
+\\\noindent \textbf{[ii]} If $J$ is Jordan form of $A$, then $\exists P = (\mathbf v_1, \mathbf v_2, \ldots \mathbf v_n)$ s.t. $A = P^{-1} J P$ where $\mathcal v_i$ are eigenvector (or based on eigenvector).
+\end{theorem}
+
+(* The proof of the theorem and the calculation of Jordan normal form can be found in textbook of linear algebra. And here we will mainly focus on the dynamical system problem.)
+
+So Based on the theory in algebra, we found every map (or linear transfrom) can be represented with eigenvector and eigenvalue s.t. $A = P^{-1} J P$. Obviously, the exponent of both diagonal matrix or Jordan normal form is easy. So typically, we consider the map with this similar form.
+
+Obviously, if we consider a matrix 
+
 
 
 
@@ -751,9 +948,7 @@ Now we will explain these definitions with an example
 
 \subsection{Stability and matrix periodic}
 
-
-
-
+Henon map is a Poincare map of kicked rotator. Please study that too.
 
 
 \end{document}
