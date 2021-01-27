@@ -709,7 +709,7 @@ $$
 f(x, y) = (a - x^2 + by, x) 
 $$
 
-\subsection{Basic analysis of Henon map}
+\subsection{Lorenz system, Henon map and Poincare section}
 
 
 A simple way to analysis the problem is analysis all point in the surface if they are convergence or divergence. In figures following, point in black represent initial conditions whose orbits diverge to infinity and the points in white represent initial values whose orbits converge to the period-2 orbit.\\[4ex]
@@ -789,7 +789,7 @@ Ok, we found that it is still difficult to discribe the $z-t$ figure. However, a
 
 * The graph of Lorenz map is not actually a curve. It does have some trickness because it is not a well-defined function. However trickness is so small and there is so much to be gained by treating the graph as a curve, that we will simplt make this approximation keeping in mind that the sunsequence analysis is plausible.\footnote{Reference: Nonlinear Dynamics and Chaos With Applications to Physics, Biology, Chemistry, and Engineering, Steven H. Strogatz, Section 9.4, ISBN-13: 978-0813349107}
 
-To analysis this Lorenz model, Michel Henon simplified model with Poincare section, called Henon map, which is the main topic we focus on in this section. 
+
 
 
 
@@ -837,13 +837,17 @@ $$
 x_{k+1}
 $$
 
-[TODO] Explain: ``Henon map was introduced by Michel Hénon as a simplified model of the Poincaré section of the Lorenz model.''
+%[TODO] Explain: ``Henon map was introduced by Michel Hénon as a simplified model of the Poincaré section of the Lorenz model.''
 
 
 \end{solution}
 \end{discussion}
 
 
+
+
+\newpage
+\subsection{Analysis of Henon map}
 Now we focus on Henon map. Familiar with 1 dim map, it is necessary to define the sink and source as well as saddle.
 
 \begin{definition}\textbf{Neighborhood}
@@ -897,12 +901,6 @@ So the fixed points are $(0, 0)$ and $(-0.6, -0.6)$. And now we have a new probl
 
 
 
-
-
-
-
-\subsection{Linear maps and linearization method}
-
 To solve the problem we faced in e.g.\ref{Henon-map-0-0*4}, we will discuss the simple form of the high dimension maps.
 
 \begin{definition}\textbf{High dimension linear map}
@@ -927,28 +925,173 @@ $$
 \mathbf x_n = f(\mathbf x_{n-1}) = A\mathbf x_{n-1} = Af(\mathbf x_{n-2}) = \ldots = A^n \mathbf x_0
 $$
 
+
+
+
+
 To analysis this problem, firstly we will review some theorems in algebra.
 
-\begin{theorem}\textbf{Similar matrices and Jordan normal form}
-\\\noindent Consider a matrix $A_{n\times n}$.
-\\\noindent \textbf{[i]} For another matrix $B_{n\times n}$, $\exists P$ s.t. $A = P^{-1} B P$, then called A and B are similar.
-\\\noindent \textbf{[ii]} If $J$ is Jordan form of $A$, then $\exists P = (\mathbf v_1, \mathbf v_2, \ldots \mathbf v_n)$ s.t. $A = P^{-1} J P$ where $\mathcal v_i$ are eigenvector (or based on eigenvector).
+
+
+
+
+
+
+\begin{discussion}\textbf{Eigenvalue, eigenvector and Jordan normal form}
+\\\noindent * We will consider a square matrix $A_{m\times m}$ s.t. $rank(A) = m$ in following discussion.\\[1ex]
+
+
+  \noindent \textbf{[i] If $A$ have $m$ different Eigenvalue} 
+\\\noindent Based on the discussion above, we know that it is the first step to analysis the $A^n$ to discribe all the linear system. Obviously, if A is a diagonal matrix, then the exponent of the matrix is easy and simple. 
+
+\begin{theorem} Let $A$ is a diagonal matrix s.t. $A = diag(a_1, a_2, \ldots a_m)$, then $A^n = diag(a_1^n, a_2^n, \ldots a_m^n)$.
 \end{theorem}
 
-(* The proof of the theorem and the calculation of Jordan normal form can be found in textbook of linear algebra. And here we will mainly focus on the dynamical system problem.)
+Furthermore, if matrix $A$ have $m$ different eigenvalue $\lambda_1, \lambda_2, \ldots, \lambda_m$ and $\mathbf v_i$ is the eigenvector of $\lambda_i$. Let
+$$
+\Lambda = diag(\lambda_1, \lambda_2, \ldots, \lambda_m), V = (\mathbf v_1, \mathbf v_2, \ldots \mathbf v_m)
+$$
+then we can easily prove that 
+$$
+A = V^{-1} \Lambda V
+$$
+And the calculation of $A^n$ is simple.
+$$
+A^n = V^{-1} \Lambda^n V = V^{-1} diag(\lambda_1^n, \lambda_2^n, \ldots, \lambda_m^n) V
+$$
 
-So Based on the theory in algebra, we found every map (or linear transfrom) can be represented with eigenvector and eigenvalue s.t. $A = P^{-1} J P$. Obviously, the exponent of both diagonal matrix or Jordan normal form is easy. So typically, we consider the map with this similar form.
+Now we back to consider the linear system, if $f(\mathbf x )= A \mathbf x$ and $A$ have $m$ different eigenvalue, then we know that 
+$$
+\mathbf x_{n} = A^n \mathbf x_0 = V^{-1} diag(\lambda_1^n, \lambda_2^n, \ldots, \lambda_m^n) V \mathbf x_0
+$$
 
-Obviously, if we consider a matrix 
+Based on the analysis in the section 1, we still want to analysis the convergence and divergence for ever system.
+$$
+\lim_{n \rightarrow \infty} x_{n} = V^{-1} diag(\lim_{n \rightarrow \infty}\lambda_1^n, \lim_{n \rightarrow \infty}\lambda_2^n, \ldots, \lim_{n \rightarrow \infty}\lambda_m^n) V \mathbf x_0
+$$
+
+Obviously, with the knowledge of sequence, if $|\lambda_i| \in [0, 1)$, then $\lim_{n \rightarrow \infty}\lambda_i^n = 0$ and the sequence is convergence. Also, if $|\lambda_i| \in (1, +\infty)$, then $\lim_{n \rightarrow \infty}\lambda_i^n = \infty$ and the sequence is divergence. So we have this conclusion.
+
+
+\begin{theorem}\label{sink-source-saddle-linear-system}\textbf{Sink, source and saddle in linear system}
+\\\noindent Consider a linear system $f(\mathbf x) = A \mathbf x$, where $A$ is a square matrix in $m$ dimension. If the eigenvalue of $A$ are $\lambda_1, \lambda_2, \ldots \lambda_m$ and
+\\\noindent \textbf{[i]} $\forall i \in 1, 2, \ldots, m, |\lambda_i| < 1$, then the origin point is sink.
+\\\noindent \textbf{[ii]} $\forall i \in 1, 2, \ldots, m, |\lambda_i| > 1$, then the origin point is source.
+\\\noindent \textbf{[iii]} $\{i | |\lambda_i| < 1\} \neq \varnothing \land \{j | |\lambda_j| > 1\} \neq \varnothing$, that means, if at least one eigenvalue are absolute smaller than one and at least one is upper than one, then the origin point is saddle.\\[1ex]
+\end{theorem}
 
 
 
 
+
+  \noindent \textbf{[i] If $A$ have at least two equal eigenvalue} 
+\\\noindent We can transfrom the matrix $A$ with Jordan normal form rather than eigenvalue diagonal matrix.
+\\\noindent Consider the matrix $A_{m\times m}$ and the eigenvalue $\lambda_{1}, \lambda_{2}, \ldots, \lambda_{k}$ are $r_1, r_2, \ldots r_k$ multiple root of function $|\lambda I - A| = 0$, which satisfied the definition of eigenvalue, and $k < m$, $\sum_{i = 1}^{k} r_i = m$, $I = diag(1, 1, 1, \ldots, 1)$. 
+\\\noindent Then for every $r_i$ multiple eigenvalue $\lambda_i$, $\exists \mathbf v_{i1}, \mathbf v_{i2}, \ldots \mathbf v_{i r_i}$ s.t.
+$$
+|\lambda I - A|\mathbf v_{i1} = 0, |\lambda I - A|\mathbf v_{ij+1} = \mathbf v_{ij}(j = 1, 2, \ldots r_i - 1)
+$$
+We can still structure the $V$ matrix same as $V$ in \textbf{[i]}, and we can also represent the diagonal eigenvalue matrix $\Lambda$ to the \textbf{ Jordan normal form matrix} $J$ which satisfied 
+$$
+J = \left[
+\begin{array}{cccc}
+J_{1} \\
+& J_{2} \\
+& & \ldots \\
+& & & J_{k}
+\end{array}
+\right] = diag(J_1, J_2, \ldots J_k) \text{, where } J_i =\left[
+\begin{array}{ccccc}
+\lambda_i & 1 \\
+& \lambda_i & 1 \\
+& & \ldots & \ldots \\
+& & & \lambda_i & 1 \\
+& & & & \lambda_i
+\end{array} \right]
+$$
+is $r_i$ dimension square matrix called \textbf{Jordan block}
+
+Based on the calculation of block matrix we found that
+$$
+A^n = V^{-1} J^n V = V^{-1} diag(J_1^n, J_2^n, \ldots, J_k^n) V
+$$
+
+So familiar with the discussion in \textbf{[i]}, now it is necessary to discuss the $J_i^n$. On the other hand, we know that for ever Jordan block, we have
+$$
+J_i^n = \left[
+\begin{array}{ccccc}
+\lambda_i^n & (^n_1)\lambda_i^{n-1} & (^n_2)\lambda_i^{n-2} & \ldots      & (^n_{r_i})\lambda_i^{n-r_i}        \\
+            & \lambda_i^n           & (^n_1)\lambda_i^{n-1} & \ldots      & (^n_{r_{i-1}})\lambda_i^{n-r_i+1}  \\
+            &                       & \ldots                & \ldots      & \ldots                             \\
+            &                       &                       & \lambda_i^n & (^n_1)\lambda_i^{n-1}              \\
+            &                       &                       &             & \lambda_i^n
+\end{array} \right]
+$$ 
+
+Obviously, for ever element on the diagonal, the Theo. \ref{sink-source-saddle-linear-system} still established. 
+%[TODO] Proof Theo. \ref{sink-source-saddle-linear-system} in Jordan form.
+
+\end{discussion}
+
+
+As for the non-linear problem, a wildly used method is \textbf{Jacobian matrix}
+
+
+\begin{definition}\textbf{Jacobian matrix}
+\\\noindent Let $\mathbf f = (f_1, f_2, \ldots f_m)$ be a map on $R^m$ and $\mathbf p \in R^m$ is a point on $R^m$ space. The \textbf{Jacobian matrix} of $\mathbf f$ at $\mathbf p$ is the matrix 
+$$
+D\mathbf f(\mathbf p) = \left[
+\begin{array}{cccc}
+{\partial f_1 \over \partial x_1}(\mathbf p) & {\partial f_1 \over \partial x_2}(\mathbf p) & \ldots {\partial f_1 \over \partial x_m}(\mathbf p) \\
+{\partial f_2 \over \partial x_1}(\mathbf p) & {\partial f_2 \over \partial x_2}(\mathbf p) & \ldots {\partial f_2 \over \partial x_m}(\mathbf p) \\
+\ldots & \ldots & \ldots & \ldots \\
+{\partial f_m \over \partial x_1}(\mathbf p) & {\partial f_m \over \partial x_2}(\mathbf p) & \ldots {\partial f_m \over \partial x_m}(\mathbf p) \\
+\end{array} \right]
+$$
+\end{definition}
+
+Jacobian matrix is a linearization estimation of a non-linear system that we can assume the derivative of the system near the point $\mathbf p$ is $D\mathbf f(\mathbf p)$. That means, instead of origin non-linear system, we can analysis the estimated system $\mathbf f_1(\mathbf x) = D\mathbf f(\mathbf p) \mathbf x$ where $x \in N(\mathbf p, \varepsilon)$ and $\varepsilon$ is a certain constant. Based on the Theo. \ref{sink-source-saddle-linear-system}, it is easy to improve the following conclusion.
+
+\begin{theorem}\label{sink-source-saddle-Jacobian-matrix}\textbf{Sink, source and saddle in non-linear system}
+\\\noindent Consider a non-linear system $\mathbf f(\mathbf x)$ and a fixed point $\mathbf p \in R^m$ s.t. $\mathbf f (\mathbf p) = \mathbf p$. If the Jacobian matrix of $\mathbf f$ at $\mathbf p$ is $D\mathbf f(\mathbf p)$, and $\Lambda$ are eigenvalue set of matrix $D\mathbf f(\mathbf p)$
+\\\noindent \textbf{[i]} $\forall \lambda_i \in \Lambda  |\lambda_i| < 1$, then the $\mathbf p$ is a sink point.
+\\\noindent \textbf{[ii]} $\forall \lambda_i \in \Lambda  |\lambda_i| > 1$, then the $\mathbf p$ is a source point.
+\\\noindent \textbf{[iii]} $\{\lambda_i \in \Lambda | |\lambda_i| < 1\} \neq \varnothing \land \{\lambda_i \in \Lambda | |\lambda_i| > 1\} \neq \varnothing$, that means, if at least one eigenvalue are absolute smaller than one and at least one is upper than one, then the $\mathbf p$ is a saddle point.\\[1ex]
+\end{theorem}
+
+
+Finally, we can analysis the property of fixed point in e.g. \ref{Henon-map-0-0*4}.
+{\color{blue}
+\begin{solution} We can consider the Henon map directly
+$$
+f(x, y) = (a - x^2 + by, x)  \Rightarrow Df(x, y) = \left[
+\begin{array}{cc}
+-2x & b \\
+1 & 0 
+\end{array} \right] 
+$$
+Let $\lambda$ are eigenvalue, then
+$$
+|\lambda I - Df(x, y)| = 0 \Rightarrow \left|
+\begin{array}{cc}
+-2x- \lambda & b \\
+1 & -\lambda
+\end{array} \right| = 0 \Rightarrow \lambda^2 + 2x\lambda - b = 0 \Rightarrow \lambda_{12} = {-x \pm\sqrt{x^2 + b}}
+$$
+When $(a, b) = (0, 0.4)$
+$$
+\text{If } (x, y) = (0, 0) \text{, then }|\lambda_{12}| = |-x\pm\sqrt{x^2 + b}| = |\sqrt{0.4}| < 1
+$$
+$$
+\text{If } (x, y) = (0.6, 0.6) \text{, then }|\lambda_{12}| = |-x\pm\sqrt{x^2 + b}| = |-0.6 \pm \sqrt{0.76}| \Rightarrow |\lambda_1| = 1.472 > 1, |\lambda_2| = 0.272 < 1
+$$
+Finally, we proved that $(0, 0)$ is sink and $(-0.6, -0.6)$ is saddle just as what we found on simulation.
+\end{solution}
+}
 
 
 \subsection{Stability and matrix periodic}
 
-Henon map is a Poincare map of kicked rotator. Please study that too.
 
 
 \end{document}

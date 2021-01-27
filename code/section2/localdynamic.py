@@ -8,22 +8,25 @@ import Init
 DATA_OUTPUT = True
 OUTPUT_LOCATION = "./output"
 
-MODE = "C"
+MODE = "O"
 """
 C: Analysis the convergence and disconvergence in circle neighborhood
 S: Analysis every point in square is convergence or disconvergence
+O: Plot the orbit of system with certain initial point
 """
 #============================================
 #center = [-0.6, -0.6]
-center = [-0.3, -0.3]
-#center = [0, 0]
-epsilon = 0.3
-interval_x = [-2.5, 2.5]
-interval_y = [-2.5, 2.5]
-distance = 0.001
-#iteration_time = 1000
-iteration_time = 3
-boundary = [-10, 10, -10, 10]
+center = [-0.3, -0.3]               # [C] Center of Neighborhood
+#center = [0, 0]                    # [C] Center of Neighborhood
+epsilon = 0.3                       # [C] Radius of the circle neighborhood
+interval_x = [-2.5, 2.5]            # [S] Interval of x in square neighborhood
+interval_y = [-2.5, 2.5]            # [S] Interval of y in square neighborhood
+distance = 0.001                    # [C][S] Distant of point, both in circle and square neighborhood
+initial_value = [1 , 1]          # [O] Initial value of the function
+iteration_time = 50               # [C][S][O] Iteration time
+#iteration_time = 3                 # [C][S][O] Iteration time
+boundary = [-10, 10, -10, 10]       # [S] "Infinity" boundary
+
 iteration_color_loop = ["r", "g", "b", "c", "m"]
 point_size = 0.1
 
@@ -31,9 +34,9 @@ image_name = "./Output" + "128--03" + ".png"
 def f(group_x):
     #print(group_x[0], group_x[1], -group_x[0] * group_x[0] + 0.4 * group_x[1], group_x[0])
     #a, b = 1.4, -0.3
-    #a, b = 2, -0.3
+    a, b = 2, -0.3
     #a, b = 1.28, -0.3
-    a, b = 0, 0.4
+    #a, b = 0, 0.4
     return [a - group_x[0] * group_x[0] + b * group_x[1], group_x[0]]
 #============================================
 
@@ -180,7 +183,13 @@ def main():
             File.write(Output_String)
             File.close()
 
-    else:
+
+
+
+    elif MODE == "S":
+        if len(center) != 2:
+            print("Only can be used in 2-dim problem")
+            return 
         int_x, img_x, size_x, size_y = square(interval_x, interval_y)
         img = [[0 for n in range(size_x)] for n in range(size_y)]
 
@@ -201,6 +210,38 @@ def main():
                 img[size_y - img_x[i][1] - 1][img_x[i][0]] = 255
         print()
         Init.ImageIO(file_dir = image_name, img = np.float32(img), io = "o", mode = "grey", backend = "opencv")
+
+
+
+
+
+    elif MODE == "O":
+        if len(center) != 2:
+            print("Only can be used in 2-dim problem")
+            return 
+        x = [initial_value[0]]
+        y = [initial_value[1]]
+        t = []
+        for i in range(0, iteration_time):
+            x_new, y_new = f([x[len(x) - 1], y[len(y) - 1]])
+            x.append(x_new)
+            y.append(y_new)
+            t.append(i)
+        t.append(len(t))
+        print(len(t), len(x), len(y))
+        print(x)
+        print(t)
+        #plt.plot(x, y)
+        plt.plot(t, x, color = "red")
+        plt.plot(t, y, color = "green")
+
+        plt.show()
+    else:
+        print("MODE Error, please check the parameter.")
+        return 
+
+
+
 
 if __name__ == '__main__':
     main()
