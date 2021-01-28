@@ -42,3 +42,4 @@ e:
 
 clear:
 	rm -rf ${filename}.pdf
+	rm -rf ${filename}.{ps,log,aux,out,dvi,bbl,blg,thm,toc,nav,snm}

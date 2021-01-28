@@ -836,7 +836,7 @@ $$
 $$
 x_{k+1}
 $$
-
+$\blacksquare$
 %[TODO] Explain: ``Henon map was introduced by Michel Hénon as a simplified model of the Poincaré section of the Lorenz model.''
 
 
@@ -877,7 +877,7 @@ We will explain these definitions with an example
 $$
  -0.2x^2 +0.4x = x \Rightarrow x_1 = 0, x_2 = -0.6
 $$
-So the fixed points are $(0, 0)$ and $(-0.6, -0.6)$. And now we have a new problem: how to confirm a fixed point is sink or source. Even the definition of sink and source are given above, we still need theory like Theo. \ref{sink-source-point}. But here, we can analysis the problem with simulator.\\[2ex]
+So the fixed points are $(0, 0)$ and $(-0.6, -0.6)$. And now we have a new problem: how to confirm a fixed point is sink or source. Even the definition of sink and source are given above, we still need theory like Theo. \ref{sink-source-point}. But here, we can analysis the problem with simulator.$\blacksquare$\\[2ex]
 
 \begin{figure}[H]
 \begin{minipage}[c][0.25\width]{0.25\textwidth}
@@ -1028,8 +1028,25 @@ J_i^n = \left[
 \end{array} \right]
 $$ 
 
-Obviously, for ever element on the diagonal, the Theo. \ref{sink-source-saddle-linear-system} still established. 
-%[TODO] Proof Theo. \ref{sink-source-saddle-linear-system} in Jordan form.
+Obviously, for ever element on the diagonal, the Theo. \ref{sink-source-saddle-linear-system} still established. To proved that, we will prove the following theorem firstly.
+
+\begin{theorem} \label{exp_Jordan}Let $J_i$ is a Jordan block with eigenvalue $\lambda_i$. 
+\\\noindent \textbf{[i]} If $|\lambda_i| < 1$, then $\lim_{n \rightarrow \infty} J_i^n = 0$
+\\\noindent \textbf{[ii]} If $|\lambda_i| > 1$, then $\lim_{n \rightarrow \infty} J_i^n = \infty$
+\end{theorem}
+{\color{blue}
+\begin{proof} Consider a element $(^n_k)\lambda_i^{n-k}$ of $J_i$, then 
+$$
+\lim_{n \rightarrow \infty}(^n_k)\lambda_i^{n-k} = \lim_{n \rightarrow \infty}\left({n(n-1)\ldots(n-k) \over 1\cdot 2 \cdot \ldots \cdot k} \lambda_i^{n-k}\right)
+$$
+
+As the ${n(n-1)\ldots(n-k) \over 1\cdot 2 \cdot \ldots \cdot k}$ is a polynomial of $n$ in $k$ dimension, so $\exists a_1, a_2, \ldots a_k \in R$ s.t. 
+$$
+\lim_{n \rightarrow \infty}(^n_k)\lambda_i^{n-k} = \lim_{n \rightarrow \infty}\left(\sum_{p = 1}^{k} a_p n^p\right)\lambda_{n - k} = \sum_{p = 1}^{k} \lim_{n \rightarrow \infty}(a_p n^p \lambda_i^{n-k})
+$$
+Finally, we found, if $|\lambda_i| > 1$, then $\lim_{n \rightarrow \infty}(^n_k)\lambda_i^{n-k} = \infty$ and if $|\lambda_i| < 1$, then $\lim_{n \rightarrow \infty}(^n_k)\lambda_i^{n-k} = 0$ and the Theo. \ref{exp_Jordan} is established. $\blacksquare$
+\end{proof}
+}
 
 \end{discussion}
 
@@ -1085,7 +1102,7 @@ $$
 $$
 \text{If } (x, y) = (0.6, 0.6) \text{, then }|\lambda_{12}| = |-x\pm\sqrt{x^2 + b}| = |-0.6 \pm \sqrt{0.76}| \Rightarrow |\lambda_1| = 1.472 > 1, |\lambda_2| = 0.272 < 1
 $$
-Finally, we proved that $(0, 0)$ is sink and $(-0.6, -0.6)$ is saddle just as what we found on simulation.
+Finally, we proved that $(0, 0)$ is sink and $(-0.6, -0.6)$ is saddle just as what we found on simulation.$\blacksquare$
 
 
 \end{solution}
@@ -1094,8 +1111,13 @@ Finally, we proved that $(0, 0)$ is sink and $(-0.6, -0.6)$ is saddle just as wh
 
 
 
+
+
+
+
 \subsection{Stability and matrix periodic}
 We found this conclusion based on the discussion above.
+
 \begin{conclusion} The value of Jacobian matrix of a Henon map is just relevant to variable $x$ and parameter $b$. That means, if we reduce the dimension of parameter and fixed $b$ as $b_0$, then the property of fixed point will be determined only with variable $x$.
 \end{conclusion}
 
@@ -1103,23 +1125,103 @@ As $y_{n+1} = x_n$, so we can just analysis the bifurcation of $a - x_{\infty}$ 
 
 
 If we consider the fixed point of system with arbitrary paremeter grou $(a, b)$, we found that the fixed point will satisfied 
-$$
-x^2 + (1 - b)x - a = 0 \Rightarrow x = {1\over 2} (b-1) \pm\sqrt{(b-1)^2 + 4 a}
-$$
+\begin{flalign}
+& x^2 + (1 - b)x - a = 0 \Rightarrow x = {1\over 2} (b-1) \pm\sqrt{(b-1)^2 + 4 a} & \label{formula-21}
+\end{flalign}
+
 and the fixed point is $(x, y) = ({1\over 2} (b-1) \pm\sqrt{(b-1)^2 + 4 a}, {1\over 2} (b-1) \pm\sqrt{(b-1)^2 + 4 a})$, so we have the Jacobian matrix at this fixed point as 
 $$
 Df(x, y) = \left[
 \begin{array}{cc}
 (b-1) \pm\sqrt{(b-1)^2 + 4 a} & b \\
 1 & 0 
-\end{array} \right] \text{, and the eigenvalue $\lambda_i$ satisfied } \lambda^2 - (b-1) \pm\sqrt{(b-1)^2 + 4 a}\lambda - b = 0
+\end{array} \right] \text{, and the eigenvalue $\lambda_i$ satisfied }
 $$
+\begin{flalign}
+& \lambda^2 - [(b-1) \pm\sqrt{(b-1)^2 + 4 a}]\lambda - b = 0 & \label{formula-22}
+\end{flalign}
+
+As both formula \ref{formula-21} and \ref{formula-22} are 2-dimension function in single variable. We have these conclusions
+
+\begin{conclusion} \textbf{[i]} The total of the fixed point is based on $\Delta = (b-1)^2 + 4 a$. If $ \Delta > 0$, the system have two fixed point etc.
+\\\noindent \textbf{[ii]} 
+\end{conclusion}
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figure/section2/Henon-orbit-bf-a--0*4.png} \\
+\caption{Bifurcation diagram for Henon map ($b = 0.4$)}\label{Henon-map-b=0*4-BF}
+\end{center}
+\end{figure}
+
+123\\[3ex] %[TODO] 
+\begin{figure}[H]
+\begin{minipage}[c][0.32\width]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-attractor-0*9-0*4.png}
+\end{minipage}
+\begin{minipage}[c][0.32\width]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-attractor-0*988-0*4.png}
+\end{minipage}
+\begin{minipage}[c][0.32\width]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-attractor-1*0-0*4.png}
+\end{minipage}
+\\[12ex]
+\begin{minipage}[c][0.32\width]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-attractor-1*0293-0*4.png}
+\end{minipage}
+\begin{minipage}[c][0.32\width]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-attractor-1*045-0*4.png}
+\end{minipage}
+\begin{minipage}[c][0.32\width]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-attractor-1*2-0*4.png}
+\end{minipage}
+\\[4ex]\caption{Attractor of Henon map in different parameter}\label{attractor-Henon-map}
+\end{figure}
+
+
 
 
 
 
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1204,8 +1306,4 @@ $\blacksquare$
 
 
 
-
-
-\section{Lorenz system and Henon map}
-\begin{discussion}\textbf{The relationship between Lorenz system and Henon map}
-\end{discussion}
+]

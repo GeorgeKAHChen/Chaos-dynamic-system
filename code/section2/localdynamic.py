@@ -2,17 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import copy
+import random
 import Init
 
 
 DATA_OUTPUT = True
 OUTPUT_LOCATION = "./output"
 
-MODE = "O"
+MODE = "A"
 """
 C: Analysis the convergence and disconvergence in circle neighborhood
 S: Analysis every point in square is convergence or disconvergence
 O: Plot the orbit of system with certain initial point
+A: Plot the attractor orbit
 """
 #============================================
 #center = [-0.6, -0.6]
@@ -22,9 +24,12 @@ epsilon = 0.3                       # [C] Radius of the circle neighborhood
 interval_x = [-2.5, 2.5]            # [S] Interval of x in square neighborhood
 interval_y = [-2.5, 2.5]            # [S] Interval of y in square neighborhood
 distance = 0.001                    # [C][S] Distant of point, both in circle and square neighborhood
-initial_value = [1 , 1]          # [O] Initial value of the function
-iteration_time = 50               # [C][S][O] Iteration time
-#iteration_time = 3                 # [C][S][O] Iteration time
+initial_value = [1 , 1]             # [O] Initial value of the function
+#iteration_time = 50                # [C][S][O][A] Iteration time
+iteration_time = 20000              # [C][S][O][A] Iteration time
+#iteration_time = 3                 # [C][S][O][A] Iteration time
+mark_time = 10000                   # [A] mark time: program will plot the point after this iterate time
+total_max = 1                       # [A] total initial point in figure (normal = 1)
 boundary = [-10, 10, -10, 10]       # [S] "Infinity" boundary
 
 iteration_color_loop = ["r", "g", "b", "c", "m"]
@@ -34,9 +39,10 @@ image_name = "./Output" + "128--03" + ".png"
 def f(group_x):
     #print(group_x[0], group_x[1], -group_x[0] * group_x[0] + 0.4 * group_x[1], group_x[0])
     #a, b = 1.4, -0.3
-    a, b = 2, -0.3
+    #a, b = 2, -0.3
     #a, b = 1.28, -0.3
     #a, b = 0, 0.4
+    a, b = 1.2, 0.4
     return [a - group_x[0] * group_x[0] + b * group_x[1], group_x[0]]
 #============================================
 
@@ -236,11 +242,39 @@ def main():
         plt.plot(t, y, color = "green")
 
         plt.show()
+
+
+
+    elif MODE == "A":
+        if len(center) != 2:
+            print("Only can be used in 2-dim problem")
+            return 
+        for total in range(0, total_max):
+            print(total, total_max)
+            current = [random.random(), random.random()]
+            out_x = []
+            out_y = []
+            for kase in range(0, iteration_time):
+                print(kase, iteration_time, end = "\r")
+                current = f(current)
+                #print(cu)
+                if kase >= mark_time:
+                    out_x.append(current[0])
+                    out_y.append(current[1])
+
+            print()
+            for kase in range(0 ,len(out_x)):
+                print(kase, len(out_x), end = "\r")
+                plt.scatter(out_x[kase], out_y[kase], color = "r", s = 0.3)
+            print()
+
+        plt.show()
+
+
+
     else:
         print("MODE Error, please check the parameter.")
         return 
-
-
 
 
 if __name__ == '__main__':
