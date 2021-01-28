@@ -1086,11 +1086,35 @@ $$
 \text{If } (x, y) = (0.6, 0.6) \text{, then }|\lambda_{12}| = |-x\pm\sqrt{x^2 + b}| = |-0.6 \pm \sqrt{0.76}| \Rightarrow |\lambda_1| = 1.472 > 1, |\lambda_2| = 0.272 < 1
 $$
 Finally, we proved that $(0, 0)$ is sink and $(-0.6, -0.6)$ is saddle just as what we found on simulation.
+
+
 \end{solution}
 }
 
 
+
+
 \subsection{Stability and matrix periodic}
+We found this conclusion based on the discussion above.
+\begin{conclusion} The value of Jacobian matrix of a Henon map is just relevant to variable $x$ and parameter $b$. That means, if we reduce the dimension of parameter and fixed $b$ as $b_0$, then the property of fixed point will be determined only with variable $x$.
+\end{conclusion}
+
+As $y_{n+1} = x_n$, so we can just analysis the bifurcation of $a - x_{\infty}$ with random initial point.
+
+
+If we consider the fixed point of system with arbitrary paremeter grou $(a, b)$, we found that the fixed point will satisfied 
+$$
+x^2 + (1 - b)x - a = 0 \Rightarrow x = {1\over 2} (b-1) \pm\sqrt{(b-1)^2 + 4 a}
+$$
+and the fixed point is $(x, y) = ({1\over 2} (b-1) \pm\sqrt{(b-1)^2 + 4 a}, {1\over 2} (b-1) \pm\sqrt{(b-1)^2 + 4 a})$, so we have the Jacobian matrix at this fixed point as 
+$$
+Df(x, y) = \left[
+\begin{array}{cc}
+(b-1) \pm\sqrt{(b-1)^2 + 4 a} & b \\
+1 & 0 
+\end{array} \right] \text{, and the eigenvalue $\lambda_i$ satisfied } \lambda^2 - (b-1) \pm\sqrt{(b-1)^2 + 4 a}\lambda - b = 0
+$$
+
 
 
 

@@ -161,7 +161,7 @@ def GetTime():
 
 def ArrOutput(Arr, Mode = 0):
     FileName = "SaveArr" + str(GetTime())
-    BuildFile(FileName)
+    #BuildFile(FileName)
     File = open(FileName, "a")
     Str = ""
     if Mode == 1:
