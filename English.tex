@@ -709,10 +709,8 @@ $$
 f(x, y) = (a - x^2 + by, x) 
 $$
 
-\subsection{Lorenz system, Henon map and Poincare section}
 
-
-A simple way to analysis the problem is analysis all point in the surface if they are convergence or divergence. In figures following, point in black represent initial conditions whose orbits diverge to infinity and the points in white represent initial values whose orbits converge to the period-2 orbit.\\[4ex]
+A simple way to analysis this problem is analysis all point in the surface if they are convergence or divergence. In figures following, point in black represent initial conditions whose orbits diverge to infinity and the points in white represent initial values whose orbits converge to the period-2 orbit.\\[4ex]
 \begin{figure}[H]
 \begin{minipage}[c][0.24\width]{0.24\textwidth}
    \centering
@@ -736,13 +734,12 @@ A simple way to analysis the problem is analysis all point in the surface if the
 
 
 
+\subsection{Lorenz system, Henon map and Poincare section}
 
+Before we analysis the Henon map, we will explain this problem firstly.
 
-
-
-
-\begin{discussion} \textbf{Lorenz model, Henon map and Poincare section}
-\\\noindent The Lorenz system is a system of ordinary differential equations which notable for having chaotic solutions for certain parameter values and initial conditions. In particular, the Lorenz attractor is a set of chaotic solutions of the Lorenz system.
+\begin{discussion} \textbf{Why are we intersted in Henon map?}
+\\\noindent To introduce this problem, it is necessary to introduce another problem. The Lorenz system is a system of ordinary differential equations which notable for having chaotic solutions for certain parameter values and initial conditions. In particular, the Lorenz attractor is a set of chaotic solutions of the Lorenz system.
 
 \begin{problem}\textbf{Lorenz model}
 \\\noindent Lorenz model is a system of three ordinary differential equations now known as the Lorenz equations:
@@ -758,7 +755,29 @@ $$
 where $\sigma, \rho, \beta$ are parameters.
 \end{problem}
 
-Even solve this group of function directly is difficult, it is not difficult to find the numerical solution. 
+It is continuous problem, however, based on the knowledge in numerical analysis, we can discrete the continuous to discrete problem in several ways.\footnote{EDWARD N LORENZ’S 1963 PAPER, “DETERMINISTIC NONPERIODIC FLOW”, IN JOURNAL OF THE ATMOSPHERIC SCIENCES, VOL 20, PAGES 130–141} 
+
+We can reconstruct the Lorenz equation, or a normal continuous dynamical system as 
+$$
+{dX_i\over dt} = F_i(X_1, X_2, \ldots X_m), i = 1, 2, \ldots m
+$$
+which is a m-dim dynamical system and $t$ is single independence variable. To simplify this problem, we choose a initial time $t_0$ and time increment $\Delta t$, then let 
+$$
+X_{i, n} = X_i (t_0 + n \Delta t)
+$$
+we have several ways to aproximate the equations.
+
+
+
+{\color{blue}
+\begin{solution}\textbf{[i] Auxiliary approximations} $X_{i, n+1} = X_{i, n} + F_i(P_n)\Delta t$
+\\\noindent \textbf{[ii] Centered difference procedure} $X_{i, n+1} = X_{i, n-1} + 2F_i(P_n)\Delta t$
+\\\noindent \textbf{[iii] Double-approximation procedure} $X_{i, n+1} = X_{i, n} + {1\over 2}(F_i(P_n) + F_i(P_{n+1}))\Delta t$
+\end{solution}
+}
+
+
+Even solve this group of function directly is difficult, it is not difficult to find the numerical solution. \\[2ex]
 
 \begin{figure}[H]
 \begin{minipage}[c][0.29\width]{0.29\textwidth}
@@ -781,72 +800,47 @@ To analysis this problem, we can consider the problem in one dimension. In the s
 
 Ok, we found that it is still difficult to discribe the $z-t$ figure. However, after the discussion of the logistic map $g(x) = 4x(1-x)$ as well as chaotic orbit, we know in most situation, we just care about the boundary of interval of the map. On the other hand, we found that the $z-t$ figure of Lorenz system is familiar with sine function, it is shaking during the time iteration. So if we just consider the maxinum (or the mininum) of this $z-t$ map, we can analysis the problem easier.
 
+
+
+
 \begin{definition}\textbf{Lorenz map}
 \\\noindent The function $z_{n+1} = f(z_n)$ satisfied the last of Fig. \ref{Lorenz-map} is called the Lorenz map. The map can be discribed in following steps.
 \\\noindent \textbf{[i]} Find the $z-t$ function in Lorenz model.
 \\\noindent \textbf{[ii]} The map $\{z_n\}$ is a point set which is the maxima of $z-t$ function. $z_{n+1} = f(z_n)$ where $z_{n}$ is a maxima point of $z-t$ function and $z_{n+1}$ is next maxima point of the function with growing of $t$.
 \end{definition}
 
-* The graph of Lorenz map is not actually a curve. It does have some trickness because it is not a well-defined function. However trickness is so small and there is so much to be gained by treating the graph as a curve, that we will simplt make this approximation keeping in mind that the sunsequence analysis is plausible.\footnote{Reference: Nonlinear Dynamics and Chaos With Applications to Physics, Biology, Chemistry, and Engineering, Steven H. Strogatz, Section 9.4, ISBN-13: 978-0813349107}
 
 
 
+* The graph of Lorenz map is not actually a curve. It does have some trickness because it is not a well-defined function. However trickness is so small and there is so much to be gained by treating the graph as a curve, that we will simplt make this approximation keeping in mind that the sunsequence analysis is plausible.
 
 
-\begin{definition}\textbf{Poincare map and Poincare section}
-\\\noindent 
+** By the way, the Lorenz map is also a kind of Poincare map.\footnote{Reference: Nonlinear Dynamics and Chaos With Applications to Physics, Biology, Chemistry, and Engineering, Steven H. Strogatz, Section 9.4, ISBN-13: 978-0813349107}
 
+
+\begin{definition}\textbf{Poincare map}
+\\\noindent The Poincare map $P$ is a mapping from $S\subset R^m$ to itself, obtained by following tarjectories from one intersection with $S$ to the next. If $x_n \in S$ denotes the k-th intersection, thne the Poincare map is defined by 
+$$
+x_{n+1} = P(x_n)
+$$ 
+
+Futhermore, if $x_0$ is a fixed point i.e. $P(x_0) = x_0$, then a tarjectory staring at $x_0$ returens to $x_0$ after time $T$ and is therefore a closed orbit for the original system ${dX_i\over dt} = F_i(X_1, X_2, \ldots X_m), i = 1, 2, \ldots m$
 \end{definition}
 
 
 
+As the analysis of Lorenz map still difficult. Henon present another method in 1976\footnote{Hénon, M., 2021. A two-dimensional mapping with a strange attractor.}. And this is Henon's map.
 
 
 
-
-\begin{solution}\textbf{Simply Lorenz model to Henon map with Poincare section}
-\\\noindent \textbf{[i] Transfrom the continuous problem to discrete problem}
-\\\noindent Based on the definition of differential, ${dx \over dt} = {x(t+\Delta t) - x(t)\over \Delta t}$. In continuous time problem, let $\Delta t \rightarrow 0$. However, in discrete, let $\Delta t = 1$ (unit). Let $t = k$ then we have
-$$
-x_{k+1} - x_{k} = {x(k+1) - x(k) \over 1} = {dx(k) \over dt} \Rightarrow x_{k+1} = x_{k} + {dx(k) \over dt} 
-$$
-use this method in $y$ and $z$, finally we can transfrom the origin Lorenz problem into 
-$$
-x_{k+1} = x_k + \sigma(y_k - x_k) = (1 - \sigma) x_k + \sigma y_k
-$$
-$$
-y_{k+1} = y_k + x_k(\rho - z_k) - y_k = \rho x_k - x_k z_k
-$$
-$$
-z_{k+1} = z_k + x_ky_k - \beta z_k= (1- \beta) z_k - x_k y_k
-$$
-            \textbf{[ii] Use Poincare section to reduce dimension}
-Let $C$ is a constant which satisfied 
-$$
-z_1 = z_2 = \ldots = z_k = z_{k+1} = \ldots = z_{\infty} = C
-$$
-then 
-$$
-z_{k+1} = z_k + x_ky_k - \beta z_k= (1- \beta) z_k - x_k y_k \Rightarrow x_ky_k = C - (1 - \beta) C = \beta C
-$$
-and we have 
-$$
-y_{k+1} = y_k + x_k(\rho - z_k) - y_k = \rho x_k - x_k z_k = (\rho - \beta C) x_k, \text{ let } b = (\rho - \beta C) \text{ and }x^1_k = b x_k, \text{ then }, y_{k+1} = x_k^1 \text{ and}
-$$
-$$
-x_{k+1}
-$$
-$\blacksquare$
-%[TODO] Explain: ``Henon map was introduced by Michel Hénon as a simplified model of the Poincaré section of the Lorenz model.''
-
-
-\end{solution}
 \end{discussion}
 
 
 
 
-\newpage
+
+
+
 \subsection{Analysis of Henon map}
 Now we focus on Henon map. Familiar with 1 dim map, it is necessary to define the sink and source as well as saddle.
 
@@ -869,6 +863,9 @@ $$
 
 We will explain these definitions with an example
 
+
+
+\newpage
 \begin{example} \label{Henon-map-0-0*4}Analysis the sink point, source point and saddle of Henon map with parameter $a = 0, b = 0.4$
 \end{example}
 
@@ -977,14 +974,14 @@ Obviously, with the knowledge of sequence, if $|\lambda_i| \in [0, 1)$, then $\l
 \\\noindent Consider a linear system $f(\mathbf x) = A \mathbf x$, where $A$ is a square matrix in $m$ dimension. If the eigenvalue of $A$ are $\lambda_1, \lambda_2, \ldots \lambda_m$ and
 \\\noindent \textbf{[i]} $\forall i \in 1, 2, \ldots, m, |\lambda_i| < 1$, then the origin point is sink.
 \\\noindent \textbf{[ii]} $\forall i \in 1, 2, \ldots, m, |\lambda_i| > 1$, then the origin point is source.
-\\\noindent \textbf{[iii]} $\{i | |\lambda_i| < 1\} \neq \varnothing \land \{j | |\lambda_j| > 1\} \neq \varnothing$, that means, if at least one eigenvalue are absolute smaller than one and at least one is upper than one, then the origin point is saddle.\\[1ex]
+\\\noindent \textbf{[iii]} $\{i | |\lambda_i| < 1\} \neq \varnothing \land \{j | |\lambda_j| > 1\} \neq \varnothing$, that means, if at least one eigenvalue are absolute smaller than one and at least one is upper than one, then the origin point is saddle.\\
 \end{theorem}
 
 
 
 
 
-  \noindent \textbf{[i] If $A$ have at least two equal eigenvalue} 
+  \noindent \textbf{[ii] If $A$ have at least two equal eigenvalue} 
 \\\noindent We can transfrom the matrix $A$ with Jordan normal form rather than eigenvalue diagonal matrix.
 \\\noindent Consider the matrix $A_{m\times m}$ and the eigenvalue $\lambda_{1}, \lambda_{2}, \ldots, \lambda_{k}$ are $r_1, r_2, \ldots r_k$ multiple root of function $|\lambda I - A| = 0$, which satisfied the definition of eigenvalue, and $k < m$, $\sum_{i = 1}^{k} r_i = m$, $I = diag(1, 1, 1, \ldots, 1)$. 
 \\\noindent Then for every $r_i$ multiple eigenvalue $\lambda_i$, $\exists \mathbf v_{i1}, \mathbf v_{i2}, \ldots \mathbf v_{i r_i}$ s.t.
@@ -1141,12 +1138,9 @@ $$
 & \lambda^2 - [(b-1) \pm\sqrt{(b-1)^2 + 4 a}]\lambda - b = 0 & \label{formula-22}
 \end{flalign}
 
-As both formula \ref{formula-21} and \ref{formula-22} are 2-dimension function in single variable. We have these conclusions
+Then we can found the property of sink and source in every fixed point easily.
 
-\begin{conclusion} \textbf{[i]} The total of the fixed point is based on $\Delta = (b-1)^2 + 4 a$. If $ \Delta > 0$, the system have two fixed point etc.
-\\\noindent \textbf{[ii]} 
-\end{conclusion}
-
+Now we focus on periodic-k orbit. Firstly, we still plot the bifurcation diagram of Henon map.
 
 \begin{figure}[H]
 \begin{center}
@@ -1155,7 +1149,15 @@ As both formula \ref{formula-21} and \ref{formula-22} are 2-dimension function i
 \end{center}
 \end{figure}
 
-123\\[3ex] %[TODO] 
+
+
+That is simple to analysis the influence of parameter. In following plots, $b \equiv 0.4$ and $a = 0.9, 0.988, 1.0, 1.0293, 1.045, 1.2$. We found $a = 0.9$ is a periodic-4 sink, $a = 0.988$ is a periodic-16 sink, $a = 1.0$ is a four-piece attractor, $a = 1.0293$ is a periodic-10 sink, $a = 1.045$ is two-piece attractor and the points of an orbit alternate between the pieces. Finally $a = 1.2$ two pieces have merged to form one-piece attractor.
+
+\begin{definition}\textbf{Attractor} An attractor is a set of numerical values toward which a system tends to evolve, for a wide variety of starting conditions of the system.
+\\\noindent Futuermore, in discrete time, we called the orbit of a system as periodic-k orbit. However in chaotic orbit, the solution set is a continuous (or uncountable) set. And we called this orbit as attractor.
+\end{definition}
+
+
 \begin{figure}[H]
 \begin{minipage}[c][0.32\width]{0.32\textwidth}
    \centering
@@ -1184,6 +1186,53 @@ As both formula \ref{formula-21} and \ref{formula-22} are 2-dimension function i
 \end{minipage}
 \\[4ex]\caption{Attractor of Henon map in different parameter}\label{attractor-Henon-map}
 \end{figure}
+
+We will discuss the relationship between matrix and periodic-k orbit. But before that, it is necessary to introduce some new definition.
+
+\begin{definition} A map $\mathbf f$ on $R^m$ is \textbf{one-to-one} if and only if $\mathbf f(\mathbf v_1) \mathbf f(\mathbf v_2) \Leftrightarrow \mathbf v_1 = \mathbf v_2$
+\end{definition}
+
+
+\begin{definition}\textbf{Inverse map}
+\\\noindent Consider a one-to-one map $\mathbf f$ on $R^m$. The inverse map $\mathbf f^{-1}$ is automatically exists and satisfied $\forall \mathbf v \in D \subset R^m, \mathbf f(\mathbf f^{-1})(\mathbf v) = \mathbf f^{-1}(\mathbf f)(\mathbf v) = \mathbf v$, where $D$ is domain of map.
+\end{definition}
+
+For instance, a one-to-one map $f(x) = 2x$ have an inverse map $f^{-1} = {x/2}$. Obviously, for every linear map $\mathbf f(\mathbf x) = A \mathbf x, \exists f^{-1}(\mathbf x) = A^{-1} \mathbf x$.
+
+\begin{theorem} For every $R^m$ linear map $\mathbf f(\mathbf x) = A \mathbf x$ and $A$ s.t. $rank(A) = m$, the inverse map $f^{-1}$ always be existed.
+\end{theorem}
+{\color{blue}
+\begin{proof}\textbf{[i]} If $A$ have $m$ different eigenvalue, then $A = V\Lambda V$ where $\Lambda = diag(\lambda_1, \lambda_2, \ldots, \lambda_m), V = (\mathbf v_1, \mathbf v_2, \ldots ,\mathbf v_m)$ where $\lambda_i$ is eigenvalue and $\mathbf v_1$ is eigenvector. Then 
+$$
+A^{-1} = \left(V^{-1} \Lambda V\right)^{-1} = V \Lambda^{-1} V^{-1} = V diag\left({1 \over \lambda_1}, {1 \over \lambda_2}, \ldots, {1 \over \lambda_m}\right) V^{-1}
+$$
+\\\noindent \textbf{[ii]} If $A$ have $p < m$ different eigenvalue, based on the Jordan normal form, we still have $J, V$ s.t. $A = V^{-1} J V$ and $J = diag(J_1, J_2, \ldots J_k)$ where $J_i$ is Jordan block based on the eigenvalue $\lambda_i$. And now the problem is prove that for evert Jordan block, the inverse block always be existed.
+\\\noindent Obviously, $J_i = \lambda_i I + N$ where
+$$
+N = \left[
+\begin{array}{ccccc}
+0 & 1 & 0 & \ldots & 0 \\
+0 & 0 & 1 & \ldots & 0 \\
+\ldots & \ldots & \ldots & \ldots & \ldots \\
+0 & 0 & 0 & \ldots & 1 \\
+0 & 0 & 0 & \ldots & 0 \\
+\end{array} \right]
+$$
+
+And it is simple to found that $N^m = \mathbf 0_{m\times m}$. Based on the Taylor expansion, we have 
+$$
+J_i^{-1} = \lambda_i^{-1} (I + \lambda_i^{-1} N + \lambda_i^{-2} N^2 - \ldots + (-\lambda_i)^{-n+1}N^{n-1})
+$$
+
+Although the inverse of Jordan block is not a Jordan block of $1/\lambda_i$, it is still exists and we proved the theorem. $\blacksquare$
+\end{proof}
+}
+
+
+\begin{discussion}\textbf{Axis transform and map}
+\\\noindent We can discribe a map as a transform of coordinate. For example, a linear transform is a one-to-one transform. That means, for ever point in original system, exists only one point in the transformed system and vice versa. 
+\end{discussion}
+
 
 
 
