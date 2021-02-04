@@ -321,7 +321,7 @@ $$
 
 \newpage
 Same as Theo. \ref{sink-source-point}, we have stability test for periodic orbits.
-\begin{theorem} \textbf{Stability test for periodic orbits}
+\begin{theorem}\label{stability-test-for-periodic-orbits}\textbf{Stability test for periodic orbits}
 \\\noindent Let $f$ is a map and period-k orbit $\{p_1, p_2, \ldots p_k\}$, 
 \\\noindent If $|\prod_{i = 1}^{k}f'(p_i)| < 1$ then called this periodic orbit is a sink;
 \\\noindent If $|\prod_{i = 1}^{k}f'(p_i)| > 1$ then called this periodic orbit is a source;
@@ -674,7 +674,7 @@ We can also analysis the problem with \textbf{transition graph}.
 
 Finally, we focus on the title of this subsection ``chaos'', after these analysis, it is simple to summary the definition of chaos.
 
-\begin{definition}\textbf{Chaos}
+\begin{definition}\label{chaos-orbit}\textbf{Chaos}
 \\\noindent A chaotic orbit is a bounded, non-periodic orbit that displays sensitive dependence. Chaotic orbits seoarate exponentially fast from their neighbors as the map iterated.
 \end{definition}
 
@@ -734,109 +734,6 @@ A simple way to analysis this problem is analysis all point in the surface if th
 
 
 
-\subsection{Lorenz system, Henon map and Poincare section}
-
-Before we analysis the Henon map, we will explain this problem firstly.
-
-\begin{discussion} \textbf{Why are we intersted in Henon map?}
-\\\noindent To introduce this problem, it is necessary to introduce another problem. The Lorenz system is a system of ordinary differential equations which notable for having chaotic solutions for certain parameter values and initial conditions. In particular, the Lorenz attractor is a set of chaotic solutions of the Lorenz system.
-
-\begin{problem}\textbf{Lorenz model}
-\\\noindent Lorenz model is a system of three ordinary differential equations now known as the Lorenz equations:
-$$
-{dx \over dt} = \sigma(y - x)
-$$
-$$
-{dy \over dt} = x(\rho - z) - y
-$$
-$$
-{dz \over dt} = xy - \beta z
-$$
-where $\sigma, \rho, \beta$ are parameters.
-\end{problem}
-
-It is continuous problem, however, based on the knowledge in numerical analysis, we can discrete the continuous to discrete problem in several ways.\footnote{EDWARD N LORENZ’S 1963 PAPER, “DETERMINISTIC NONPERIODIC FLOW”, IN JOURNAL OF THE ATMOSPHERIC SCIENCES, VOL 20, PAGES 130–141} 
-
-We can reconstruct the Lorenz equation, or a normal continuous dynamical system as 
-$$
-{dX_i\over dt} = F_i(X_1, X_2, \ldots X_m), i = 1, 2, \ldots m
-$$
-which is a m-dim dynamical system and $t$ is single independence variable. To simplify this problem, we choose a initial time $t_0$ and time increment $\Delta t$, then let 
-$$
-X_{i, n} = X_i (t_0 + n \Delta t)
-$$
-we have several ways to aproximate the equations.
-
-
-
-{\color{blue}
-\begin{solution}\textbf{[i] Auxiliary approximations} $X_{i, n+1} = X_{i, n} + F_i(P_n)\Delta t$
-\\\noindent \textbf{[ii] Centered difference procedure} $X_{i, n+1} = X_{i, n-1} + 2F_i(P_n)\Delta t$
-\\\noindent \textbf{[iii] Double-approximation procedure} $X_{i, n+1} = X_{i, n} + {1\over 2}(F_i(P_n) + F_i(P_{n+1}))\Delta t$
-\end{solution}
-}
-
-
-Even solve this group of function directly is difficult, it is not difficult to find the numerical solution. \\[2ex]
-
-\begin{figure}[H]
-\begin{minipage}[c][0.29\width]{0.29\textwidth}
-   \centering
-   \includegraphics[width=\textwidth]{figure/section2/Lorenz.png}
-\end{minipage}
-\begin{minipage}[c][0.4\width]{0.4\textwidth}
-   \centering
-   \includegraphics[width=\textwidth]{figure/section2/Lorenz-z-t.png}
-\end{minipage}
-\begin{minipage}[c][0.29\width]{0.29\textwidth}
-   \centering
-   \includegraphics[width=\textwidth]{figure/section2/Lorenz-map.png}
-\end{minipage}
-\\[3ex]\caption{Lorenz system, $z-t$ map and Lorenz map}\label{Lorenz-map}
-\end{figure}
-
-
-To analysis this problem, we can consider the problem in one dimension. In the second part of Fig. \ref{Lorenz-map}, we plot the z-t figure of Lorenz model. 
-
-Ok, we found that it is still difficult to discribe the $z-t$ figure. However, after the discussion of the logistic map $g(x) = 4x(1-x)$ as well as chaotic orbit, we know in most situation, we just care about the boundary of interval of the map. On the other hand, we found that the $z-t$ figure of Lorenz system is familiar with sine function, it is shaking during the time iteration. So if we just consider the maxinum (or the mininum) of this $z-t$ map, we can analysis the problem easier.
-
-
-
-
-\begin{definition}\textbf{Lorenz map}
-\\\noindent The function $z_{n+1} = f(z_n)$ satisfied the last of Fig. \ref{Lorenz-map} is called the Lorenz map. The map can be discribed in following steps.
-\\\noindent \textbf{[i]} Find the $z-t$ function in Lorenz model.
-\\\noindent \textbf{[ii]} The map $\{z_n\}$ is a point set which is the maxima of $z-t$ function. $z_{n+1} = f(z_n)$ where $z_{n}$ is a maxima point of $z-t$ function and $z_{n+1}$ is next maxima point of the function with growing of $t$.
-\end{definition}
-
-
-
-
-* The graph of Lorenz map is not actually a curve. It does have some trickness because it is not a well-defined function. However trickness is so small and there is so much to be gained by treating the graph as a curve, that we will simplt make this approximation keeping in mind that the sunsequence analysis is plausible.
-
-
-** By the way, the Lorenz map is also a kind of Poincare map.\footnote{Reference: Nonlinear Dynamics and Chaos With Applications to Physics, Biology, Chemistry, and Engineering, Steven H. Strogatz, Section 9.4, ISBN-13: 978-0813349107}
-
-
-\begin{definition}\textbf{Poincare map}
-\\\noindent The Poincare map $P$ is a mapping from $S\subset R^m$ to itself, obtained by following tarjectories from one intersection with $S$ to the next. If $x_n \in S$ denotes the k-th intersection, thne the Poincare map is defined by 
-$$
-x_{n+1} = P(x_n)
-$$ 
-
-Futhermore, if $x_0$ is a fixed point i.e. $P(x_0) = x_0$, then a tarjectory staring at $x_0$ returens to $x_0$ after time $T$ and is therefore a closed orbit for the original system ${dX_i\over dt} = F_i(X_1, X_2, \ldots X_m), i = 1, 2, \ldots m$
-\end{definition}
-
-
-
-As the analysis of Lorenz map still difficult. Henon present another method in 1976\footnote{Hénon, M., 2021. A two-dimensional mapping with a strange attractor.}. And this is Henon's map.
-
-
-
-\end{discussion}
-
-
-
 
 
 
@@ -864,8 +761,6 @@ $$
 We will explain these definitions with an example
 
 
-
-\newpage
 \begin{example} \label{Henon-map-0-0*4}Analysis the sink point, source point and saddle of Henon map with parameter $a = 0, b = 0.4$
 \end{example}
 
@@ -1070,7 +965,7 @@ Jacobian matrix is a linearization estimation of a non-linear system that we can
 \\\noindent Consider a non-linear system $\mathbf f(\mathbf x)$ and a fixed point $\mathbf p \in R^m$ s.t. $\mathbf f (\mathbf p) = \mathbf p$. If the Jacobian matrix of $\mathbf f$ at $\mathbf p$ is $D\mathbf f(\mathbf p)$, and $\Lambda$ are eigenvalue set of matrix $D\mathbf f(\mathbf p)$
 \\\noindent \textbf{[i]} $\forall \lambda_i \in \Lambda  |\lambda_i| < 1$, then the $\mathbf p$ is a sink point.
 \\\noindent \textbf{[ii]} $\forall \lambda_i \in \Lambda  |\lambda_i| > 1$, then the $\mathbf p$ is a source point.
-\\\noindent \textbf{[iii]} $\{\lambda_i \in \Lambda | |\lambda_i| < 1\} \neq \varnothing \land \{\lambda_i \in \Lambda | |\lambda_i| > 1\} \neq \varnothing$, that means, if at least one eigenvalue are absolute smaller than one and at least one is upper than one, then the $\mathbf p$ is a saddle point.\\[1ex]
+\\\noindent \textbf{[iii]} $\{\lambda_i \in \Lambda | |\lambda_i| < 1\} \neq \varnothing \land \{\lambda_i \in \Lambda | |\lambda_i| > 1\} \neq \varnothing$, that means, if at least one eigenvalue are absolute smaller than one and at least one is upper than one, then the $\mathbf p$ is a saddle point.
 \end{theorem}
 
 
@@ -1144,7 +1039,7 @@ Now we focus on periodic-k orbit. Firstly, we still plot the bifurcation diagram
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{figure/section2/Henon-orbit-bf-a--0*4.png} \\
+\includegraphics[width=0.6\textwidth]{figure/section2/Henon-orbit-bf-a--0*4.png}
 \caption{Bifurcation diagram for Henon map ($b = 0.4$)}\label{Henon-map-b=0*4-BF}
 \end{center}
 \end{figure}
@@ -1156,6 +1051,14 @@ That is simple to analysis the influence of parameter. In following plots, $b \e
 \begin{definition}\textbf{Attractor} An attractor is a set of numerical values toward which a system tends to evolve, for a wide variety of starting conditions of the system.
 \\\noindent Futuermore, in discrete time, we called the orbit of a system as periodic-k orbit. However in chaotic orbit, the solution set is a continuous (or uncountable) set. And we called this orbit as attractor.
 \end{definition}
+
+We will discuss the relationship between matrix and periodic-k orbit. But before that, it is necessary to introduce some new definition.
+
+\begin{definition} A map $\mathbf f$ on $R^m$ is \textbf{one-to-one} if and only if $\mathbf f(\mathbf v_1) \mathbf f(\mathbf v_2) \Leftrightarrow \mathbf v_1 = \mathbf v_2$
+\end{definition}
+
+
+
 
 
 \begin{figure}[H]
@@ -1186,11 +1089,6 @@ That is simple to analysis the influence of parameter. In following plots, $b \e
 \end{minipage}
 \\[4ex]\caption{Attractor of Henon map in different parameter}\label{attractor-Henon-map}
 \end{figure}
-
-We will discuss the relationship between matrix and periodic-k orbit. But before that, it is necessary to introduce some new definition.
-
-\begin{definition} A map $\mathbf f$ on $R^m$ is \textbf{one-to-one} if and only if $\mathbf f(\mathbf v_1) \mathbf f(\mathbf v_2) \Leftrightarrow \mathbf v_1 = \mathbf v_2$
-\end{definition}
 
 
 \begin{definition}\textbf{Inverse map}
@@ -1229,9 +1127,322 @@ Although the inverse of Jordan block is not a Jordan block of $1/\lambda_i$, it 
 }
 
 
-\begin{discussion}\textbf{Axis transform and map}
-\\\noindent We can discribe a map as a transform of coordinate. For example, a linear transform is a one-to-one transform. That means, for ever point in original system, exists only one point in the transformed system and vice versa. 
+
+
+
+
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\newpage
+\section{Chaos}
+
+We discussed the Henon map in last section. However, different from the section 1, Logistic map has been wildly used in application problems, we talked less about why we are interested in this model. So, in this section, we will mainly introduce the motivation.
+
+
+
+
+\subsection{Lorenz system, Henon map and Poincare section}
+
+
+
+\begin{discussion} \textbf{Why are we intersted in Henon map?}
+\\\noindent First of all, it is necessary to introduce a continuous model. The Lorenz system is a system of ordinary differential equations which notable for having chaotic solutions for certain parameter values and initial conditions. In particular, the Lorenz attractor is a set of chaotic solutions of the Lorenz system.
+
+\begin{problem}\textbf{Lorenz model}
+\\\noindent Lorenz model is a system of three ordinary differential equations now known as the Lorenz equations:
+$$
+{dx \over dt} = \sigma(y - x)
+$$
+$$
+{dy \over dt} = x(\rho - z) - y
+$$
+$$
+{dz \over dt} = xy - \beta z
+$$
+where $\sigma, \rho, \beta$ are parameters.
+\end{problem}
+
+It is continuous problem, however, based on the knowledge in numerical analysis, we can discrete the continuous to discrete problem in several ways.\footnote{EDWARD N LORENZ’S 1963 PAPER, “DETERMINISTIC NONPERIODIC FLOW”, IN JOURNAL OF THE ATMOSPHERIC SCIENCES, VOL 20, PAGES 130–141} 
+
+We can reconstruct the Lorenz equation, or a normal continuous dynamical system as 
+$$
+{dX_i\over dt} = F_i(X_1, X_2, \ldots X_m), i = 1, 2, \ldots m
+$$
+which is a m-dim dynamical system and $t$ is single independence variable. To simplify this problem, we choose a initial time $t_0$ and time increment $\Delta t$, then let 
+$$
+X_{i, n} = X_i (t_0 + n \Delta t)
+$$
+we have several ways to aproximate the equations.
+
+
+
+{\color{blue}
+\begin{solution}\textbf{[i] Auxiliary approximations} $X_{i, n+1} = X_{i, n} + F_i(P_n)\Delta t$
+\\\noindent \textbf{[ii] Centered difference procedure} $X_{i, n+1} = X_{i, n-1} + 2F_i(P_n)\Delta t$
+\\\noindent \textbf{[iii] Double-approximation procedure} $X_{i, n+1} = X_{i, n} + {1\over 2}(F_i(P_n) + F_i(P_{n+1}))\Delta t$
+\end{solution}
+}
+
+
+Even solve this group of function directly is difficult, it is not difficult to find the numerical solution. \\[2ex]
+
+\begin{figure}[H]
+\begin{minipage}[c][0.29\width]{0.29\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Lorenz.png}
+\end{minipage}
+\begin{minipage}[c][0.4\width]{0.4\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Lorenz-z-t.png}
+\end{minipage}
+\begin{minipage}[c][0.29\width]{0.29\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Lorenz-map.png}
+\end{minipage}
+\\[3ex]\caption{Lorenz system, $z-t$ map and Lorenz map}\label{Lorenz-map}
+\end{figure}
+
+
+No we consider the problem in one dimension. In the second part of Fig. \ref{Lorenz-map}, we plot the z-t figure of Lorenz model. 
+
+Ok, we found that it is still difficult to discribe the $z-t$ figure. However, after the discussion of the logistic map $g(x) = 4x(1-x)$ as well as chaotic orbit, we know in most situation, we just care about the boundary of interval of a map. On the other hand, we found that the $z-t$ figure of Lorenz system is familiar with sine function, it is shaking during the time iteration. So if we just consider the maxinum (or the mininum) of this $z-t$ map, we can analysis the problem easier.
+
+
+
+
+\begin{definition}\textbf{Lorenz map}
+\\\noindent The function $z_{n+1} = f(z_n)$ satisfied the last of Fig. \ref{Lorenz-map} is called the Lorenz map. The map can be discribed in following steps.
+\\\noindent \textbf{[i]} Find the $z-t$ function in Lorenz model.
+\\\noindent \textbf{[ii]} The map $\{z_n\}$ is a point set which is the maxima of $z-t$ function. $z_{n+1} = f(z_n)$ where $z_{n}$ is a maxima point of $z-t$ function and $z_{n+1}$ is next maxima point of the function with growing of $t$.
+\end{definition}
+
+
+
+
+* The graph of Lorenz map is not actually a curve. It does have some trickness because it is not a well-defined function. However trickness is so small and there is so much to be gained by treating the graph as a curve, that we will simplt make this approximation keeping in mind that the sunsequence analysis is plausible.
+
+
+%** By the way, the Lorenz map is also a kind of Poincare map.\footnote{Reference: Nonlinear Dynamics and Chaos With Applications to Physics, Biology, Chemistry, and Engineering, Steven H. Strogatz, Section 9.4, ISBN-13: 978-0813349107}
+
+
+%\begin{definition}\textbf{Poincare map}
+%\\\noindent The Poincare map $P$ is a mapping from $S\subset R^m$ to itself, obtained by following tarjectories from one intersection with $S$ to the next. If $x_n \in S$ denotes the k-th intersection, thne the Poincare map is defined by 
+%$$
+%x_{n+1} = P(x_n)
+%$$ 
+
+%Futhermore, if $x_0$ is a fixed point i.e. $P(x_0) = x_0$, then a tarjectory staring at $x_0$ returens to $x_0$ after time $T$ and is therefore a closed orbit for the original system ${dX_i\over dt} = F_i(X_1, X_2, \ldots X_m), i = 1, 2, \ldots m$
+%\end{definition}
+
+
+
+%\footnote{Hénon, M., 2021. A two-dimensional mapping with a strange attractor.}. And this is Henon's map.
+
+As Lorenz map have no formula to discribe, it is very difficult to research that. However, in Lorenz's paper, he gave a correspondence to analysis the map, called tent map, which we has been introduced in the section 1
+$$
+x_{n+1} = \left\{
+\begin{array}{ll}
+2x_n                & x_n < {1/2} \\
+\text{Undefined}    & x_n = {1/2} \\
+2 - 2x_n            & x_n > {1/2}
+\end{array}
+\right.
+$$
+
+At least this is a piecewise continuous funcion with one discontinuous point $x = 1/2$. So we found the property of this map is not good enough to analysis. We hope the function is continuous in all domain. And we found if we try to remove this discontinuous point, then the $f'$ will satisfy $f'^{+}(1/2) = f'^{-}(1/2) = 1$. We found it is similar to the Logistic model and it seems we can discuss the property of Logistic map rather than Lorenz map. And we will explain why we can discuss the Logistic map instead of Lorenz map.
+
+On the other hand, we found the Henon map also familiar with Logistic map in Fig. \ref{attractor-Henon-map}. The only different between Henon map and Logistic map is Henon map is fat and Logistic is thin, or a line. However if we change our parameter, like $b \rightarrow 0$, then we found \\[4ex]
+
+
+\begin{figure}[H]
+\begin{minipage}[c][0.32\width]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-attractor-1*2-0*4.png}
+\end{minipage}
+\begin{minipage}[c][0.32\width]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-attractor-1*2-0*2.png}
+\end{minipage}
+\begin{minipage}[c][0.32\width]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section2/Henon-attractor-1*2-0*05.png}
+\end{minipage}
+\\[3ex]\caption{Attractor of Henon map in different $b$(0.4, 0.2, 0.05)}\label{Henon-map-b}
+\end{figure}
+
+
+
+So it \textbf{seems} we can analysis the Henon map instead of Lorenz map. But we still need more proof and in this section, we will try to solve these problems.
+
+
+
 \end{discussion}
+
+
+
+
+
+
+
+
+
+\subsection{Lyapunov exponents and Conjugacy}
+
+\begin{definition} \textbf{Asymptotically periodic}
+\\\noindent Consider map $f \in C^1(R^1)$. An orbit $\{x_1, x_2, \ldots x_n, \ldots\}$ is called asymptotically periodic if it convergence to a periodic orbit as $n \rightarrow \infty$, that means, $\exists \{y_1, y_2, \ldots y_k, y_1, y_2, \ldots y_km ,\ldots\}$ is a periodic orbit s.t.
+$$
+\lim_{n \rightarrow \infty} |x_n - y_n| = 0
+$$
+Also, wecalled these map as \textbf{eventually periodic} beacause their orbit is eventually lands on a periodic orbit.
+\end{definition} 
+
+For instance, the Lorenz map is a eventually periodic map. Because we found in the begining of the iteration, the map shaking in a wild interation (Just as 1-15 iterates in Fig. \ref{Lorenz-map}, second image) and after this period, the map become stable and it is convergent to the map in the 3rd image of Fig. \ref{Lorenz-map}, which we called that Lorenz map.\\[4ex]
+
+
+\begin{figure}[H]
+\begin{minipage}[c][0.29\width]{0.29\textwidth}
+   \centering
+   \includegraphics[width=0.7\textwidth]{figure/section3/asymptotically-periodic.png}
+\end{minipage}
+\begin{minipage}[c][0.4\width]{0.4\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section3/Lorenz-map.png}
+\end{minipage}
+\\[3ex]\caption{Asymptotically periodic, intro and example in Lorenz map}\label{Asymptotically-periodic}
+\end{figure}
+
+\newpage
+
+
+
+There are several other maps with this property, for example, in section 1, we introduced the Logistic map $G(x) = 4x(1-x)$, with the initial condition $x_0 = 1/2$, we found after 2 iterates, is coincides with the fixed point $x = 0$.
+
+Now we try to find a method to judge a map is asymptotically periodic to another periodic map. In the section 1, we introduced the stability test for periodic orbits (Theo. \ref{stability-test-for-periodic-orbits}), we called the limitation of value in Theo. \ref{chain-rule-period-orbit} as \textbf{Lyapunov number}.
+
+\begin{definition} \textbf{Lyapunov number and Lyapunov exponent}.
+\\\noindent Consider map $f \in C^1(R^1)$. Define \textbf{Lyapunov number} $L(x_1)$ as 
+$$
+L(x_1) = \lim_{n \rightarrow \infty}(\prod_{i = 1}^{n} |f'(x_i)|)^{1/n}
+$$
+and based on the logarithm function, we can define the Lyapunov exponent as
+$$
+h_f(x_1) = h(x_1) = \lim_{n \rightarrow \infty}{1\over n}\left[\sum_{i = 1}^{n} \ln(f'(x_i))\right]
+$$
+Notice that $h$ exists if and only if $L$ exists and is nonzero, also $\ln L = h$. 
+\end{definition} 
+
+Based on this Lyapunov exponent, we have this theorem.
+\begin{theorem}\label{Lyapunov-exponent-asymptotically-periodic} Consider map $f \in C^1(R^1)$. If orbits $\{x_1, x_2, \ldots\}$ of $f$ satisfies $f'(x_i) \neq 0 \forall i \in N$ and it is asymptotically periodic to the periodic orbit ${y_1, y_2, \ldots}$, then two orbit have indentical Lyapunov exponents, assuming both exist.
+\end{theorem}
+
+
+{\color{blue}
+\begin{proof}\textbf{[i]} If we consider a sequence $\{s_i\}$ s.t. $\lim_{i \rightarrow \infty0} s_i = s$, then 
+$$
+\forall \varepsilon > 0, \exists N_1 \in \mathcal N \text{ s.t. } \forall n > N_1, |s_n - s| < \varepsilon
+$$
+Now we consider the average of $\{s_i\}$, we found for this $\varepsilon$,
+$$
+\lim_{N \rightarrow \infty}{1 \over N}\left|\sum_{i = 1}^{N}s_i - s\right| 
+= \lim_{N \rightarrow \infty} {1\over N}\sum_{i = 1}^{N}\left|s_i - s\right| 
+= \lim_{N \rightarrow \infty} {1\over N}\left[\sum_{i = 1}^{N_1 - 1}\left|s_i - s\right| + \sum_{i = N_1}^{N}\left|s_i - s\right|\right] 
+$$
+$$
+= \lim_{N \rightarrow \infty} {1\over N}\sum_{i = 1}^{N_1 - 1}\left|s_i - s\right| + \lim_{N \rightarrow \infty}{1\over N}\sum_{i = N_1}^{N}\left|s_i - s\right| 
+\leq 0 + \lim_{N \rightarrow \infty}{1\over N - N_1}\sum_{i = N_1}^{N}\left|s_i - s\right|
+< {N 0 N_1\over N - N_1}\varepsilon = \varepsilon 
+$$
+So we have this conclusion
+$$
+\forall \varepsilon > 0, \exists N_1 \in \mathcal N, \text{ s.t. } \forall n > N_1, \lim_{N \rightarrow \infty}{1 \over N}\left|\sum_{i = 1}^{N}s_i - s\right| < \varepsilon \Rightarrow \lim_{N \rightarrow \infty}{1\over N}\sum_{i =1}^{N}s_i = s
+$$
+\newpage
+  \noindent \textbf{[ii]} Let $y_1$ is the fixed point (that means, $x_i$ asymptotically periodic to a periodic-1 orbit), then $\lim_{n \rightarrow \infty} x_n = y_1$. As $f \in C^1(R^1)$, then $f'$ is exists and $f'$ Riemann integrable (and of course, Lebesgue integrable), so we can exchange the order of integral(or differential of $f$) and limitation, then we have
+$$
+\lim_{n \rightarrow \infty}f'(x_n) = f'(\lim_{n \rightarrow \infty} x_n) = f'(y_1)
+$$
+On the other hand, as $\ln|x|$ is a continuous, monotony function for $x \in R^+$, then 
+$$
+\lim_{n\rightarrow \infty} \ln |f'(x_n)| = \ln \left|\lim_{n\rightarrow \infty}f'(x_n)\right| = \ln |f'(y_1)| 
+\Rightarrow h(x_1) = \lim_{n \rightarrow \infty}{1\over n}\sum_{i = 1}^{n} \ln |f'(x_i)| = \ln|f'(y_1)| = h(y_1)
+$$
+            \textbf{[iii]} Now we assume $k > 1, k \in \mathcal N$, obviously, $y_1$ is fixed point of $f^k$, and 
+$$
+h_{f^k}(x_1) = \ln |(f^k)'(y_1)| = h_{f^k}(y_1)
+$$
+            Now we will prove $h_{f^k}(x_1) = {1\over k} h_{f}(x_1)$. Based on the definition, we know
+$$
+h_{f^k}(x_1) = \lim_{n \rightarrow \infty}{1 \over n} \sum_{i = 1}^{n}\ln\left|(f^k)'(x_i)\right| 
+= \lim_{n \rightarrow \infty}{1 \over n} \sum_{i = 1}^{n}\ln\left|{1\over k}\prod_{j = i}^{i + k}f'(x_i)\right| 
+= {1\over k}\lim_{n \rightarrow \infty}{1 \over n} \sum_{i = 1}^{n}\sum_{j = i}^{i + k}\ln\left|f'(x_i)\right| 
+= {1 \over k} h_f(x_1)
+$$
+            And we proved the theorem. $\blacksquare$
+\end{proof}
+}
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{figure/section3/logistic-lyapunov-exp.png} \\
+\caption{Lyapunov exponent of logistic model in different parameter}\label{logistic-lyapunov-exp}
+\end{center}
+\end{figure}
+
+
+Obviously, the chaotic orbit satisfied Def. \ref{chaos-orbit} will have no asymptotically periodic and we have this theorem.
+
+
+\begin{theorem} Consider map $f \in C^1(R^1)$, the orbit is \textbf{chaotic} if the Lyapunov exponent $h(x_1)$ is greater than zero.
+\end{theorem}
+
+We can check this conclusion with Fig. \ref{logistic-lyapunov-exp}, however, we still need more strickly proof.
+
+
+
+
+{\color{blue}
+\begin{proof}$\blacksquare$
+%[TODO] How to prove this theorem
+\end{proof}
+}
+
+
+
+\newpage
+
+Now we will discuss the tent map.
+\begin{discussion}\textbf{Tent map and chaos}
+\begin{theorem} The tent map $T$ has infinitely many chaotic orbits.
+\end{theorem}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1\textwidth]{figure/section3/tent-map.png} \\
+\caption{Tent map}\label{tent-map}
+\end{center}
+\end{figure}
+
+
+
+\end{discussion}
+
+
 
 
 
