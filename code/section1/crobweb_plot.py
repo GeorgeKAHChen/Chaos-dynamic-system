@@ -20,7 +20,8 @@ iteration_time = 1000
 interval = [-0.1, 1.1]
 """
 
-initial_value = [0.01, 0.2, 0.5, 0.95, 0.99]
+#initial_value = [0.01, 0.2, 0.5, 0.95, 0.99]
+initial_value = [0.2]#[, 0.2, 0.5, 0.95, 0.99]
 color = ["r-", "g-", "b-", "c-", "m-"]
 iteration_time = 1000
 interval = [-0.001, 1.001]
@@ -53,6 +54,7 @@ interval = [-0.001, 1.001]
 """
 Itinerary = True
 Itinerary_Value = 0.5
+#Itinerary_Value = 0.2
 
 def g(x):
     #return 2 * x * (1 - x)
@@ -60,10 +62,11 @@ def g(x):
     #return (3*x - x*x*x)/2
     #return 3.3 * x * (1-x)
     #return 3.86 * x * (1-x)
-    return 3.84 * x * (1-x)
+    #return 3.84 * x * (1-x)
     #return 4 * x * (1 - x)
     #return 4*x*(1-x)*(1-x*(1-x))
     #return 3 * x % 1
+    return (2*x)%1
 
 def f(x, iteration = gnx):
     for i in range(0, iteration):

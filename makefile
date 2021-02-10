@@ -9,7 +9,7 @@ main:
 	rm -rf ${filename}.{ps,log,aux,out,dvi,bbl,blg,thm,toc,nav,snm}
 	open ${filename}.pdf
 
-start:
+init:
 	open ./
 	open /Applications/Slack.app
 	open /Applications/Notion.app
@@ -37,7 +37,7 @@ ref:
 
 e:
 	xelatex ${filename}.tex
-	rm -rf ${filename}.{ps,log,aux,out,dvi,bbl,blg,thm,toc,nav,snm}
+	#rm -rf ${filename}.{ps,log,aux,out,dvi,bbl,blg,thm,toc,nav,snm}
 	open ${filename}.pdf
 
 clear:

@@ -1409,7 +1409,7 @@ $$
 Obviously, the chaotic orbit satisfied Def. \ref{chaos-orbit} will have no asymptotically periodic and we have this theorem.
 
 
-\begin{theorem} Consider map $f \in C^1(R^1)$, the orbit is \textbf{chaotic} if the Lyapunov exponent $h(x_1)$ is greater than zero.
+\begin{theorem}\label{Lyapunov-exponent-chaotic} Consider map $f \in C^1(R^1)$, the orbit is \textbf{chaotic} if the Lyapunov exponent $h(x_1)$ is \textbf{greater} than zero.
 \end{theorem}
 
 We can check this conclusion with Fig. \ref{logistic-lyapunov-exp}, however, we still need more strickly proof.
@@ -1425,12 +1425,92 @@ We can check this conclusion with Fig. \ref{logistic-lyapunov-exp}, however, we 
 
 
 
+
+
+
+
 \newpage
 
-Now we will discuss the tent map.
-\begin{discussion}\textbf{Tent map and chaos}
-\begin{theorem} The tent map $T$ has infinitely many chaotic orbits.
-\end{theorem}
+Now we will discuss the mod map and the tent map.
+
+The mod map has been introduced in section 1 (Fig. \ref{3xmod1}) and we will mainly discuss the $f(x) = 2x (mod 1)$ in this discussion. A simple way to analysis the stability of map is itinerary.\\[3ex]
+
+
+
+\begin{figure}[H]
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section3/mod2-ite1.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section3/mod2-ite2.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section3/mod2-ite3.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{0.24\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{figure/section3/mod2-itinerary.png}
+\end{minipage}
+\\[3ex]\caption{Iterates and itinerary of mod-2 map}\label{mod-2-map}
+\end{figure}
+
+
+\textbf{[i] Binary and itinerary of mod map}
+\\\noindent We will focus on the initial value $0.2$ of mod-2 map firstly. That is simple to find the itinerary with the code we used in section 1.
+
+\begin{table}[H]
+\centering  
+\caption{Logistic4 itinerary with different initial value}  
+\begin{tabular}{|c||l|l|l|l|l|}
+\hline
+Val  & $1-8$              & $9-16$             & $17-24$             & $25-32$             & $\ldots$ \\
+\hline
+0.2 & \textbf{LLRRLLRR} & \textbf{LLRRLLRR} & \textbf{LLRRLLRR} & \textbf{LLRRLLRR} & $\ldots$ \\
+\hline
+\end{tabular}  
+\end{table}
+
+We found that this point is a periodic-4 point. And now, to analysis the problem simple, we will import a new method based on the binary number. In this problem, we have
+$$
+{1\over 5} = 0.\overline{0011}, \ \ \ \ f({1\over 5}) = 0.011\overline{0011}, \ \ \ \ f^2({1\over 5}) = 0.11\overline{0011}, \ \ \ \ f^3({1\over 5}) = 0.1\overline{0011}, \ \ \ \ f^4({1\over 5}) = \overline{0011}, \ \ \ \ 
+$$
+and obviously $1/5$ point is a periodic-4 orbit. So in summary, we can use binary value to find the period of every point in this map.
+
+Now we consider the Lyapunov exponent of mod map. Obviously, the differential of map is equal to 2 except the discontinuous point $1/2$, so for ever initial value different from the $1/2$, we have
+$$
+h_{mod-2}(x_1) = \lim_{n \rightarrow \infty}{1\over n}\left[\sum_{i = 1}^{n}\ln\left(f'(x_i)\right)\right] = \lim_{n \rightarrow \infty}{1\over n}\left[\sum_{i = 1}^{n} \ln(2)\right] = \lim_{n \rightarrow \infty}\left({1 \over n} n \ln(2)\right) = \ln(2) > 0
+$$
+So the conclusion is the orbit of every initial value will result chaotic.\\[2ex]
+
+
+
+
+\textbf{[ii] Mod-Sum model and asymptotically periodic}
+
+Now we change the mod model a little bit.
+$$
+f(x) = (x + q)(mod 1) \text{ where } q \text{ is a constant.}
+$$
+We will mainly consider the $q \in [0, 1]$, if not, $\exists p \in [0, 1]$ and $p = q(mod 1) \land \forall x \in [0, 1] f_q(x) = (x+q)(mod 1) = f_p(x) = (x+p)(mod 1)$.
+
+That is simple to found the discontinuous point of $f_q(x)$ as $1 - q$, futhermore, the differential of model is equal to $1$ except this discontinuous point. So we have the Lyapunov exponent as 
+$$
+h_{f_q}(x_1) = \lim_{n \rightarrow \infty}{1\over n}\left[\sum_{i = 1}^{n}\ln\left(f'(x_i)\right)\right] = \lim_{n \rightarrow \infty}{1\over n}\left[\sum_{i = 1}^{n} \ln(1)\right] = 0
+$$
+And\\[2ex]
+
+%[TODO] Lyapunov exponent = 0 and < 0, conclusion and prove
+
+
+
+
+
+
+\textbf{[iii] Tent map}
+Now we consider the tent map. 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1\textwidth]{figure/section3/tent-map.png} \\
@@ -1438,11 +1518,115 @@ Now we will discuss the tent map.
 \end{center}
 \end{figure}
 
+We found that tent map have similar property of mod-2 map, that is because of the left side of the tent map is equal to the mod-2 map, and the right side of the tent map is symmetric of mod-2 map. So we can found that the size of interval in itinerary of both mod-2 map and tent map are $2^{k}$ and the only different between the mod-2 map and tent map is tent map will exchange the order of the \textbf{L} and \textbf{R} during iteration. 
+
+However, if we consider the topic of asymptotically periodic, we can found this conclusion.
+
+\begin{theorem} The tent map $T$ has infinitely many chaotic orbits.
+\end{theorem}
+
+{\color{blue}
+\begin{proof} \textbf{[i]}Consider the set of $[0, 1]\backslash Q$ which is combined with all irrational number in $[0, 1]$. If $x \in [0, 1]\backslash Q$, then
+\\\noindent \textbf{1.} If $x < 1/2$, then $x_{new} = 2x \in [0, 1]\backslash Q$
+\\\noindent \textbf{2.} If $x > 1/2$, then $x_{new} = 2 - 2x \in [0, 1]\backslash Q$
+\\\noindent Now we consider a orbit with irrational begining, obviously, every value of this orbit is based on irrational value. And we know that there are infinity element in $[0, 1]\backslash Q$, so we have infinity irrational based orbits.\\[1ex]
+
+  \noindent On the other hand, we know ever orbits avoid have
+$$
+\forall x_1 \in [0, 1], x_1 \neq {1\over 2}, h_{f}(x_1) = \lim_{n \rightarrow \infty}{1\over n}\left[\sum_{i = 1}^{n}\ln\left|f'(x_i)\right|\right] = \lim_{n \rightarrow \infty}{1\over n}\left[\sum_{i = 1}^{n} \ln(2)\right] = \ln(2) > 0
+$$
+As $1/2$ is a rational value, so every orbit in \textbf{[i]} will avoid this point. So all of these orbits are chaotic. And in summary we found infinity many chaotic orbits in tent map T. $\blacksquare$
+\end{proof}
+}
 
 
-\end{discussion}
 
 
+
+
+
+\newpage
+
+\textbf{[iv] Conjugacy and Logistic map}
+
+First of all, we will list the main property in both logistic-4 map and tent map.
+
+\begin{table}[H]
+\centering  
+\caption{Logistic-4 map VS tent map}  
+\begin{tabular}{|c||c|c|}
+\hline
+Property             & Logistic-4 map($G(x)$)  & Tent map($T(x)$) \\
+\hline
+\hline
+Critical point       & \multicolumn{2}{c|}{$1/2 \rightarrow 1 \rightarrow 0$}\\
+\hline
+Fixed point          & $0, 3/4$ & $0, 2/3$ \\
+\hline
+Period-2 orbit       & $\{(5-\sqrt5)/8, (5+\sqrt5)/8\}$ (Single) & $\{0.4, 0.8\}$ (Single) \\
+                     & \multicolumn{2}{c|}{Lies in the same relation, one in $[0, 1/2]$ and the other in $[1/2, 1]$} \\
+                     & \multicolumn{2}{c|}{where $1/2$ is critical point} \\
+\hline
+\end{tabular}  
+\end{table}  
+
+We will check the derivative value for periodic-k orbit in both map.
+\\\noindent \textbf{Periodic-1}
+\\\noindent \textbf{[1] Tent map} $T'(2/3) = -2$
+\\\noindent \textbf{[2] Logistic map} $G'(3/4) = -2$
+\\\noindent CONCLUSION: $T'(2/3) = G'(3/4)$
+\\\noindent \textbf{Periodic-2}
+\\\noindent \textbf{[1] Tent map} $T'(0.4)T'(0.8) = -4$
+\\\noindent \textbf{[2] Logistic map} $T'((5-\sqrt5)/8)T'((5+\sqrt5)/8) = -4$
+\\\noindent CONCLUSION: $T'(0.4)T'(0.8) = T'((5-\sqrt5)/8)T'((5+\sqrt5)/8) = -4 = -2^2$
+\\\noindent $\ldots$
+
+We found some intersted result, but we cannot confirm how long these property still established. To solve, or to prove the similiarity of tent map and logistic map, we will import the definition of conjugate.
+
+\begin{definition}The mape $f$ and $g$ are \textbf{conjugate} if they are related by a continuous one-to-one change of coordinates, that is, if $C \circ f = g \circ C$.
+\end{definition}
+
+\begin{problem} Proof: Map $T$ and $G$ are conjugate, and the $C$ is $C(x) = \left(1 - \cos (\pi x)\right)/2$.
+\end{problem}
+{\color{blue}
+\begin{proof}\textbf{[i] $x \in [0, 1/2]$} $G(C(x)) = 4(C(x))(1 - C(x)) = 1 - \cos^2(\pi x) = \sin^2 (\pi x)$
+\\\noindent $C(T(x)) = {1 - \cos(2\pi x)} / 2 = \sin^2(\pi x) = G(C(x))$
+\\\noindent \textbf{[ii] $x \in [1/2, 1]$} $G(C(x)) = 4(C(x))(1 - C(x)) = 1 - \cos^2(\pi x) = \sin^2 (\pi x)$
+\\\noindent $C(T(x)) = {1 - \cos(\pi (2 - 2x)} / 2 = {1 - \cos(2\pi x)} / 2  =\sin^2(\pi x) = G(C(x))$
+\\\noindent In summary we proved the problem. $\blacksquare$
+\end{proof}
+}
+
+Familiar with matrix exponent, if we consider the $G^n$ map, then
+$$
+G^n = G \circ G \circ G \circ G \circ \ldots \circ G = CTC^{-1}CTC^{-1}CTC^{-1}CTC^{-1} \ldots CTC^{-1} = CT^nC^{-1} \Rightarrow G^nC = CT^n
+$$
+
+\begin{theorem} If $x$ is periodic-k point of $f$, then $C(x)$ is a periodic-k point of $g$, where $f, g$ are conjugate with $C$ and $Cf = gC$. 
+\end{theorem}
+{\color{blue}
+\begin{proof} With the conclusion above, we have
+$$
+f^k = C^{-1}g^kC, \text{ then } \forall x \text{ is a periodic-k point }, f^k(x) = C^{-1}\{g^k[C^{}(x)]\} = x \Rightarrow g^k[C(x)] = C(x) \blacksquare
+$$
+\end{proof}
+}
+
+Now we focus on the partical of map, because we want to know if the conclusion like $T'(0.4)T'(0.8) = T'((5-\sqrt5)/8)T'((5+\sqrt5)/8) = -4$ is established on high dimension or not.
+\begin{theorem} If $f$ and $g$ are conjugate with $C$ and $Cf = gC$ and $x$ is periodic-k point of $f$ (that means $C(x)$ is a periodic-k point of $g$), then
+$$
+(g^k)'[C(x)] = (f^k)'(x)
+$$ 
+\end{theorem}
+
+{\color{blue}
+\begin{proof} The chain rule says that 
+$$
+C[T(x)] = G[C(x)] \Rightarrow C'[T(x)]T'(x) = G'[C(x)]C'(x)
+$$
+
+\end{proof}
+}
 
 
 
