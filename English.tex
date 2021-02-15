@@ -1412,16 +1412,16 @@ Obviously, the chaotic orbit satisfied Def. \ref{chaos-orbit} will have no asymp
 \begin{theorem}\label{Lyapunov-exponent-chaotic} Consider map $f \in C^1(R^1)$, the orbit is \textbf{chaotic} if the Lyapunov exponent $h(x_1)$ is \textbf{greater} than zero.
 \end{theorem}
 
-We can check this conclusion with Fig. \ref{logistic-lyapunov-exp}, however, we still need more strickly proof.
+%We can check this conclusion with Fig. \ref{logistic-lyapunov-exp}, however, we still need more strickly proof.
 
 
 
 
-{\color{blue}
-\begin{proof}$\blacksquare$
+%{\color{blue}
+%\begin{proof}$\blacksquare$
 %[TODO] How to prove this theorem
-\end{proof}
-}
+%\end{proof}
+%}
 
 
 
@@ -1620,10 +1620,113 @@ $$
 \end{theorem}
 
 {\color{blue}
-\begin{proof} The chain rule says that 
+\begin{proof} \textbf{[1]} The chain rule says that 
 $$
-C[T(x)] = G[C(x)] \Rightarrow C'[T(x)]T'(x) = G'[C(x)]C'(x)
+C[f(x)] = g[C(x)] \Rightarrow C'[f(x)]f'(x) = g'[C(x)]C'(x)
 $$
+If $x$ is periodic-1 (fixed) point, then $f(x) = x \land g(C(x)) = C(x)$, so we have
+$$
+C'(x)f'(x) = g'[C(x)]C'(x) \Rightarrow f'(x) = g'[C(x)]
+$$
+\\\noindent \textbf{[2]} Now if $x$ is periodic-2 point, then $f^2(x) = x, g^2[C(x)] = C(x) \land C[f^2(x)]=g^2[C(x)]$ and 
+$$
+{dC[f^2(x)] \over dx} 
+= C'[f^2(x)]{df[f(x)] \over dx} 
+= C'[x]{df[f(x)] \over dx}
+={dg\{g[C(x)]\} \over dx} = [(g^2)'(C(x))]C'(x)
+$$
+So In summary we have
+$$
+(f^2)'(x) = (g^2)'(C(x))
+$$
+\textbf{[k]} Now we consider arbitrary $k \in \mathcal N$, familiar periodic-2, for a periodic-k point $x$, we have $f^{k}(x) = x, g{k}[C(x)] = C(x) \land C[f^{k}(x)]=g^{k}[C(x)]$ and 
+$$
+{d\{C[f^{k}(x)]\} \over dx} = C'[f^{k}(x)](f^{k})'(x) = C'(x)(f^{k})'(x) = {d\{(g^k)[C(x)]\} \over dx} = (g^k)'[C(x)]C'(x) 
+$$
+In summary we proved the conclusion that $\forall k \in \mathcal N, (f^k)'(x) = (g^k)'(C(x)) \blacksquare$
+\end{proof}
+}
+
+Now we can simply found this conclusion:
+
+\begin{conclusion} If $f$ and $g$ are conjugate with $C$ and $Cf = gC$ and $\{x_1, x_2, \ldots x_k\}$ is periodic-k orbit of $f$ (that means $\{C(x_1), C(x_2), \ldots C(x_k)\}$ is a periodic-k orbit of $g$), then 
+$$
+\prod_{i = 1}^{k}f'(x_i) = \prod_{i = 1}^{k}g'(C(x_i))
+$$
+\end{conclusion}
+{\color{blue}
+\begin{proof} Based on the chain rule, we still have
+$$
+(f^{k})'(x_1) = [f^{k-1} (f)]'(x_1) = (f^{k-1})'(f(x_1)) f'(x_1) = (f^{k-1})'(x_2) f'(x_1) = \ldots = \prod_{i = 1}^{k}f'(x_i)
+$$
+also this conclusion is established in $(g^k)'(C(x)) \blacksquare$
+\end{proof}
+}
+
+
+\newpage
+Based on the conjugacy, we can prove these series of conclusions
+\begin{conclusion} All periodic points of logistic map $G$ are source.
+\end{conclusion}
+{\color{blue}
+\begin{proof} Firstly, we consider the tent map $T$, and obviously the point $0, 1/2$ and $1$ will now be the periodic points because they result asymptotically periodic. And for ever other point of tent map, we know that $|T'(x)| \equiv 2$. On the other hand, we know that exists $C$ s.t. $GC(x) = CT(x)$, so 
+$$
+\prod_{i = 1}^{k}|G'(x_i)| = \prod_{i = 1}^{k}|T'(C(x_i))| = 2^k > 1 \blacksquare
+$$
+(Also, this conclusion told us that $\prod_{i = 1}^{k}|G'(x_i)| = 2^k$ will always be established, which we has beed found in periodic-1 and periodic-2 discussion.)
+\end{proof}
+}
+
+
+\begin{conclusion} Consider a itinerary figure of logistic map $G$, the length of every k-iterates subinterval is lower than $\pi \over 2^{k+1}$.
+\end{conclusion}
+{\color{blue}
+\begin{proof} Consider a subinterval of itinerary after k-iterates $[x_p, x_q]$ where 
+\\\noindent $\forall x \in [x_p, x_q], T^k(x) \text{ have symbol } \textbf{L} \lor T^k(x)\equiv\textbf{R}$ and $\forall \varepsilon > 0\forall x \in (N_\varepsilon(x_p) \bigcup  N_\varepsilon(x_q))\backslash[x_p, x_q], T^k(x) $ have different symbol of $x \in [x_p, x_q]$. Obviously, we know that $\mu([x_p, x_q]) = 2^{-k}$, where $\mu$ is lebesgue measure (or the length of the interval), then
+$$
+\mu_G([x_p, x_q]) = C(x_q) - C(x_p) = \int_{x_p}^{x_q}C'(x) dx = \int_{x_p}^{x_q}{\pi \over 2}\sin(\pi x) d \leq {\pi \over 2}\int_{x_p}^{x_q}dx = {\pi \over 2}(x_q - x_p) = {\pi \over 2^{k+1}} \blacksquare
+$$
+
+\end{proof}
+}
+
+
+Finally, we will use the tools of Lyapunov exponent as well as conjugacy to proof the following theorem.
+
+\begin{theorem} The logistic map $G$ has chaotic orbit.
+\end{theorem}
+
+\begin{lemma} If $f$ and $g$ are conjugate with $C$ and $Cf = gC$ 
+\\\noindent $\{x_1, x_2, \ldots x_k, \ldots\} and \{C(x_1), C(x_2), \ldots C(x_k), \ldots\}$ are orbit of $f$ and $g$, if $C$ satisfied $\lim_{k \rightarrow \infty} {1\over k}C'(x_k) = 0$ then we have 
+$$
+h_f(x_1) = h_g(C(x_1))
+$$ 
+\end{lemma}
+{\color{blue}
+\begin{proof} Consider $C[f(x_i)] = g[C(x_i)]$, then the chain rule told us that
+$$
+\{C[f(x_i)]\}' = C'[f(x_i)]f'(x_i) = C'(x_{i+1})f'(x_i) = \{g[C(x_i)]\}' = g'[C(x_i)]C'(x_i) 
+$$
+$$\Rightarrow  f'(x_i) = g'[C(x_i)]{C'(x_i) \over C'(x_{i+1})} \Rightarrow \prod_{i = 1}^{k}f'(x_i) = \prod_{i = 1}^{k}g'(C(x_i))\left(C'{x_1} \over C'(x_{k+1})\right)
+$$
+(This formula obey the conclusion above, if we pay attention to the condition, we know that once $x_1$ is a periodic-k point, then $x_{k+1} = x_1$ and we have $\prod_{i = 1}^{k}f'(x_i) = \prod_{i = 1}^{k}g'(C(x_i))$) 
+\\\noindent Moreover, based on the definition of Lyapunov exponent, there is
+$$
+\ln\left|\prod_{i = 1}^{k}f'(x_i) \right| = \sum_{i = 1}^{k}\ln\left|f'(x_i) \right| 
+= \ln\left|\prod_{i = 1}^{k}g'[C(x_i)] \right| + \ln\left|C'(x_1) \right| - \ln\left|C'(x_{k+1}) \right| 
+$$
+Note that $C'(x_1)$ is constant so $ \lim_{k \rightarrow \infty} {1 \over k}\left(\ln\left|C'(x_1) \right| \right) = 0$. And based on the condition of theorem, we have $\lim_{k \rightarrow \infty}{1 \over k}\ln\left|C'(x_{k+1}) \right| = 0$
+\\\noindent So finally 
+$$
+h_f(x_1) = \lim_{k \rightarrow \infty}{1\over k}\sum_{i = 1}^{k}\ln\left|f'(x_i) \right| 
+$$
+$$
+= \lim_{k \rightarrow \infty}{1\over k}\ln\left|\prod_{i = 1}^{k}g'[C(x_i)] \right| + \lim_{k \rightarrow \infty} {1 \over k}\left(\ln\left|C'(x_1) \right| - \ln\left|C'(x_{k+1}) \right| \right) 
+$$
+$$
+= \lim_{k \rightarrow \infty}{1\over k}\ln\left|\prod_{i = 1}^{k}g'[C(x_i)] \right| = h_g(C(x_1))
+$$
+In summary the theorem is established. $\blacksquare$
 
 \end{proof}
 }
@@ -1631,9 +1734,213 @@ $$
 
 
 
+\begin{lemma} The periodic point of $T$ map is countable, that is, if $P_T$ is the periodic point of $T$ then $P_T \sim \mathcal N$, or exists an one-to-one map $R, \forall x \in P_T, \exists \text{ only one } y \in \mathcal N s.t. R(x) = y$ vice versa.
+\end{lemma}
+{\color{blue}
+\begin{proof}
+We can write a binary tree to analysis the periodic-k point of tent map.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figure/section3/solution-tent.png} \\
+\caption{Binary tree of periodic-k point in tent map}
+\end{center}
+\end{figure}
+We found that in every layer-k, the total of solution is less than $2^k$ and it is obviously that if we have infinity countable set in total and every set is infinity countable set, then the union of these sets is still countable (which has been introduced in Hilbert's paradox of the Grand Hotel).
+
+On the other hand, in this problem, we have another simple way to build an one-to-one from periodic points $P_T$ to $\mathcal N$. In the solusion binary tree above, we can code the solution from line to line. That means, in the first line, we code $0$ to $1$ and $2/3$ to $2$. Then, in the next line, if we coded the solution, we jump over that node. After this iteration, we will build a one-to-one.
+
+Moreover, actually we can proof that $P_T \subset [0, 1]\bigcap Q$. It is simple to proof that the solution set $P_T^{(k)}$ of $T^k(x) = x(\forall k \in \mathcal N)$ is the subset of $P^{(k)}$ and $x \in P^{(k)} $ satisfied $p+q\cdot 2^k x = x$, where $p \in Z$ and $q = \pm 1$, so $x = {p \over q\cdot2^k - 1}\in Q\bigcap[0, 1]$ and we have
+$$
+P^{(k)}_T \subset P^{(k)} \subset Q\bigcap[0, 1]
+$$
+So we have
+$$
+P_T = \bigcup_{k = 1}^{\infty}P^{(k)}_T \subseteqq \bigcup_{k = 1}^{\infty} P^{(k)} \subseteqq Q\bigcap[0, 1] \subset Q
+$$
+As $Q$ is countable set, then every subset of $Q$ is countable, so $P_T$ is countable. $\blacksquare$
+\end{proof}
+}
+\newpage
 
 
 
+{\color{blue}
+\begin{proof} Now we try to proof that $G$ has chaotic orbit. As $T$ and $G$ are conjugacy, so based on one-to-one $C$, we know that $P_G$ is countable. On the other hand, we proved that every periodic points of $G$ are source, annd therefore no orbits besides periodic orbits - and eventually periodic orbits, another countable set - can be asymptotically periodic. Then any orbits whose responding symbol sequence is not eventually periodic, and which never contains the sequence \textbf{LL}, has Lyapunov exponent $\ln 2$ and is chaotic.$\blacksquare$
+\end{proof}
+}
+
+In the last of this subsection, we will introduce some other definition.
+
+\begin{definition} If $A \subset B$ called $A$ is \textbf{dense} in $B$ if 
+$$
+\forall x \in B, \forall \varepsilon > 0, N_\varepsilon(x) \bigcap A \neq \varnothing
+$$
+\end{definition}
+
+Also, imitate the linear space, topological space, we can define the \textbf{symbol space} to discribe the itinerary of a map.
+\begin{definition} \textbf{Symbol space}
+\\\noindent The set $S$ of all infinity itineraries of a map is called the \textbf{symbol space} for the map. The \textbf{shift map} $s$ is defined on the symbol space $S$ as follows
+$$
+s(S_0S_1S_2\ldots) = S_1S_2S_3\ldots
+$$
+This shift mape chops the leftmost symbol, which is the analogue on the itineraries of iterating the map on the point.
+\end{definition}
+
+
+%[TODO]https://math.stackexchange.com/questions/913761/how-did-ulam-and-neumann-find-this-solution
+
+
+
+
+\subsection{Fixed point theorem}
+\begin{theorem} \label{Fixed-point-theo}\textbf{Fixed point theorem}
+\\\noindent Let $f \in C(R^n), I = [a, b]$ s.t. $I \subset f(I)$, Then $f$ has a fixed point in $I$
+\\\noindent Moreover, if $I_1, I_2, \ldots I_k$ are all closed intervals s.t. $\forall i = 1, 2, \ldots ,k -1,I_{i+1}\subset f(I_i)  \land I_1 \subset f(I_n)$, then $f^n$ has a fixed point in $I_1$, or $f$ has a periodic-k point in $I_1$.
+\end{theorem}
+
+
+{\color{blue}
+\begin{proof} Proof: Theo.\ref{Fixed-point-theo}
+$$
+I \subset f(I) \Rightarrow \forall x \in I, x \in f(I) \Rightarrow a, b \in f(I) \Rightarrow \exists x_1, x_2 \in [a, b] \text{ s.t. } f(x_1) = a, f(x_2) = b
+$$
+$$
+\left(0 = f(x_1) - a \leq f(x_1) - x_1\right) \land \left(0 = f(x_2) - b \geq f(x_2) - x_2 \right)
+$$
+So we found a point $x_1$ s.t. $f(x) - x \geq 0$ and a point $x_2$ s.t. $f(x) - x \leq 0$, as the function $f$ is continuous, based on the Intermediate Value Theorem, $\exists x_3$ s.t. $f(x_3) - x_3 = 0$ $\blacksquare$\\[1ex] 
+\end{proof}
+}
+
+\newpage
+\begin{definition} \textbf{Partition}
+\\\noindent The collection of subintervals that are pairwise disjoint except at the endpoints whose union is $I$ is the \textbf{partition} of $I$.
+\end{definition} 
+
+\begin{conclusion}\label{covering-rule-for-tg}\textbf{Covering rule for transition graphs}
+\\\noindent \textbf{[i]} An arrow is drawn from set $A$ to set $B$ in a transition graphs if and only if $B \subset f(A)$
+\\\noindent \textbf{[ii]} Moreover, assume that $\{S_1, S_2, \ldots S_n\}$ is a partition and the transition graph of $f$ allows a sequence of symbols that returns to the same symbols s.t. $S_1S_2\ldots S_kS_1$, then $S_1 \subset f^k(S_1)$
+\\\noindent \textbf{[iii]} Generally, if $S_1S_2\ldots S_{k}S_1$ is a path in the transition graph of a map $f$, then the subinterval denoted by $S_1S_2\ldots S_{k}S_1$ contains a fixed point of $f^k$.
+\end{conclusion}
+
+
+
+
+
+
+
+
+
+
+\subsection{Basins of attraction}
+\begin{definition}\label{basin-of-attraction}\textbf{Basin of attraction}
+\\\noindent Let $f$ be a map on $R^n$ and $p$ be an attracting fixed point or periodic point of $f$, then the \textbf{basin of attraction} of $p$, or just \textbf{basin} of $p$ is the set of point s.t. 
+$$
+\lim_{k \rightarrow \infty}\left|f^k(x) - f^k(p)\right| = 0
+$$
+
+\end{definition}
+
+\begin{theorem}\label{basin-theo}Let $f$ is a continuous map on $R^1$, then 
+\\\noindent \textbf{[i]} if $f(b) = b \land \left(\forall x \in [a, b), x < f(x) < b\right)$, then $a\rightarrow b, f^k(a) \rightarrow  b$
+\\\noindent \textbf{[ii]} if $f(b) = b \land \left(\forall x \in [b, c), b < f(x) < x\right)$, then $c\rightarrow b, f^k(c) \rightarrow  b$
+\end{theorem}
+
+\begin{definition}\label{Schwarzian-derivative}\textbf{Schwarzian derivative, negative Schwarzian}
+\\\noindent Let $f \in C^\infty(R^1)$, then the \textbf{Schwarzian derivative} of $f$ is
+$$
+S(f)(x) = {f'''(x) \over f'(x)} - {3\over 2}\left({f''(x) \over f'(x)}\right)^2
+$$
+\\\noindent If $\forall x \text{ s.t. } f'(x) \neq 0, S(f)(x) < 0$, then called the map has negative Schwarzian.
+\end{definition}
+
+\begin{theorem}\label{periodic-schwarzian} If $f, g$ are negative Schwarzian, then $fg$ has negative Schwarzian. Moreover, if $f$ has negative Schwarzian, then $f^k$ has negative Schwarzian. 
+\end{theorem}
+
+\begin{theorem}\label{schwarzian-theo} If map $f$ on $R^1$ has negative Schwarzian, and $p$ is a fixed point or periodic point of $f$, then either
+\\\noindent \textbf{[i]} $p$ has an infinity basin; or
+\\\noindent \textbf{[ii]} there is a critical point of $f$ in the basin of $p$; or
+\\\noindent \textbf{[iii]} $p$ is a source.
+\end{theorem}
+
+\begin{conclusion} The logistic map $g(x) = ax(1-x) (a \in [1, 4])$ has at most one periodic sink.
+\end{conclusion}
+
+\begin{example}\textbf{[1]} $f(x) = ax$ on $R^1$ and $|a| < 1$, zero is a fixed point sink whose basin is the entire real line.
+\\\noindent \textbf{[1.1]} A lienar map on $R^n$ whose matrix representation has distinct eigenvalue that are less than one in magnitude, then the origin is a fixed sink whose basin is $R^n$.
+\\\noindent \textbf{[2]} $f(x) = {4 / \pi} \arg\tan(x)$ on $R^1$ has 3 fixed point $\pm 1$ and 
+$0$ where $\pm 1$ are sink and $0$ is source. The basin of $1$ is positive and the basin of $-1$ is negative.
+\\\noindent \textbf{[3.1]} $g(x) = ax(1 - x), a \in (0, 1)$, the fixed point is $0$ all $R^1$ is basin of this point.
+\\\noindent \textbf{*} We can proved that $((a-1)/a, 1]$ lies in the basin of $x = 0$ with Theo. \ref {basin-theo}. From graphcal representation orbits, it is clear that in addition, the interval $[1, 1/a]$, $(-\infty, (a - 1)/a)$ and $(1/a, \infty)$ are basin of $0$.
+\\\noindent \textbf{[3.2]} $g(x) = ax(1-x), a \in (1, 2)$, the sink fixed point is $(a-1 )/a$, the basin is $(0, 1)$.
+\\\noindent \textbf{[4]} $f(r, \theta) = (r^2, \theta - \sin \theta), r \in R^+, \theta \in [0, 2\pi)$ which used the polar coordinates. The fixed points are $(0, 0), (1, 0), (1, \pi)$, the attractors are $(0, 0)$ and $(\infty, \infty)$. The basin of $(0, 0)$ is the points inside the unit circle and the points outside the unit circle are basin of $(\infty, \infty)$.
+\\\noindent \textbf{[5]} $g(x) = ax (1-x)$ has Schwarzian derivative formed 
+$$
+S(g)(x) = -{3 \over 2}\left({-2a \over a - 2ax}\right)^2
+$$
+and therefore has negative Schwarzian.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Ulam-von Neumann transformations}
+
+We found the relationship between the tent map, the logistic map(l-4), and the mod map. Now we try to explain the Henon map and the tent map.\footnote{Reference: Jiang, Y., 1995. On Ulam von Neumann transformations.} \footnote{Reference: Lasota, A. and Mackey, M., n.d. Chaos, Fractals, and Noise.}
+
+Consider a Henon map formed 
+$$
+H_{(a,b)}(x, y) = (1 - ax^2 + by, y)
+$$
+when $a = 2$ and $b \rightarrow 0$, the map is 
+$$
+H_{(2, 0)}(x, y) = (1 - 2x^2, y) \Rightarrow q(x) = 1 - 2x^2
+$$
+which is a 1-dim nonlinear map. Obviously, there is exists a one-to-one map from tent map to the map follows 
+$$
+\tau(x) = \left\{\begin{array}{ll}
+2x + 1  & x \in [-1, 0] \\
+-2x + 1 & x \in [0, 1] \\
+\end{array}\right. \Rightarrow \tau(x) = 1 - 2|x|, x \in [-1, 1]
+$$
+So the problem is how to find a one-to-one between the $\tau(x)$ and $q(x)$. Even in the introduction of conjugacy in the last section, we just given the map between the tent map and logistic map and discussed less in how to find these kind of map. Here, we will used the definition of (probability) density function (PDF) in probability measure.
+
+[TODO] How to calculate the density function and how to find this one-to-one to find a pair of conjugacy?
+
+We found the density function of $q(x)$ is $\rho_q ={1\over \pi\sqrt{1 - x^2}}$, and the reflection between $q$ and $\tau$ will satisfy 
+$$
+dy = {2 dx \over\pi \sqrt{1 - x^2}} \Rightarrow y = h(x) = {2\over \pi}\arg\sin(x) \text{ and }h^{-1}(x) = \sin\left({\pi x \over 2}\right)
+$$
+And we have 
+$$
+\bar q(x) = h\left\{q\left[h^{-1}(x)\right]\right\} 
+= h\left\{1 - 2 \sin^2\left({\pi x \over 2}\right)\right\} 
+= {2\over \pi}\arg\sin\left[1 - 2 \sin^2\left({\pi x \over 2}\right)\right]
+= {2\over \pi}\arg\sin\left[\cos\left({\pi x}\right)\right]
+$$
+$$
+\Rightarrow \sin {\left(\pi \bar q \over 2\right)} = \cos {\left(\pi x\right)} \Rightarrow \cos \left({\pi \over 2} - {\pi \bar q \over 2}\right) = \cos {\left(\pi x\right)}  \Rightarrow 1 - \bar q = 2|x| \Rightarrow \bar q = 1 - 2|x| = \tau(x) \blacksquare
+$$
+
+Based on this density function, we can find the one-to-one between most non-linear map with certain condition and $\tau$ map, or tent map. Obviously, both $\tau$ map and tent map have certain Lyapunov exponent, and this makes the analysis of chaostic in non-linear system become easier.
+
+\begin{definition}\textbf{Ulam-von Neumann transformation}
+\\\noindent A map $f$ is a Ulam-von Neumann transformation if it satisfied
+\\\noindent \textbf{[i]} $f$ is a piecewise $C^1$ self mapping of $[-1, 1]$ with a unique power law singular point 0;
+\\\noindent \textbf{[ii]} $f|_{[-1, 0]}$ is $C^1$ and increasing, and $f|_{[0, 1]}$ is $C^1$ and decreasingl
+\\\noindent \textbf{[iii]} $f(0) = 1, f(-1) = f(1) = 1$
+\\\noindent \textbf{[iv]} $f|_{[-1, 0]}$ and $f|_{[0, 1]}$ are $C^{1 +\alpha}$ for some $\alpha \in (0, 1]$ and the restrictions of $r_f(x) = f'(x) / |x|^{\gamma - 1}$ to $[-1, 0)$ and to $(0, 1]$ are $\beta -$ Bolder continuous fo some $\beta \in (0, 1]$
+\\\noindent \textbf{[v]} the sequence $\{\eta_n\}_{n = 0}^{\infty}$ of neasted partitions by $f$ decreases exponentially.
+\end{definition}
+
+\begin{theorem} Any two Ulam-von neumann transformations $f$ and $g$ are topologically conjugate.
+\end{theorem}
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
