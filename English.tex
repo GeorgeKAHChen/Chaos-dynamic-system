@@ -1302,6 +1302,9 @@ So it \textbf{seems} we can analysis the Henon map instead of Lorenz map. But we
 
 
 
+
+
+
 \subsection{Lyapunov exponents and Conjugacy}
 
 \begin{definition} \textbf{Asymptotically periodic}
@@ -1702,6 +1705,9 @@ $$
 h_f(x_1) = h_g(C(x_1))
 $$ 
 \end{lemma}
+
+
+
 {\color{blue}
 \begin{proof} Consider $C[f(x_i)] = g[C(x_i)]$, then the chain rule told us that
 $$
@@ -1730,6 +1736,9 @@ In summary the theorem is established. $\blacksquare$
 
 \end{proof}
 }
+
+
+
 
 
 
@@ -1845,6 +1854,20 @@ $$
 \\\noindent \textbf{[ii]} if $f(b) = b \land \left(\forall x \in [b, c), b < f(x) < x\right)$, then $c\rightarrow b, f^k(c) \rightarrow  b$
 \end{theorem}
 
+{\color{blue}
+\begin{proof} We just need to proof \textbf{[i]} because it is simple to proof \textbf{[ii]} in the same method.
+\\\noindent Let $x_0 = a, x_{i+1} = f(x_{i}) \forall i \in \mathcal N^*$, obviously, $a \leq x < f(x) < b$, thus all $x_i \in [a, b) \land a = x_0 < x_1 < x_2 < \ldots < x_\infty < b$ which is strictly increasing and bounded above by $b$. Since increasing bounded sequence must convergence, $\exists x_*$ s.t. $x_i \rightarrow x_*$ and 
+$$
+x_* = \lim_{i \rightarrow \infty}x_{i+1} = \lim_{i \rightarrow \infty}f(x_i) = f(x_*) 
+$$
+and $x_*$ is a fixed point $\blacksquare$
+\end{proof}
+}
+
+
+\newpage
+
+
 \begin{definition}\label{Schwarzian-derivative}\textbf{Schwarzian derivative, negative Schwarzian}
 \\\noindent Let $f \in C^\infty(R^1)$, then the \textbf{Schwarzian derivative} of $f$ is
 $$
@@ -1862,8 +1885,50 @@ $$
 \\\noindent \textbf{[iii]} $p$ is a source.
 \end{theorem}
 
-\begin{conclusion} The logistic map $g(x) = ax(1-x) (a \in [1, 4])$ has at most one periodic sink.
-\end{conclusion}
+
+
+{\color{blue}
+\begin{proof} Proof: Theo. \ref{periodic-schwarzian}
+\\\noindent If $f, g$ are negative Schwarzian, then 
+$$
+\forall x \in D\bigcap\{x | f'(x) \neq 0\}\bigcup\{x | g'(x) \neq 0\} \subset R^1, \left(S(f)(x) < 0\right) \land \left(S(g)(x) < 0\right)
+$$
+On the other hand, we have 
+$$
+S(f\circ g)(x) = {(f\circ g)''' \over (f\circ g)'} - {3 \over 2}\left((f\circ g)'' \over (f\circ g)'\right)^2
+$$
+and 
+$$
+(f \circ g)' = g'\cdot f'(g) \ \ \ \  (f \circ g)'' = g''\cdot f'(g) + (g')^2\cdot f''(g) 
+$$
+$$
+(f \circ g)'''  = g'''\cdot f'(g) + g'g''\cdot f'(g) + 2g' g''f''\cdot (g) + (g')^3f'''\cdot (g)
+$$
+so we have  
+$$
+ {(f\circ g)''' \over (f\circ g)'} = {g'''\cdot f'(g) + g'g''\cdot f'(g) + 2g' g''f''\cdot (g) + (g')^3f'''\cdot (g) \over g'\cdot f'(g)} = {g''' \over g'} + {g'' \over g'}+ 2{g''\cdot f''(g) \over f'(g)} + {(g')^2\cdot f'''(g) \over f'(g)}
+$$
+$$
+\left({(f\circ g)'' \over (f\circ g)'}\right)^2 
+= \left({g''\cdot f'(g) + (g')^2\cdot f''(g)  \over g'\cdot f'(g)}\right)^2 
+= \left({g'' \over g'} + {g'\cdot f''(g) \over f'}\right)^2
+= \left({g'' \over g'}\right)^2 + 2 {g'' \cdot f''(g) \over f'(g)} + \left({g'\cdot f''(g) \over f'(g)}\right)^2
+$$
+and finally
+$$
+S(f\circ g)(x) = {g''' \over g'} + {g'' \over g'}+ 2{g''\cdot f''(g) \over f'(g)} + {(g')^2\cdot f'''(g) \over f'(g)} - {3\over 2}\left({g'' \over g'}\right)^2 - 3 {g'' \cdot f'' \over f'(g)} - {3\over 2}\left({g'\cdot f'' \over f'}\right)^2
+$$
+$$
+= S(g)(x) + (g')^2 S(f)(x) + g''\left({1 \over g'} -  { f''(g) \over f'(g)}\right) = (Sf)(g(x))\cdot \left(g'(x)\right)^{2}.< 0\ \ \ \  \blacksquare
+$$
+
+\newpage
+  \noindent Proof: Theo. \ref{schwarzian-theo}
+ $\blacksquare$
+\end{proof}
+}
+
+
 
 \begin{example}\textbf{[1]} $f(x) = ax$ on $R^1$ and $|a| < 1$, zero is a fixed point sink whose basin is the entire real line.
 \\\noindent \textbf{[1.1]} A lienar map on $R^n$ whose matrix representation has distinct eigenvalue that are less than one in magnitude, then the origin is a fixed sink whose basin is $R^n$.
@@ -1881,16 +1946,21 @@ and therefore has negative Schwarzian.
 \end{example}
 
 
+\begin{conclusion} The logistic map $g(x) = ax(1-x) (a \in [1, 4])$ has at most one periodic sink.
+\end{conclusion}
+
+{\color{blue}
+\begin{proof}
+ $\blacksquare$
+\end{proof}
+}
 
 
 
 
 
 
-
-
-
-\subsection{Ulam-von Neumann transformations}
+\subsection{Density function and Ulam-von Neumann transformations}
 
 We found the relationship between the tent map, the logistic map(l-4), and the mod map. Now we try to explain the Henon map and the tent map.\footnote{Reference: Jiang, Y., 1995. On Ulam von Neumann transformations.} \footnote{Reference: Lasota, A. and Mackey, M., n.d. Chaos, Fractals, and Noise.}
 
@@ -1911,7 +1981,7 @@ $$
 $$
 So the problem is how to find a one-to-one between the $\tau(x)$ and $q(x)$. Even in the introduction of conjugacy in the last section, we just given the map between the tent map and logistic map and discussed less in how to find these kind of map. Here, we will used the definition of (probability) density function (PDF) in probability measure.
 
-[TODO] How to calculate the density function and how to find this one-to-one to find a pair of conjugacy?
+%[TODO] How to calculate the density function and how to find this one-to-one to find a pair of conjugacy?
 
 We found the density function of $q(x)$ is $\rho_q ={1\over \pi\sqrt{1 - x^2}}$, and the reflection between $q$ and $\tau$ will satisfy 
 $$
@@ -1941,44 +2011,10 @@ Based on this density function, we can find the one-to-one between most non-line
 
 \begin{theorem} Any two Ulam-von neumann transformations $f$ and $g$ are topologically conjugate.
 \end{theorem}
-\end{document}
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{theorem} The Lorenz map is a Ulam-von Neumann transformation.
+\end{theorem}
 
 
 
@@ -1994,67 +2030,37 @@ Based on this density function, we can find the one-to-one between most non-line
 
 
 \newpage
+\section{Fractal}
+
+
+
+
+
+
+
+
+
+
 \newpage
 \appendix
-\section{Prove of periodic-3 orbit theory (Theo \ref{p3-chaos})}
-Now we try to solve the problem we discussed in periodic-3 orbit of logistic model.
+\section{The toolbox in real analysis}
 
-
-Before we solve this problem, we need some other definition.
-\begin{definition}\textbf{Critical point}
-\\\noindent Consider a function $f$ in domain $D$, we called every point $x \in D$ s.t. $f'(x) = 0$ or the derivative not exist as \textbf{critical point}.
-\end{definition}
-\begin{definition}\textbf{Unimodal}
-\\\noindent Let $f$ is a map on $R$, if $f$ has and only has one critical point, then we called $f$ is \textbf{unimodal}.
+Here we will introduce real analysis definition and theorem as a toolbox.
+\begin{definition}\textbf{Borel set, Borel $\sigma -$algebra and Borel measure}
 \end{definition}
 
-\begin{example} \label{e-g-p3-orbit}Consider a map in following figure, which is a periodic-3 orbit, denoted $\{A, B, C\}$ s.t. $f(A) = B, f(B) = C, f(C) = A$.\\[4ex]
 
-\begin{figure}[H]
-\begin{minipage}[c][0.24\width]{0.24\textwidth}
-   \centering
-   \includegraphics[width=\textwidth]{figure/section1/period-3-orbit.png}
-\end{minipage}
-\begin{minipage}[c][0.24\width]{0.24\textwidth}
-   \centering
-   \includegraphics[width=\textwidth]{figure/section1/period-3-orbit-map.png}
-\end{minipage}
-\begin{minipage}[c][0.24\width]{0.24\textwidth}
-   \centering
-   \includegraphics[width=\textwidth]{figure/section1/period-3-orbit-trans.png}
-\end{minipage}
-\begin{minipage}[c][0.24\width]{0.24\textwidth}
-   \centering
-   \includegraphics[width=\textwidth]{figure/section1/period-3-orbit-itinerary.png}
-\end{minipage}
-\\[6ex]\caption{An example periodic-3 orbit map and analysis}\label{period-3-orbit}
-\end{figure}
+\begin{definition}\textbf{Finite measure space, normalized/ probabilistic measure space}
+\end{definition}
 
-There are some basic conclusion here
-\begin{conclusion} \textbf{[i]} $A < B < C, f(A) = B, f(B) = C, f(C) = A$;
-\\\noindent \textbf{[ii]} $f$ is unimodal;
-\\\noindent \textbf{[iii]} $\forall x \in R \backslash [A, C], f(x) \notin [A, C]$, that means we can take no care of point out of the interval $[A, C]$.
-\\\noindent \textbf{[iv]} Let $f([A, B]) = \{y | \exists x \in [A, B] \text{ s.t. } f(x) = y\}$, then $[B, C] \subset f([A, B])$ ({\color{red}\textbf{red}} line and subinterval in second image of Fig. \ref{period-3-orbit})
-\\\noindent \textbf{[v]} $[A, B] = f([B, C])$ ({\color{Fuchsia} \textbf{purple}} line and subinterval in second image of Fig. \ref{period-3-orbit})
-\end{conclusion}
-
-\end{example}
-
-\newpage 
-Now we try to prove the Theo. \ref{p3-chaos} in e.g.\ref{e-g-p3-orbit}.
-{\color{blue}
-\begin{proof}\textbf{[i]} 
-
-$\blacksquare$
-\end{proof}
-}
+\begin{theorem}\textbf{}
+\end{theorem}
 
 
 
+\begin{definition}\textbf{}
+\end{definition}
+%* In this section, we just review some basic definition and theory in real analysis. If you are interested in this part, please the ``Note of the real analysis and functional analysis''
 
-
-
-
-
-
-]
+\end{document}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
