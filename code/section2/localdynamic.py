@@ -1,4 +1,3 @@
-import numpy as np
 import matplotlib.pyplot as plt
 import math
 import copy
@@ -29,7 +28,7 @@ initial_value = [1 , 1]             # [O] Initial value of the function
 iteration_time = 2000              # [C][S][O][A] Iteration time
 #iteration_time = 3                 # [C][S][O][A] Iteration time
 mark_time = 1000                   # [A] mark time: program will plot the point after this iterate time
-total_max = 10                       # [A] total initial point in figure (normal = 1)
+total_max = 1                       # [A] total initial point in figure (normal = 1)
 boundary = [-10, 10, -10, 10]       # [S] "Infinity" boundary
 
 iteration_color_loop = ["r", "g", "b", "c", "m"]
@@ -42,7 +41,10 @@ def f(group_x):
     #a, b = 2, -0.3
     #a, b = 1.28, -0.3
     #a, b = 0, 0.4
-    a, b = 1.2, 0.05
+    a, b = 2, 0.4
+    #a, b = 2, 0.05
+    #a, b = 2, 0.05
+    #a, b = 2, 0.05
     return [a - group_x[0] * group_x[0] + b * group_x[1], group_x[0]]
 #============================================
 

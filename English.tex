@@ -37,12 +37,17 @@
 
  
 \geometry{left=2cm,right=2cm,top=3cm,bottom=2cm}
-\title{[Note] Chaos: An Introduction to Dynamical Systems}
+\title{Chaos: An Introduction to Dynamical Systems}
 \author{}
 \date{\today}
 
 \begin{document}
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+
 \maketitle
+
 
 {
 \begin{center}
@@ -1338,7 +1343,7 @@ There are several other maps with this property, for example, in section 1, we i
 
 Now we try to find a method to judge a map is asymptotically periodic to another periodic map. In the section 1, we introduced the stability test for periodic orbits (Theo. \ref{stability-test-for-periodic-orbits}), we called the limitation of value in Theo. \ref{chain-rule-period-orbit} as \textbf{Lyapunov number}.
 
-\begin{definition} \textbf{Lyapunov number and Lyapunov exponent}.
+\begin{definition} \textbf{Lyapunov number and Lyapunov exponent}
 \\\noindent Consider map $f \in C^1(R^1)$. Define \textbf{Lyapunov number} $L(x_1)$ as 
 $$
 L(x_1) = \lim_{n \rightarrow \infty}(\prod_{i = 1}^{n} |f'(x_i)|)^{1/n}
@@ -1349,6 +1354,34 @@ h_f(x_1) = h(x_1) = \lim_{n \rightarrow \infty}{1\over n}\left[\sum_{i = 1}^{n} 
 $$
 Notice that $h$ exists if and only if $L$ exists and is nonzero, also $\ln L = h$. 
 \end{definition} 
+
+\begin{discussion}\label{Lyapunov-exp-discussion} \textbf{Why are we interested in Lyapunov exponent?}
+\\\noindent We know that chaos means if two initial values have small different, then after long time iteration, the system showed us very different property with these two initial valus.(Just like Fig. \ref{periodic-2-check}, the error from computer results very different value, one is periodic and the other is chaos.)
+\\\noindent Consider a self map $f$ and a orbit $x_0, x_1, \ldots x_n, \ldots$, where $x_{i+1} = f(x_i) = f^{i}(x_0) (\forall i \in \mathcal N)$. Now we focus on the point $x_0 + \delta_0$ where $\delta_0$ is small almost near the $x_0$ point. For other $\delta_i, i \in \mathcal N^+$, we define 
+$$
+\delta_i = f(x_{i-1} + \delta_{i-1}) - x_i = f^i(x_0 + \delta_i) - f^i(x_0)
+$$
+which discribed the distant between different initial value in $i$-iterate.
+\\\noindent Based on the definition of \textbf{exponentially stable}, we assume  
+$$
+|\delta_i| = \exp(\lambda n)|\delta_0|
+$$
+then, for every $n \in \mathcal N$ which is positive, the monotony of $\exp(\lambda n)|\delta_0|$ is decided by $\lambda$. If $\lambda > 1$, the sequence $\{\delta_n\}$ is disconvergence and if $\lambda < \in (0, 1)$ the sequence is convergence. 
+
+On the other hand, to find property of $\lambda$ is difficult beacause we cannot discribe the proprety of $\lambda$ directly. However, during the iteration, we will find every $x_1, x_2, \ldots x_n, \ldots$ as well as $\delta_1, \delta_2, \ldots, \delta_n, \ldots$, and we know that 
+$$
+\lambda = {1\over n}\ln{\left|\delta_n \over \delta_0\right|} 
+= {1\over n}\ln{\left|f^n(x_0 + \delta_0) - f^n(x_0) \over \delta_0\right|}
+$$
+Based on our thought, we need $\delta_0 \rightarrow 0$ and $n \rightarrow \infty$ so
+$$
+\lambda = \lim_{n\rightarrow \infty}{1\over n}\ln{\left|\lim_{\delta_0 \rightarrow 0}\left(f^n(x_0 + \delta_0) - f^n(x_0) \over \delta_0\right)\right|} 
+= \lim_{n\rightarrow \infty}{1\over n}\ln{\left|(f^n)'(x_0)\right|} 
+= \lim_{n\rightarrow \infty}{1\over n}\ln{\left|\prod_{i = 0}^{n}f'(x_i)\right|} 
+$$
+which is the definition of Lyapunov number.
+\end{discussion}
+
 
 Based on this Lyapunov exponent, we have this theorem.
 \begin{theorem}\label{Lyapunov-exponent-asymptotically-periodic} Consider map $f \in C^1(R^1)$. If orbits $\{x_1, x_2, \ldots\}$ of $f$ satisfies $f'(x_i) \neq 0 \forall i \in N$ and it is asymptotically periodic to the periodic orbit ${y_1, y_2, \ldots}$, then two orbit have indentical Lyapunov exponents, assuming both exist.
@@ -1375,7 +1408,7 @@ So we have this conclusion
 $$
 \forall \varepsilon > 0, \exists N_1 \in \mathcal N, \text{ s.t. } \forall n > N_1, \lim_{N \rightarrow \infty}{1 \over N}\left|\sum_{i = 1}^{N}s_i - s\right| < \varepsilon \Rightarrow \lim_{N \rightarrow \infty}{1\over N}\sum_{i =1}^{N}s_i = s
 $$
-\newpage
+
   \noindent \textbf{[ii]} Let $y_1$ is the fixed point (that means, $x_i$ asymptotically periodic to a periodic-1 orbit), then $\lim_{n \rightarrow \infty} x_n = y_1$. As $f \in C^1(R^1)$, then $f'$ is exists and $f'$ Riemann integrable (and of course, Lebesgue integrable), so we can exchange the order of integral(or differential of $f$) and limitation, then we have
 $$
 \lim_{n \rightarrow \infty}f'(x_n) = f'(\lim_{n \rightarrow \infty} x_n) = f'(y_1)
@@ -1412,19 +1445,10 @@ $$
 Obviously, the chaotic orbit satisfied Def. \ref{chaos-orbit} will have no asymptotically periodic and we have this theorem.
 
 
-\begin{theorem}\label{Lyapunov-exponent-chaotic} Consider map $f \in C^1(R^1)$, the orbit is \textbf{chaotic} if the Lyapunov exponent $h(x_1)$ is \textbf{greater} than zero.
-\end{theorem}
-
-%We can check this conclusion with Fig. \ref{logistic-lyapunov-exp}, however, we still need more strickly proof.
-
-
-
-
-%{\color{blue}
-%\begin{proof}$\blacksquare$
-%[TODO] How to prove this theorem
-%\end{proof}
-%}
+\begin{definition}\label{Lyapunov-exponent-chaotic} Consider map $f \in C^1(R^1)$, the orbit is \textbf{chaotic} if it satisfied both
+\\\noindent \textbf{[i]} $\{x_1, x_2, \ldots \}$ is no asymptotically periodic, and
+\\\noindent \textbf{[ii]} the Lyapunov exponent $h(x_1)$ is \textbf{greater} than zero.
+\end{definition}
 
 
 
@@ -1432,7 +1456,7 @@ Obviously, the chaotic orbit satisfied Def. \ref{chaos-orbit} will have no asymp
 
 
 
-\newpage
+
 
 Now we will discuss the mod map and the tent map.
 
@@ -1548,7 +1572,6 @@ As $1/2$ is a rational value, so every orbit in \textbf{[i]} will avoid this poi
 
 
 
-\newpage
 
 \textbf{[iv] Conjugacy and Logistic map}
 
@@ -1667,7 +1690,6 @@ also this conclusion is established in $(g^k)'(C(x)) \blacksquare$
 }
 
 
-\newpage
 Based on the conjugacy, we can prove these series of conclusions
 \begin{conclusion} All periodic points of logistic map $G$ are source.
 \end{conclusion}
@@ -1693,7 +1715,7 @@ $$
 \end{proof}
 }
 
-
+\newpage
 Finally, we will use the tools of Lyapunov exponent as well as conjugacy to proof the following theorem.
 
 \begin{theorem} The logistic map $G$ has chaotic orbit.
@@ -1742,7 +1764,7 @@ In summary the theorem is established. $\blacksquare$
 
 
 
-
+\newpage
 \begin{lemma} The periodic point of $T$ map is countable, that is, if $P_T$ is the periodic point of $T$ then $P_T \sim \mathcal N$, or exists an one-to-one map $R, \forall x \in P_T, \exists \text{ only one } y \in \mathcal N s.t. R(x) = y$ vice versa.
 \end{lemma}
 {\color{blue}
@@ -1769,7 +1791,7 @@ $$
 As $Q$ is countable set, then every subset of $Q$ is countable, so $P_T$ is countable. $\blacksquare$
 \end{proof}
 }
-\newpage
+
 
 
 
@@ -1787,6 +1809,7 @@ $$
 \end{definition}
 
 Also, imitate the linear space, topological space, we can define the \textbf{symbol space} to discribe the itinerary of a map.
+\newpage
 \begin{definition} \textbf{Symbol space}
 \\\noindent The set $S$ of all infinity itineraries of a map is called the \textbf{symbol space} for the map. The \textbf{shift map} $s$ is defined on the symbol space $S$ as follows
 $$
@@ -1820,7 +1843,7 @@ So we found a point $x_1$ s.t. $f(x) - x \geq 0$ and a point $x_2$ s.t. $f(x) - 
 \end{proof}
 }
 
-\newpage
+
 \begin{definition} \textbf{Partition}
 \\\noindent The collection of subintervals that are pairwise disjoint except at the endpoints whose union is $I$ is the \textbf{partition} of $I$.
 \end{definition} 
@@ -1839,7 +1862,7 @@ So we found a point $x_1$ s.t. $f(x) - x \geq 0$ and a point $x_2$ s.t. $f(x) - 
 
 
 
-
+\newpage
 \subsection{Basins of attraction}
 \begin{definition}\label{basin-of-attraction}\textbf{Basin of attraction}
 \\\noindent Let $f$ be a map on $R^n$ and $p$ be an attracting fixed point or periodic point of $f$, then the \textbf{basin of attraction} of $p$, or just \textbf{basin} of $p$ is the set of point s.t. 
@@ -1865,7 +1888,7 @@ and $x_*$ is a fixed point $\blacksquare$
 }
 
 
-\newpage
+
 
 
 \begin{definition}\label{Schwarzian-derivative}\textbf{Schwarzian derivative, negative Schwarzian}
@@ -1921,10 +1944,6 @@ $$
 $$
 = S(g)(x) + (g')^2 S(f)(x) + g''\left({1 \over g'} -  { f''(g) \over f'(g)}\right) = (Sf)(g(x))\cdot \left(g'(x)\right)^{2}.< 0\ \ \ \  \blacksquare
 $$
-
-\newpage
-  \noindent Proof: Theo. \ref{schwarzian-theo}
- $\blacksquare$
 \end{proof}
 }
 
@@ -1950,10 +1969,24 @@ and therefore has negative Schwarzian.
 \end{conclusion}
 
 {\color{blue}
-\begin{proof}
- $\blacksquare$
+\begin{proof} $g'(x) = a - 2ax, g''(x) = -2a, g'''(x) = 0$ and 
+$$
+S(g)(x) = -{3\over 2}{\left(-2a \over 1-2ax\right)^2} < 0
+$$
+            \textbf{[i]} Consider a point $p \in [0, 1]$, as every point in $R\backslash [0, 1]$will tent to $-\infty$ so no point in $[0, 1]$ have infinity basin.
+\\\noindent \textbf{[ii]} Since the only critical point of $g$ is $1/2$, there can be at most one attracting periodic orbit. $\blacksquare$
 \end{proof}
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1979,9 +2012,64 @@ $$
 -2x + 1 & x \in [0, 1] \\
 \end{array}\right. \Rightarrow \tau(x) = 1 - 2|x|, x \in [-1, 1]
 $$
-So the problem is how to find a one-to-one between the $\tau(x)$ and $q(x)$. Even in the introduction of conjugacy in the last section, we just given the map between the tent map and logistic map and discussed less in how to find these kind of map. Here, we will used the definition of (probability) density function (PDF) in probability measure.
+So the problem is how to find a one-to-one between the $\tau(x)$ and $q(x)$. Even in the introduction of conjugacy in the last section, we just given the map between the tent map and logistic map and never discuss how to find these kind of map. Here, we will used the definition of probability density function (PDF, or invariable density in dynamic system) to analysis this problem.
 
-%[TODO] How to calculate the density function and how to find this one-to-one to find a pair of conjugacy?
+
+
+
+\begin{definition}\textbf{Density Function}
+\\\noindent Consider a map $f \in C^1([0, 1])$ and a group of initial stats $x_1^{(0)}, x_2^{(0)}, \ldots, x_N^{(0)}$, then define the $x_i^{(1)}, x_i^{(2)}, \ldots, x_i^{(m)}$ sequence with 
+$$
+x_i^{(p)} = f(x_i^{(p-1)}) = f^p(x_i^{(0)}), i = 1, 2, \ldots N
+$$
+And a \textbf{density function} of a $x_i^{(p)}$ sequence will satisfy, for every interval $\Delta_0 \subset [0, 1]$
+$$
+\int_{\Delta_0}f_0(u) du \simeq{1\over N} \sum_{k = 1}^{N}1_{\Delta_0}(x_k^{(0)})
+$$
+where $1_{\Delta}(x)$ is \textbf{indicator function} s.t. 
+$$
+1_{\Delta}(x) =\left\{\begin{array}{ll}
+1 & x \in \Delta \\
+0 & x \notin \Delta
+\end{array}
+\right.
+$$
+\end{definition}
+
+In most situation, we cannot find the density function directly with the formula of map. We can only statistic the value of map and hope we can find a distribution to evaluate it. However, in logistic-4 map $G(x)$, we have a certain distribution.
+$$
+\rho_q ={1\over \pi\sqrt{1 - x^2}}
+$$
+
+
+
+On the other hand, based on the bifurcation diagram, we found that in ever parameter in $[1, 4]$, there are some continuous line in the image. We can guess that in a normal situation, the density function is a mixture model based on the $\rho_q$ just like Gaussian Mixture Model(GMM) in probability.
+$$
+\rho_{(g_a)}(x) = \sum_{i = 1}^{K} {p_i\over \pi\sqrt{1 - (x - q_i)^2}}, \text{ where } \sum_{i = 1}^{K} p_i = 1
+$$
+Moreover, as we know the statistic data $x_i^{(p)}$ sequence, it is easy to get the numerical solution of parameter in the model above. For instance, with the machine learning method like Expectation–maximization(EM) algorithm we can find a mixture model.\\[2ex]
+
+
+\begin{figure}[H]
+\begin{minipage}[c][0.30\width]{
+   0.30\textwidth}
+   \centering
+   \includegraphics[width=0.8\textwidth]{figure/section3/Histogram-logistic.jpg}
+\end{minipage}
+\begin{minipage}[c][0.30\width]{
+   0.30\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section3/line-in-bd.jpg}
+\end{minipage}
+\begin{minipage}[c][0.30\width]{
+   0.30\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section3/GMM.png}
+\end{minipage}
+\\[3ex]\caption{Histogram of logistic map, continuous line in bifurcation diagram}\label{Histogram-logistic-map}
+\end{figure}
+
+
 
 We found the density function of $q(x)$ is $\rho_q ={1\over \pi\sqrt{1 - x^2}}$, and the reflection between $q$ and $\tau$ will satisfy 
 $$
@@ -1998,12 +2086,18 @@ $$
 \Rightarrow \sin {\left(\pi \bar q \over 2\right)} = \cos {\left(\pi x\right)} \Rightarrow \cos \left({\pi \over 2} - {\pi \bar q \over 2}\right) = \cos {\left(\pi x\right)}  \Rightarrow 1 - \bar q = 2|x| \Rightarrow \bar q = 1 - 2|x| = \tau(x) \blacksquare
 $$
 
+
+
+
+
+
+
 Based on this density function, we can find the one-to-one between most non-linear map with certain condition and $\tau$ map, or tent map. Obviously, both $\tau$ map and tent map have certain Lyapunov exponent, and this makes the analysis of chaostic in non-linear system become easier.
 
 \begin{definition}\textbf{Ulam-von Neumann transformation}
 \\\noindent A map $f$ is a Ulam-von Neumann transformation if it satisfied
 \\\noindent \textbf{[i]} $f$ is a piecewise $C^1$ self mapping of $[-1, 1]$ with a unique power law singular point 0;
-\\\noindent \textbf{[ii]} $f|_{[-1, 0]}$ is $C^1$ and increasing, and $f|_{[0, 1]}$ is $C^1$ and decreasingl
+\\\noindent \textbf{[ii]} $f|_{[-1, 0]}$ is $C^1$ and increasing, and $f|_{[0, 1]}$ is $C^1$ and decreasing;
 \\\noindent \textbf{[iii]} $f(0) = 1, f(-1) = f(1) = 1$
 \\\noindent \textbf{[iv]} $f|_{[-1, 0]}$ and $f|_{[0, 1]}$ are $C^{1 +\alpha}$ for some $\alpha \in (0, 1]$ and the restrictions of $r_f(x) = f'(x) / |x|^{\gamma - 1}$ to $[-1, 0)$ and to $(0, 1]$ are $\beta -$ Bolder continuous fo some $\beta \in (0, 1]$
 \\\noindent \textbf{[v]} the sequence $\{\eta_n\}_{n = 0}^{\infty}$ of neasted partitions by $f$ decreases exponentially.
@@ -2012,16 +2106,33 @@ Based on this density function, we can find the one-to-one between most non-line
 \begin{theorem} Any two Ulam-von neumann transformations $f$ and $g$ are topologically conjugate.
 \end{theorem}
 
-
 \begin{theorem} The Lorenz map is a Ulam-von Neumann transformation.
 \end{theorem}
 
+Typically, we can discribe the Ulam-von Neumann transformations with properties follows: It is a either linear or non-linear curve like a mountain from point $(-1, -1)$ increase to $(0, 1)$ and finally decrease to $(1, -1)$, the only singular point is $0$ which may discontinuous. Also, there are some properies in differential of the function.
+
+It is difficult to proof these theorem strickly beacause we need tools of mainfold as well as real analysis. So here we just introduce these definition and conclusions.
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.2\textwidth]{figure/CHAOS_1.png} \\
+\caption{CHAOS}
+\end{center}
+\end{figure}
 
 
 
-
-
-
+\newpage
+\subsection{Lyapunov Spectrum}
+In the last of this section, we mainly discussed the judgement of chaos in 1 dimension. Here we will focus on the Lyapunov exponent in high dimension. Obviously, in high dimension, the $\delta(t)$ function we used in Discussion \ref{Lyapunov-exp-discussion} will be a $n$ dimension vector $\mathbf \delta(t)$ and we have
+$$
+\mathbf \delta(t) = \exp(\lambda t)\mathbf\delta(0)
+$$
+However, we know that in high dimension problem it is difficult to find every orbit convergence together and in most time some of them decreasing and the others are increasing. So we want to know the Lyapunov exponent for every dimension rather than in all dimension. Note that the exponent of a matrix still a matrix, let $\lambda$ to $\Lambda$ which is a $n\times n$ dimension matrix, then
+$$
+\mathbf \delta(t) = \exp(\Lambda t)\mathbf\delta(0) = \mathbf M \mathbf\delta(0)
+$$
 
 
 
@@ -2045,22 +2156,62 @@ Based on this density function, we can find the one-to-one between most non-line
 \appendix
 \section{The toolbox in real analysis}
 
-Here we will introduce real analysis definition and theorem as a toolbox.
-\begin{definition}\textbf{Borel set, Borel $\sigma -$algebra and Borel measure}
-\end{definition}
+Outline: $\sigma -$ algebra(Upper set, $A^c$ include, countable union include) $\rightarrow$ (Lebesgue) measure, measurable space, measurable set $\rightarrow$ measurable function $\rightarrow$ function sequence　$\rightarrow $ Lebesgue integrable $\rightarrow$ $L^p$ space and norm.
 
 
-\begin{definition}\textbf{Finite measure space, normalized/ probabilistic measure space}
-\end{definition}
+\begin{conclusion} $\lim$ and $\int$ will exchange their location like 
+$$
+\lim_{n\rightarrow \infty}\int_{X}f_n(x) d\mu = \int_{X}f(x)d\mu\ \ \ \ (\{f_n\} \xrightarrow {a.e.} f)
+$$
+if $|f_n(x)| < g(x)$ and $g(x)$ is a (Lebesgue) integrable function.
+\end{conclusion}
 
-\begin{theorem}\textbf{}
+\begin{theorem}\textbf{Radon-Nikodym theorem} 
+\\\noindent Let $(X, \mathcal A, \mu)$ is a measure space and $\nu$ be a second finite measure s.t. 
+$$
+\forall A \in \mathcal A, \mu(A) = 0 \Rightarrow \nu(A) = 0
+$$
+then, there exists a non-negative integrable function $f:X \rightarrow R$ s.t.
+$$
+\forall A \in \mathcal A, \nu(A) = \int_{A}f(x) \mu(dx)
+$$
 \end{theorem}
 
 
 
-\begin{definition}\textbf{}
+\begin{definition}\textbf{Space Adjoint}
+\\\noindent Let $(X, \mathcal A, \mu)$ be a measure space, the space adjoint to $L^p(X, \mathcal A, \mu)$ is $L^{p'}(X, \mathcal A, \mu)$, where 
+$$
+{1\over p } + {1\over p' }  = 1
+$$
+         Also, if $p = 1$, then $p' \rightarrow \infty$.
 \end{definition}
 %* In this section, we just review some basic definition and theory in real analysis. If you are interested in this part, please the ``Note of the real analysis and functional analysis''
 
+
+
+
+
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,16 +6,16 @@ import random
 
 OUTPUT = True
 FIGURE = True
-INPUT = True
-SAVE_FILENAME = "SaveArr20210217184315"
+INPUT = False
+SAVE_FILENAME = "SaveArr_main"
 #============================================
 parameter_interval = [1, 4]
-#delta_parameter = 0.0001
+delta_parameter = 0.001
 distribution_interval = [0, 1]
-#delta_distribution = 0.001
+delta_distribution = 0.01
 
-delta_parameter = 0.01
-delta_distribution = 0.1
+#delta_parameter = 0.01
+#delta_distribution = 0.1
 
 total_iteration = 60000
 mark_iteration = 10000
@@ -97,15 +97,16 @@ def main():
         line = File.readline()
         para_table = Init.FileReadLine(line, mode = "float")
         main_stats_table = []
-        print("sb")
-        print(point_table)
+        print(len(point_table), len(para_table))
+        kase = 0 
         while 1:
+            kase += 1 
+            print(kase, para_size, end = "\r")
             line = File.readline()
             if not line:
                 break
             main_stats_table.append(Init.FileReadLine(line, mode = "float"))
         
-        print(len(point_table), len(para_table), len(main_stats_table))
 
 
     if FIGURE == True:
@@ -123,6 +124,7 @@ def main():
         ax = plt.axes(projection='3d')
         ax.bar3d(para, point, np.zeros(len(main_stats_table)), delta_parameter, delta_distribution, main_stats_table)#,cmap='viridis', edgecolor='none')
         plt.show()
+
 
 
 

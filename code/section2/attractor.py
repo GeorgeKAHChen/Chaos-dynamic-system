@@ -31,7 +31,8 @@ def f(x, parameter):
     #a, b = 2, -0.3
     #a, b = 1.28, -0.3
     #a, b = 0, 0.4
-    a, b = 1.2, 0.4
+    #a, b = 1.2, 0.4
+    a, b = 2, 0.4
     return [parameter - x[0] * x[0] + 0.4 * x[1], x[0]]
 
 
