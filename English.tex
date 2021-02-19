@@ -1359,14 +1359,14 @@ Notice that $h$ exists if and only if $L$ exists and is nonzero, also $\ln L = h
 \\\noindent We know that chaos means if two initial values have small different, then after long time iteration, the system showed us very different property with these two initial valus.(Just like Fig. \ref{periodic-2-check}, the error from computer results very different value, one is periodic and the other is chaos.)
 \\\noindent Consider a self map $f$ and a orbit $x_0, x_1, \ldots x_n, \ldots$, where $x_{i+1} = f(x_i) = f^{i}(x_0) (\forall i \in \mathcal N)$. Now we focus on the point $x_0 + \delta_0$ where $\delta_0$ is small almost near the $x_0$ point. For other $\delta_i, i \in \mathcal N^+$, we define 
 $$
-\delta_i = f(x_{i-1} + \delta_{i-1}) - x_i = f^i(x_0 + \delta_i) - f^i(x_0)
+\delta_i = f(x_{i-1} + \delta_{i-1}) - x_i = f^i(x_0 + \delta_0) - f^i(x_0)
 $$
 which discribed the distant between different initial value in $i$-iterate.
 \\\noindent Based on the definition of \textbf{exponentially stable}, we assume  
 $$
-|\delta_i| = \exp(\lambda n)|\delta_0|
+|\delta_i| = \exp(\lambda i)|\delta_0|
 $$
-then, for every $n \in \mathcal N$ which is positive, the monotony of $\exp(\lambda n)|\delta_0|$ is decided by $\lambda$. If $\lambda > 1$, the sequence $\{\delta_n\}$ is disconvergence and if $\lambda < \in (0, 1)$ the sequence is convergence. 
+then, for every $i \in \mathcal N$ which is positive, the monotony of $\exp(\lambda i)|\delta_0|$ is decided by $\lambda$. If $\lambda > 1$, the sequence $\{\delta_i\}$ is disconvergence and if $\lambda < \in (0, 1)$ the sequence is convergence. 
 
 On the other hand, to find property of $\lambda$ is difficult beacause we cannot discribe the proprety of $\lambda$ directly. However, during the iteration, we will find every $x_1, x_2, \ldots x_n, \ldots$ as well as $\delta_1, \delta_2, \ldots, \delta_n, \ldots$, and we know that 
 $$
@@ -2114,16 +2114,6 @@ Typically, we can discribe the Ulam-von Neumann transformations with properties 
 It is difficult to proof these theorem strickly beacause we need tools of mainfold as well as real analysis. So here we just introduce these definition and conclusions.
 
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.2\textwidth]{figure/CHAOS_1.png} \\
-\caption{CHAOS}
-\end{center}
-\end{figure}
-
-
-
-\newpage
 \subsection{Lyapunov Spectrum}
 In the last of this section, we mainly discussed the judgement of chaos in 1 dimension. Here we will focus on the Lyapunov exponent in high dimension. Obviously, in high dimension, the $\delta_n$ function we used in Discussion \ref{Lyapunov-exp-discussion} will be a $m$ dimension vector $\mathbf \delta_n$ and we have
 $$
@@ -2135,7 +2125,7 @@ $$
 $$
 
 \textbf{[i] $f$ is linear map}
-If $f$ is a linear map, then $\exists P \text{ s.t. } f(\mathbf x) = P\mathbf x$ and 
+\\\noindent If $f$ is a linear map, then $\exists P \text{ s.t. } f(\mathbf x) = P\mathbf x$ and 
 $$
 \mathbf\delta_{n + 1} = f^n(\mathbf x_n + \mathbf\delta_n) - f^n(\mathbf x_n) = P^n(\mathbf x_n + \mathbf\delta_n) - P^n\mathbf x_n= P^n\mathbf \mathbf\delta_n 
 $$
@@ -2150,8 +2140,8 @@ On the other hand, if a eigenvalue$|\lambda_i| > 1$ or $\ln|\lambda_i| > 0$, the
 So we found in a linear system, the Lyapunov exponent improved to Lyapunov spectrum which is combined with eigenvalue of $M$, or eigenvalue of $df \over d\mathbf x$.
 
 
-\textbf{[i] $f$ is non-linear map}
-Now we focus on the problem that $f$ is not a linear map. Typically, we will use Jacobian matrix to linearize the problem and for a sequence $x_i$ we have 
+\textbf{[ii] $f$ is non-linear map}
+\\\noindent Now we focus on the problem that $f$ is not a linear map. Typically, we will use Jacobian matrix to linearize the problem and for a sequence $x_i$ we have 
 $$
 \mathbf x_{i+1} = f(\mathbf x_i) = J_i \mathbf x_i
 $$
@@ -2163,16 +2153,21 @@ Then we have
 $$
 \mathbf\delta_{n} = f(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - f(\mathbf x_{n-1})
 = J_{n-1} (\mathbf x_{n-1} + \mathbf\delta_{n-1}) - J_{n-1}(\mathbf x_{n-1}) = J_{n-1}\mathbf\delta_{n-1}
-= \ldots = \prod_{i = n - 1}^{0}J_i\mathbf\delta_(0)
+= \ldots = \prod_{i = n - 1}^{0}J_i\mathbf\delta_0
+$$
+and 
+$$
+M_n = J_{n-1}J_{n-2} \ldots J_1 J_0 
 $$
 we can still find that if eigenvalue greater than 1 then the sequence increase or lower than 1 the sequence decrease. So finally we have the Lyapunov exponent (or \textbf{Lyapunov spectrum}) in high dimension formed 
 $$
 \Lambda = \{\lambda_1, \lambda_2, \ldots, \lambda_m\}
 $$
 $$
-\lambda_i = \lim_{n \rightarrow \infty}{1\over n}\sum_{i = 1}^{n}\alpha_{ni}
+\lambda_i = \lim_{n \rightarrow \infty}{1\over n}\ln\alpha_{ni}
+%\lambda_i = \lim_{n \rightarrow \infty}{1\over n}\sum_{i = 1}^{n}\ln\alpha_{ni}
 $$
-where $\alpha_{ni}$ is the eigenvalue of $J_n$ and the order of eigenvalue $i$ is confirmed in follow
+where $\alpha_{ni}$ is the eigenvalue of $M_n$ and the order of eigenvalue $i$ is confirmed in follow
 \\\noindent We will order the eigenvalue in decreasing order, that means, for ever $n$, $\alpha_{n1}\geq \alpha_{n2} \geq \ldots \geq \alpha_{nm}$, and the $\alpha_{n1}$ is the maximal Lyapunov exponent.
 
 Based on the Lyapunov spectrum, we can analysis the chaotic of a nonlinear map.
@@ -2180,6 +2175,37 @@ Based on the Lyapunov spectrum, we can analysis the chaotic of a nonlinear map.
 
 
 
+
+
+\begin{example}\textbf{Lyapunov spectrum of Lorenz system}
+\\\noindent Now we consider the Lorenz system:
+$$
+\left\{\begin{array}{lll}
+\dot x & = & \sigma(y - x) \\
+\dot y & = & x(\rho - z) - y \\
+\dot z & = & xy - \beta z
+\end{array}\right. \text{ and the Jacobian matrix is } J(x, y, z) = \left[\begin{array}{lll}
+-\sigma     & \sigma    & 0         \\
+(\rho-z)    & -1        & -x        \\
+y           & x         & -\beta
+\end{array}\right]
+$$
+We try to solve the problem numerically. Let initial value at $t_0$ is $\left(x(t_0), y(t_0), z(t_0)\right)^T = (x_0, y_0, z_0)^T$ and find a group of value every $\Delta t$, then we have
+$$
+(x_n, y_n, z_n)^T = \left(x(t_0 + n\Delta t), y(t_0 + n\Delta t), z(t_0 + n\Delta t)\right)
+$$
+
+\end{example}
+
+
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.2\textwidth]{figure/CHAOS_1.png} \\
+\caption{CHAOS}
+\end{center}
+\end{figure}
 
 
 
