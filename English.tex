@@ -18,6 +18,8 @@
 \usepackage{appendix}  
 \usepackage{color}
 \usepackage{wrapfig}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
 \usepackage[dvipsnames]{xcolor}
 %\usepackage{subcaption}
 
@@ -2122,81 +2124,212 @@ $$
 $$
 However, we know that in high dimension problem it is difficult to find every orbit convergence together and in most time some of them decreasing and the others are increasing. So we want to know the Lyapunov exponent for every dimension rather than in all dimension. Note that the exponent of a matrix still a matrix, let $\lambda$ to $\Lambda$ which is a $m\times m$ dimension matrix, then
 $$
-\mathbf \delta_n = \exp(\Lambda t)\mathbf\delta_0 =  M_n \mathbf\delta_0
+n\rightarrow \infty, \mathbf \delta_n = \exp(\Lambda t)\mathbf\delta_0 =  \mathbf\delta_0 
+\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[{1\over n}\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|\right] 
+= \lim_{n \rightarrow \infty}\left[\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|^{1\over n}\right] 
 $$
 
 \textbf{[i] $f$ is linear map}
 \\\noindent If $f$ is a linear map, then $\exists P \text{ s.t. } f(\mathbf x) = P\mathbf x$ and 
 $$
-\mathbf\delta_{n + 1} = f^n(\mathbf x_n + \mathbf\delta_n) - f^n(\mathbf x_n) = P^n(\mathbf x_n + \mathbf\delta_n) - P^n\mathbf x_n= P^n\mathbf \mathbf\delta_n 
+\mathbf\delta_{n} = f(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - f(\mathbf x_{n-1}) = P(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - P\mathbf x_{n-1}= P\mathbf \mathbf\delta_n = P^{n} \delta_0
 $$
 Let the Jordian norm form of $P$ is $J$ and $P$ s.t. $P = V^{-1} J V$, then 
 $$
-\mathbf\delta_{n} = V^{-1} J^n V \delta_0
+\left|{\delta_n \over \delta_0}\right| = |P^{n}| = V^{-1} J^n V 
+\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|^{1\over n}\right] 
+\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[\log\left|J^n\right|^{1\over n}\right] = \log|J|
 $$
-and $M = V^{-1} J^n V$, where $M$ have same eigenvalue of $P$.
-
-On the other hand, if a eigenvalue$|\lambda_i| > 1$ or $\ln|\lambda_i| > 0$, then the $\delta_{j_i}$ is increase and if $|\lambda_i| < 1$ or $\ln|\lambda_i| < 0$, the $\delta_{j_i}$ is decrease where $\delta_{j_i}$ is the $i$th value of vector $\mathbf \delta_j$
-
-So we found in a linear system, the Lyapunov exponent improved to Lyapunov spectrum which is combined with eigenvalue of $M$, or eigenvalue of $df \over d\mathbf x$.
+where $J$ is based on the eigenvalue of $P$. So we found that for a linear system, the Lyapunov spectrum is based on the eigenvalue of the matrix $P$.
 
 
 \textbf{[ii] $f$ is non-linear map}
 \\\noindent Now we focus on the problem that $f$ is not a linear map. Typically, we will use Jacobian matrix to linearize the problem and for a sequence $x_i$ we have 
 $$
-\mathbf x_{i+1} = f(\mathbf x_i) = J_i \mathbf x_i
+\mathbf x_{i+1} = f(\mathbf x_i) = P_i \mathbf x_i
 $$
-and 
+where $P_i$ is Jacobian matrix near the point $x_i$, and 
 $$
-\mathbf x_{i+1} + \mathbf\delta_{i+1} = f(\mathbf x_i + \mathbf\delta_{i}) = J_i \mathbf x_i + J_i\mathbf\delta_{i+1}
+\mathbf x_{i+1} + \mathbf\delta_{i+1} = f(\mathbf x_i + \mathbf\delta_{i}) = P_i \mathbf x_i + P_i\mathbf\delta_{i+1}
 $$
 Then we have 
 $$
 \mathbf\delta_{n} = f(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - f(\mathbf x_{n-1})
-= J_{n-1} (\mathbf x_{n-1} + \mathbf\delta_{n-1}) - J_{n-1}(\mathbf x_{n-1}) = J_{n-1}\mathbf\delta_{n-1}
-= \ldots = \prod_{i = n - 1}^{0}J_i\mathbf\delta_0
+= P_{n-1} (\mathbf x_{n-1} + \mathbf\delta_{n-1}) - P_{n-1}(\mathbf x_{n-1}) = P_{n-1}\mathbf\delta_{n-1}
+= \ldots = \prod_{i = n - 1}^{0}P_i\mathbf\delta_0
 $$
 and 
 $$
-M_n = J_{n-1}J_{n-2} \ldots J_1 J_0 
+\mathbf\delta_{n} = P_nP_{n-1}P_{n-2}\ldots P_1 P_0\mathbf\delta_0 \Rightarrow {\delta_n \over \mathbf\delta_0} = \prod_{i = 1}^{0}P_i
 $$
-we can still find that if eigenvalue greater than 1 then the sequence increase or lower than 1 the sequence decrease. So finally we have the Lyapunov exponent (or \textbf{Lyapunov spectrum}) in high dimension formed 
+So we have 
 $$
-\Lambda = \{\lambda_1, \lambda_2, \ldots, \lambda_m\}
+\Lambda = \lim_{n \rightarrow \infty}\left[\log\left|\prod_{i = n}^{0}P_i\right|^{1\over n}\right] = \lim_{n \rightarrow \infty}\left[\log\left|\prod_{i = n}^{0}J_i\right|^{1\over n}\right]
 $$
+where $J_i$ is Jordan norm form of Jacobian matrix $P_i$
+
+Fianlly, we summaried an algorithm to calculate the Lyapunov spectrum for arbitrary map.
+
+\begin{algorithm}[H]
+\caption{Calculation of Lyapunov spectrum}\label{Lyapunov-spectrum}
+\begin{algorithmic}
+\State \textbf{INPUT:} Values of system: $x_0, x_1, \ldots x_N$;
+\State \Procedure{Eigenvalue}{matrix};\Comment{Return the eigenvalue vector of input matrix.}\EndProcedure
+\State \Procedure{Jacobian}{value};\Comment{Return the Jacobian matrix at input value}\EndProcedure
+
+\State \Procedure{LyapunovSpectrumCalculation}{}
+\State \textit{float} $\text{Power} = \text{Eigenvalue}(J(x_0))$; 
+\State \textit{list} LyapunovSpectrum;
+\For {$i = 1, i \leq N, i ++$} 
+    \State $\text{Power} = \text{Eigenvalue}(J(x_i))\text{Power}^{i-1\over i}$;
+    \State $\text{LyapunovSpectrum.push}(\log|\text{Power}|)$;
+\EndFor
+\State \Return LyapunovSpectrum
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+\begin{example}\textbf{Lyapunov spectrum in Henon's map}
+\\\noindent Firstly we consider the Henon's map
 $$
-\lambda_i = \lim_{n \rightarrow \infty}{1\over n}\ln\alpha_{ni}
-%\lambda_i = \lim_{n \rightarrow \infty}{1\over n}\sum_{i = 1}^{n}\ln\alpha_{ni}
+\left\{\begin{array}{l}
+x = 1 - ax^2 + by \\
+y = x
+\end{array}\right. \text{ and the Jacobian matrix is } J(x, y) = \left[\begin{array}{lll}
+-2ax    & b \\
+1       & 0
+\end{array}\right]
 $$
-where $\alpha_{ni}$ is the eigenvalue of $M_n$ and the order of eigenvalue $i$ is confirmed in follow
-\\\noindent We will order the eigenvalue in decreasing order, that means, for ever $n$, $\alpha_{n1}\geq \alpha_{n2} \geq \ldots \geq \alpha_{nm}$, and the $\alpha_{n1}$ is the maximal Lyapunov exponent.
+Based on the Algo. \ref{Lyapunov-spectrum}, we can calculate the Lyapunov spectrum numerically.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Henon.png} \\
+\caption{Lyapunov spectrum in Henon's map($a = 2, b = 0.3$)}
+\end{center}
+\end{figure}
+\end{example}
 
-Based on the Lyapunov spectrum, we can analysis the chaotic of a nonlinear map.
+
+Now we consider a continuous system s.t. $\dot x = f(x), x(0) = x_0$ where $x_0$ is a constant vector at initial time $t_0$. With Ronge-kutta method, we can find a group of value to simulate the system. So we can change the system to a map formed 
+$$
+x_{n+1} = g(x_n, t_n), x_0 = x(0), t_{n+1} = t_n + \Delta t
+$$
+where $g$ is based on the Ronge-kutta method. 
+\\\noindent Here we don't care about the formula $g$, we just consider for a certain $n$, if we still find a Jacobian matrix $J_n$, then $x_{n+1} = J_n x_n$.
+\\\noindent On the other hand, we know that 
+$$
+\dot x = {x(t_0+(n+1)\Delta t) - x(t_0+n\Delta t) \over \Delta t} = {x_{n+1} - x_n \over \Delta t} = f(x_n)
+$$
+            In a certain model, we know the formula of $f$ as well as parameter $\Delta t$. Let $\bar J(x)$ is Jacobian matrix of $f(x)$, then
+$$
+x_{n+1} - x_n = \Delta t \bar J(x_n)x_n = (J_n - I_n) x_n \Rightarrow J_n = \Delta t\bar J(x_n) + I_n
+$$
 
 
 
-
-
-
-\begin{example}\textbf{Lyapunov spectrum of Lorenz system}
+\begin{example}\textbf{Lyapunov spectrum in Lorenz system}
 \\\noindent Now we consider the Lorenz system:
 $$
 \left\{\begin{array}{lll}
 \dot x & = & \sigma(y - x) \\
 \dot y & = & x(\rho - z) - y \\
 \dot z & = & xy - \beta z
-\end{array}\right. \text{ and the Jacobian matrix is } J(x, y, z) = \left[\begin{array}{lll}
+\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z) = \left[\begin{array}{lll}
 -\sigma     & \sigma    & 0         \\
 (\rho-z)    & -1        & -x        \\
 y           & x         & -\beta
 \end{array}\right]
 $$
-We try to solve the problem numerically. Let initial value at $t_0$ is $\left(x(t_0), y(t_0), z(t_0)\right)^T = (x_0, y_0, z_0)^T$ and find a group of value every $\Delta t$, then we have
+So the Jacobian matrix of the discrete maps is 
 $$
-(x_n, y_n, z_n)^T = \left(x(t_0 + n\Delta t), y(t_0 + n\Delta t), z(t_0 + n\Delta t)\right)
+J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
+1 - \sigma \Delta t     & \sigma \Delta t       & 0                     \\
+(\rho-z) \Delta t       & 1 -\Delta t           & -x\Delta t            \\
+y\Delta t               & x\Delta t             & 1 -\beta \Delta t
+\end{array}\right]
 $$
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
+\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-2.png} \\
+\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.001)$)}
+\end{center}
+\end{figure}
+\end{example}
+
+
+
+
+\begin{example}\textbf{Lyapunov spectrum in Rossler system}
+\\\noindent Now we consider the Rossler system:
+$$
+\left\{\begin{array}{lll}
+\dot x & = & -y-z \\
+\dot y & = & x+ay \\
+\dot z & = & b+z(x-c)
+\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z) = \left[\begin{array}{lll}
+0           & -1        & -1        \\
+1           & a         & 0         \\
+z           & 0         & x-c
+\end{array}\right]
+$$
+So the Jacobian matrix of the discrete maps is 
+$$
+J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
+-1                  & -\Delta t         & -\Delta t         \\
+\Delta t            & a\Delta t -1      & 0                 \\
+z\Delta t           & 0                 & (x-c)\Delta t - 1
+\end{array}\right]
+$$
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
+\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
+\end{center}
+\end{figure}
+{\color{red}[TODO]}
+\end{example}
+
+
+
+\begin{example}\textbf{Lyapunov spectrum in Duffing system}
+\\\noindent Now we consider the Duffing system:
+$$
+\left\{\begin{array}{lll}
+\dot x & = & -y-z \\
+\dot y & = & x+ay \\
+\dot z & = & b+z(x-c)
+\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z) = \left[\begin{array}{lll}
+0           & -1        & -1        \\
+1           & a         & 0         \\
+z           & 0         & x-c
+\end{array}\right]
+$$
+So the Jacobian matrix of the discrete maps is 
+$$
+J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
+-1                  & -\Delta t         & -\Delta t         \\
+\Delta t            & a\Delta t -1      & 0                 \\
+z\Delta t           & 0                 & (x-c)\Delta t - 1
+\end{array}\right]
+$$
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
+\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
+\end{center}
+\end{figure}
 
 \end{example}
+
 
 
 

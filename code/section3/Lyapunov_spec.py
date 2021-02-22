@@ -21,9 +21,9 @@ rho = 45.92
 sigma = 4
 beta = 10
 
-
+Delta_t = 0.001
 initial_value = [1.0, 1.0, 1.0]
-x_axis = np.arange(0.0, 500.0, 0.001)
+x_axis = np.arange(0.0, 500.0, Delta_t)
 
 def f(state, t):
     x, y, z = state
@@ -31,7 +31,10 @@ def f(state, t):
 
 def Jf(state):
     x, y, z = state
-    return np.matrix([[-sigma, sigma, 0], [(rho - z), -1, -x], [y, x, -beta]])
+    #return Delta_t * np.matrix([[-sigma, sigma, 0], [(rho - z), -1, -x], [y, x, -beta]]) + np.eye(3)
+    return np.matrix([[1 - Delta_t * sigma,         Delta_t * sigma,        0], 
+                      [Delta_t * (rho - z),         1 - Delta_t ,           -Delta_t * x], 
+                      [Delta_t * y,                 Delta_t * x,            1 - Delta_t * beta]])
 
 def states():
     return odeint(f, initial_value, x_axis)
@@ -70,8 +73,8 @@ def states():
     for i in range(0, iteration_total):
         states.append(f(states[len(states) - 1]))
     return states
-"""
 
+"""
 
 #=========================================
 #
@@ -79,7 +82,7 @@ def states():
 #
 #
 #=========================================
-
+"""
 iteration_total = 1000
 initial_value = [random.random()]
 x_axis = np.arange(0, iteration_total + 1, 1)
@@ -97,7 +100,7 @@ def states():
     for i in range(0, iteration_total):
         states.append(f(states[len(states) - 1]))
     return states
-
+"""
 #=========================================
 
 
