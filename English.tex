@@ -28,6 +28,7 @@
 \newtheorem{theorem}{\textbf{Theorem}}[section]
 \newtheorem{definition}{\textbf{Definition}}[section]
 \newtheorem{lemma}{\textbf{Lemma}}[section]
+\newtheorem{property}{\textbf{Property}}[section]
 \newtheorem{proof}{\textit{PROOF}}[section]
 \newtheorem{example}{\textbf{E x a m p l e}}[section]
 \newtheorem{problem}{\textbf{P r o b l e m}}[section]
@@ -2213,6 +2214,82 @@ $$
 \newpage
 \section{Fractal}
 
+\subsection{General tent map}
+In this section, we will mainly focus on the general tent map
+$$
+T_a(x) = \left\{\begin{array}{ll}
+ax      & x \leq 1/2 \\
+a(1-x)  & x \geq 1/2
+\end{array}\right.
+$$ 
+There are several properties of this map
+\begin{property} \textbf{General tent map - fixed point}
+\\\noindent $a \in (0, 1)$: single fixed point $0$, all initial conditions are attracted to 0;
+\\\noindent $a \in (1, \infty)$: both $0$ and $1\over 1+a$ are fixed point.
+\end{property}
+In last section, we know that if $a = 2$, then $T_2(x)$ is mapped onto itself and we have 
+\begin{property} \textbf{Point leave the interval}
+\\\noindent $a \in (0, 2]$: points stay within I;
+\\\noindent $a \in (2, \infty)$: a.e. points eventually leave the interval and never return, where a.e. means almost everywhere, that means, without a measure zero subset, all set will satisfied this property.
+\end{property}
+
+
+
+We will try to proof the second property.
+{\color{blue}
+\begin{proof} \textbf{[i]} Obviously, based on the definition of tent map, if $x < 0$, then $f(x) < 0$, if we let $x_1 = f(x) < 0$, then $f(x_1) < 0$ etc. So we have this conclusion: if $f^p(x) < 0$, then $\forall q > p, f^q(x) < 0$ where $p, q \in \mathcal N$.
+\\\noindent Moreover, if $x > 1$, then $f(x) < 0$ and $\forall n \in \mathcal N^+, f^n(x) < 0$.
+\\[1ex]\noindent Define the set $L$ s.t.
+$$
+L = \{x \in [0, 1] | f^n(x) < 0\}
+$$
+where $n\in \mathcal N$ is a certain value.
+\\\noindent \textbf{[ii]} If $a \in (0, 2)$, then $f([0, 1]) = [0, a/2] \subset [0, 1]$. On the other hand, as $\forall x \in [0, 1], f(x) \geq 0$, so $L = \varnothing$.
+\\\noindent \textbf{[iii]} We will proof that if $a > 2$, then $\mu(L) = 1$ where $\mu$ is (lebesgue) measure. Firstly, we consider the interval $L_1 = (1/a, (a-1)/a)$ s.t. $\forall x \in L_1, f(x) > 0 \Rightarrow f^2(x) < 0$.
+\\\noindent Now we consider the subset $L_0 = (0, 1/a)$, we found that $f\left((0, 1/a)\right) = (0, 1)$, so we can apart the interval $(0, 1/a)$ again, where 
+$$
+L_{00} = (0, 1/a^2), L_{01} = (1/a^2, (a-1)/a^2) , L_{02} = ((a-1)/a^2, 1/a)
+$$
+We found that $\forall x \in L_{01}, f^2(x) > 1 \Rightarrow f^3(x) < 0$
+\\\noindent If we consider the subset $L_{2} = ((a-1)/1, 1)$, we found that is symmetric of $(0, 1/a)$, that means we can also apart $L_2$ as $L_{20}, L_{21}, L_{22}$, where $L_{21}$ have same property with $L_{01}$. We found the structure of this set is familiar with \textbf{Cantor set} especially when $a = 3$.
+
+{\color{black}
+\newpage
+\begin{definition}\textbf{Cantor Set}
+\\\noindent Let set $G$ s.t. 
+$$
+G = \bigcup_{n = 0}^{\infty}\bigcup_{k = 0}^{3n-1}\left({3k+1\over 3^{n+1}}, {3k+2\over 3^{n+1}}\right)
+$$
+\text{then called $C = [0, 1]\backslash G = [0, 1]\bigcap G^c$ as Cantor set.}
+\end{definition}
+
+\text{Based on the knowledge in real analysis, we know that }
+\begin{property} $\mu(C) = 0, \mu(G) = 1$ where $\mu$ is measure of set.
+\end{property}
+\text{The proof of this property is simple because we know that for a certain interval $(a, b)$, the measure }$\mu\left((a, b)\right) = b-a$ \text{which also be called as \textbf{Borel measure}. And we can just calculate the measure of $G$ with limitation.}
+
+\text{Now we come back to the problem above}
+}
+
+  \noindent If $a = 3$, then $L = G$ and we proved the problem. If $a > 2, a \neq 3$, we can found a one-to-one map from $T_a(x)$ to $T_3(x)$ and the attractor will express same property as $a = 3$. So we finally proved that $\forall a > 2$, $x \in[0 ,1] \text{ a.e. s.t} \exists N, \forall n > N, f^n(x) < 0 \blacksquare$
+
+\end{proof}
+}
+
+Now we come back to the title of this section, so that means ``fractal''? We know that for every subset of Cantor set, or attractor of $T_a (a>2)$ map, these subset showed us same property of the original set and we called this \textbf{self-similar} set as \textbf{fractal}.
+
+Here are some example of fractal set.
+
+\begin{definition}\textbf{Iterated function system}.
+\\\noindent Consider a group of map on $R^m$ s.t. $f = \{f_1, f_2, \ldots f_r\}$ and for every maps, exists a positive number $p_1, p_2, \ldots p_r$ s.t. $\sum_{i = 1}^{r} p_i = 1$ (probabilities). Then we called this group of $f_i$ is iterated function system.
+\end{definition}
+
+\begin{example} (A simple iterated function system)
+\\\noindent \textbf{0} Roll a point $x_0$ randomly in $[0, 1]$
+\\\noindent \textbf{[i]} flip a coin, 
+\\\noindent \textbf{[i-1]} if coin comes up heads, then move the point $x_{i-1}$ to $x_i = {2\over 3} x_{i-1}$
+\\\noindent \textbf{[i-2]} if coin comes up tails, then move the point $x_{i-1}$ to $x_i = {1 \over 3}(1 + 2x_{i-1})$
+\end{example}
 
 
 
@@ -2264,6 +2341,7 @@ $$
 
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 
 
