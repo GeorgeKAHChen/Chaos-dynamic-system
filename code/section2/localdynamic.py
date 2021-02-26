@@ -3,12 +3,12 @@ import math
 import copy
 import random
 import Init
-
+import numpy as np
 
 DATA_OUTPUT = True
 OUTPUT_LOCATION = "./output"
 
-MODE = "A"
+MODE = "S"
 """
 C: Analysis the convergence and disconvergence in circle neighborhood
 S: Analysis every point in square is convergence or disconvergence
@@ -20,31 +20,60 @@ A: Plot the attractor orbit
 center = [-0.3, -0.3]               # [C] Center of Neighborhood
 #center = [0, 0]                    # [C] Center of Neighborhood
 epsilon = 0.3                       # [C] Radius of the circle neighborhood
+
+# Self-similar Check parameter group
+
+# G1
 interval_x = [-2.5, 2.5]            # [S] Interval of x in square neighborhood
 interval_y = [-2.5, 2.5]            # [S] Interval of y in square neighborhood
-distance = 0.001                    # [C][S] Distant of point, both in circle and square neighborhood
+distance = 0.01                     # [C][S] Distant of point, both in circle and square neighborhood
+
+
+"""
+# G2
+interval_x = [0.78, 0.94]           # [S] Interval of x in square neighborhood
+interval_y = [0.78, 0.94]           # [S] Interval of y in square neighborhood
+distance = 0.0003                   # [C][S] Distant of point, both in circle and square neighborhood
+"""
+
+"""
+# G3
+interval_x = [0.865, 0.895]         # [S] Interval of x in square neighborhood
+interval_y = [0.865, 0.895]         # [S] Interval of y in square neighborhood
+distance = 5e-5                     # [C][S] Distant of point, both in circle and square neighborhood
+"""
+
+"""
+# G4
+interval_x = [0.881, 0.886]         # [S] Interval of x in square neighborhood
+interval_y = [0.881, 0.886]         # [S] Interval of y in square neighborhood
+distance = 1e-5                     # [C][S] Distant of point, both in circle and square neighborhood
+"""
+
 initial_value = [1 , 1]             # [O] Initial value of the function
 #iteration_time = 50                # [C][S][O][A] Iteration time
-iteration_time = 2000              # [C][S][O][A] Iteration time
-#iteration_time = 3                 # [C][S][O][A] Iteration time
-mark_time = 1000                   # [A] mark time: program will plot the point after this iterate time
+iteration_time = 1000               # [C][S][O][A] Iteration time
+mark_time = 1000                    # [A] mark time: program will plot the point after this iterate time
 total_max = 1                       # [A] total initial point in figure (normal = 1)
 boundary = [-10, 10, -10, 10]       # [S] "Infinity" boundary
 
 iteration_color_loop = ["r", "g", "b", "c", "m"]
 point_size = 0.1
 
-image_name = "./Output" + "128--03" + ".png"
+image_name = "./Output" + "128--03234" + ".png"
 def f(group_x):
     #print(group_x[0], group_x[1], -group_x[0] * group_x[0] + 0.4 * group_x[1], group_x[0])
     #a, b = 1.4, -0.3
     #a, b = 2, -0.3
     #a, b = 1.28, -0.3
     #a, b = 0, 0.4
-    a, b = 2, 0.4
+    #a, b = 2, 0.4
     #a, b = 2, 0.05
     #a, b = 2, 0.05
     #a, b = 2, 0.05
+    #a, b = 1.4, 0.3
+    a, b = 1.4, 0.3
+    #a, b = 1.2, 0.4
     return [a - group_x[0] * group_x[0] + b * group_x[1], group_x[0]]
 #============================================
 
@@ -265,9 +294,12 @@ def main():
                     out_y.append(current[1])
 
             print()
+            """
             for kase in range(0 ,len(out_x)):
                 print(kase, len(out_x), end = "\r")
                 plt.scatter(out_x[kase], out_y[kase], color = "r", s = 0.3)
+            """
+            plt.plot(out_x, out_y, color = "b")
             print()
 
         plt.show()

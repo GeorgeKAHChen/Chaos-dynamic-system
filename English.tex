@@ -2347,7 +2347,8 @@ $$
 \newpage
 \section{Fractal}
 
-\subsection{General tent map}
+
+\subsection{General tent map, Cantor set and self-similar attractor}
 In this section, we will mainly focus on the general tent map
 $$
 T_a(x) = \left\{\begin{array}{ll}
@@ -2399,7 +2400,9 @@ $$
 \text{Based on the knowledge in real analysis, we know that }
 \begin{property} $\mu(C) = 0, \mu(G) = 1$ where $\mu$ is measure of set.
 \end{property}
-\text{The proof of this property is simple because we know that for a certain interval $(a, b)$, the measure }$\mu\left((a, b)\right) = b-a$ \text{which also be called as \textbf{Borel measure}. And we can just calculate the measure of $G$ with limitation.}
+\text{The proof of this property is simple because we know that for a certain interval $(a, b)$, the measure }
+\\\noindent $\mu\left((a, b)\right) = b-a$ \text{which also be called as \textbf{Borel measure}. And we can just calculate the measure of $G$} 
+\\\noindent \text{with limitation.}
 
 \text{Now we come back to the problem above}
 }
@@ -2420,11 +2423,157 @@ Here are some example of fractal set.
 \begin{example} (A simple iterated function system)
 \\\noindent \textbf{0} Roll a point $x_0$ randomly in $[0, 1]$
 \\\noindent \textbf{[i]} flip a coin, 
-\\\noindent \textbf{[i-1]} if coin comes up heads, then move the point $x_{i-1}$ to $x_i = {2\over 3} x_{i-1}$
-\\\noindent \textbf{[i-2]} if coin comes up tails, then move the point $x_{i-1}$ to $x_i = {1 \over 3}(1 + 2x_{i-1})$
+\\\noindent \textbf{[i-1]} if coin comes up heads, then move the point $x_{i-1}$ to $x_i = {1\over 3} x_{i-1}$
+\\\noindent \textbf{[i-2]} if coin comes up tails, then move the point $x_{i-1}$ to $x_i = {1 \over 3}(2 + x_{i-1})$
+\end{example}
+
+We can simulate this example with code, if we statistic the point, or find the density figure of map, we found that 
+.\\[4ex]
+\begin{figure}[H]
+\begin{minipage}[c][0.33\width]{
+   0.33\textwidth}
+   \centering
+   \includegraphics[width=.9\textwidth]{figure/section4/simple-stats-3.png}
+\end{minipage}
+\begin{minipage}[c][0.33\width]{
+   0.33\textwidth}
+   \centering
+   \includegraphics[width=.9\textwidth]{figure/section4/simple-stats-5.png}
+\end{minipage}
+\begin{minipage}[c][0.33\width]{
+   0.33\textwidth}
+   \centering
+   \includegraphics[width=.9\textwidth]{figure/section4/simple-stats-7.png}
+\end{minipage}
+\\[3ex]\caption{Simulation of Simple Ierated Function System}\label{Simple-iter-system}
+\end{figure}
+which showed us the property of Cantor set, and we can guess that the Cantor set is the attractor of the probabilitic constructions.
+
+
+
+Here is another example of self-similar map.
+\begin{example}\textbf{Sierpinski carpet}
+.\\[4ex]
+\begin{figure}[H]
+\begin{minipage}[c][0.15\width]{
+   0.15\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section4/carpet1.png}
+\end{minipage}
+\begin{minipage}[c][0.15\width]{
+   0.15\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section4/carpet2.png}
+\end{minipage}
+\begin{minipage}[c][0.15\width]{
+   0.15\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section4/carpet3.png}
+\end{minipage}
+\begin{minipage}[c][0.15\width]{
+   0.15\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section4/carpet4.png}
+\end{minipage}
+\begin{minipage}[c][0.15\width]{
+   0.15\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section4/carpet5.png}
+\end{minipage}
+\begin{minipage}[c][0.15\width]{
+   0.15\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section4/carpet6.png}
+\end{minipage}
+\\[3ex]\caption{Sierpinski carpet}\label{Sierpinski-carpet}
+\end{figure}
 \end{example}
 
 
+
+
+
+
+
+
+Of couse, Henon's map also have this fractal property.\\[5ex]
+\begin{figure}[H]
+\begin{minipage}[c][0.23\width]{
+   0.23\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section4/Henon-self-similar-00.png}
+\end{minipage}
+\begin{minipage}[c][0.23\width]{
+   0.23\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section4/Henon-self-similar-01.png}
+\end{minipage}
+\begin{minipage}[c][0.23\width]{
+   0.23\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section4/Henon-self-similar-02.png}
+\end{minipage}
+\begin{minipage}[c][0.23\width]{
+   0.23\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section4/Henon-self-similar-03.png}
+\end{minipage}
+\\[5ex]\caption{Fractal in Henon's map}\label{Fractal-henon}
+\end{figure}
+
+
+
+
+
+
+Moreover, we can also discuss this fractal property in basin.\\[5ex]
+\begin{figure}[H]
+\begin{minipage}[c][0.33\width]{
+   0.33\textwidth}
+   \centering
+   \includegraphics[width=.7\textwidth]{figure/section4/Henon-basin-00.png}
+\end{minipage}
+\begin{minipage}[c][0.33\width]{
+   0.33\textwidth}
+   \centering
+   \includegraphics[width=.7\textwidth]{figure/section4/Henon-basin-01.png}
+\end{minipage}
+\begin{minipage}[c][0.33\width]{
+   0.33\textwidth}
+   \centering
+   \includegraphics[width=.7\textwidth]{figure/section4/Henon-basin-02.png}
+\end{minipage}
+\\[5ex]\caption{Fractal in basin of Henon's map}\label{Fractal-henon-basin}
+\end{figure}
+
+
+
+\begin{example}\textbf{Julia set, Mandelbrot set}
+\\\noindent Now we consider a map in complex values
+$$
+P_c(z) = z^2 + c
+$$
+where $z, c$ are complex number s.t. $\exists x, y, c_x, c_y \in \mathcal R, z = x + yi, c = c_x + c_yi$ and $i = \sqrt{-1}$. Based on the calculation rules of complex number, we know 
+$$
+P_c(z) = (x+yi)^1 + (c_x + c_yi) = x^2 + 2xyi - y^2 + c_x + c_yi = (x^2 - y^2 + c_x) + i(2xy + c_y)
+$$
+so we have 
+$$
+f(x, y) = (Re[P_c(z)], Im[P_c(z)]) = (x^2 - y^2 + c_x) + i(2xy + c_y) 
+\Rightarrow \left\{
+\begin{array}{l}
+x_{n+1} = x_n^2 - y_n^2 + c_x \\
+y_{n+1} = 2x_ny_n + c_y
+\end{array}\right.
+$$
+where $n \in \mathcal N, x_n, y_n, c_x, c_y \in \mathcal R$ are $c_x, c_y$ is constant.
+
+We know that if we consider a map formed $f(x,y) = x^2 + y^2$, then the unit circle is important, for ever point inside the unit circle, the are all sink to zero point and for every point outside the unit circle, they will go to infinity after enough iteration. 
+\end{example}
+
+
+
+\subsection{Fractal dimension}
 
 
 

@@ -12,18 +12,20 @@ COLOR_LOOP = ["r", "g", "b", "c", "m"]
 #
 #
 #=========================================
-"""
-#rho = 28.0
-#sigma = 10.0
-#beta = 8.0 / 3.0
 
-rho = 45.92
-sigma = 4
-beta = 10
+rho = 28.0
+sigma = 10.0
+beta = 8.0 / 3.0
 
-Delta_t = 0.001
+#rho = 45.92
+#sigma = 4
+#beta = 10
+
+#Delta_t = 0.001
+#Delta_t = 1
+Delta_t = 0.01
 initial_value = [1.0, 1.0, 1.0]
-x_axis = np.arange(0.0, 500.0, Delta_t)
+x_axis = np.arange(0.0, 50.0, Delta_t)
 
 def f(state, t):
     x, y, z = state
@@ -36,10 +38,11 @@ def Jf(state):
                       [Delta_t * (rho - z),         1 - Delta_t ,           -Delta_t * x], 
                       [Delta_t * y,                 Delta_t * x,            1 - Delta_t * beta]])
 
+
 def states():
     return odeint(f, initial_value, x_axis)
 
-"""
+
 
 
 
@@ -111,7 +114,35 @@ def states():
 
 
 
+
 def main():
+    """         
+    curr_states = states()
+    Lyapunov_spec = []
+    e = np.array([0 for n in range(len(initial_value))])
+    for kase in range(0, len(curr_states)):
+        print(kase, len(curr_states), end = "\r")
+        Jacobian = Jf(curr_states[kase])
+        eig_val, eig_vec = np.linalg.eig(Jacobian)
+        for ttl in range(0, len(initial_value)):
+            e[ttl] += np.log(np.abs(np.real(eig_val[ttl])))
+        Lyapunov_spec.append(np.power(e, 1/(kase+1)))
+    print()
+    print(Lyapunov_spec)
+    print()
+    val_x = x_axis
+    plt.grid(True)
+    for i in range(0, len(initial_value)):
+        val = []
+        for j in range(0, len(Lyapunov_spec)):
+            val.append(Lyapunov_spec[j][i])
+        plt.plot(val_x, val, COLOR_LOOP[i % len(COLOR_LOOP)])
+
+    plt.show()  
+    
+
+
+    """
     curr_states = states()
     matrix_eigen = []
     for kase in range(0, len(curr_states)):
@@ -138,7 +169,8 @@ def main():
             val.append(Lyapunov_spec[j][0][i])
         plt.plot(val_x, val, COLOR_LOOP[i % len(COLOR_LOOP)])
 
-    plt.show()           
+    plt.show()  
+    
     
 
 if __name__ == '__main__':
