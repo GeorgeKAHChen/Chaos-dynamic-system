@@ -21,15 +21,17 @@ def main():
         #print(new_block)
         basic_block = new_block
     print()
+    """
     for i in range(0, len(basic_block)):
         for j in range(0, len(basic_block[i])):
             if basic_block[i][j] == 0:
                 basic_block[i][j] = [0, 0, 0]
             else:
                 basic_block[i][j] = [255, 255, 255]
+    
+    """
     Filename = FILE_DIR + str(iteration_time+1) + ".png"
-
-    Init.ImageIO(file_dir = Filename, img = np.float32(basic_block), io = "o", mode = "grey", backend = "Pillow")
+    Init.ImageIO(file_dir = Filename, img = np.float32(basic_block), io = "o", mode = "grey", backend = "opencv")
 
 
 """

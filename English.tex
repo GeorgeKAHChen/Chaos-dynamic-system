@@ -2117,222 +2117,6 @@ Typically, we can discribe the Ulam-von Neumann transformations with properties 
 It is difficult to proof these theorem strickly beacause we need tools of mainfold as well as real analysis. So here we just introduce these definition and conclusions.
 
 
-\subsection{Lyapunov Spectrum}
-In the last of this section, we mainly discussed the judgement of chaos in 1 dimension. Here we will focus on the Lyapunov exponent in high dimension. Obviously, in high dimension, the $\delta_n$ function we used in Discussion \ref{Lyapunov-exp-discussion} will be a $m$ dimension vector $\mathbf \delta_n$ and we have
-$$
-\mathbf \delta_n = \exp(\lambda t)\mathbf\delta_0
-$$
-However, we know that in high dimension problem it is difficult to find every orbit convergence together and in most time some of them decreasing and the others are increasing. So we want to know the Lyapunov exponent for every dimension rather than in all dimension. Note that the exponent of a matrix still a matrix, let $\lambda$ to $\Lambda$ which is a $m\times m$ dimension matrix, then
-$$
-n\rightarrow \infty, \mathbf \delta_n = \exp(\Lambda t)\mathbf\delta_0 =  \mathbf\delta_0 
-\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[{1\over n}\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|\right] 
-= \lim_{n \rightarrow \infty}\left[\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|^{1\over n}\right] 
-$$
-
-\textbf{[i] $f$ is linear map}
-\\\noindent If $f$ is a linear map, then $\exists P \text{ s.t. } f(\mathbf x) = P\mathbf x$ and 
-$$
-\mathbf\delta_{n} = f(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - f(\mathbf x_{n-1}) = P(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - P\mathbf x_{n-1}= P\mathbf \mathbf\delta_n = P^{n} \delta_0
-$$
-Let the Jordian norm form of $P$ is $J$ and $P$ s.t. $P = V^{-1} J V$, then 
-$$
-\left|{\delta_n \over \delta_0}\right| = |P^{n}| = V^{-1} J^n V 
-\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|^{1\over n}\right] 
-\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[\log\left|J^n\right|^{1\over n}\right] = \log|J|
-$$
-where $J$ is based on the eigenvalue of $P$. So we found that for a linear system, the Lyapunov spectrum is based on the eigenvalue of the matrix $P$.
-
-
-\textbf{[ii] $f$ is non-linear map}
-\\\noindent Now we focus on the problem that $f$ is not a linear map. Typically, we will use Jacobian matrix to linearize the problem and for a sequence $x_i$ we have 
-$$
-\mathbf x_{i+1} = f(\mathbf x_i) = P_i \mathbf x_i
-$$
-where $P_i$ is Jacobian matrix near the point $x_i$, and 
-$$
-\mathbf x_{i+1} + \mathbf\delta_{i+1} = f(\mathbf x_i + \mathbf\delta_{i}) = P_i \mathbf x_i + P_i\mathbf\delta_{i+1}
-$$
-Then we have 
-$$
-\mathbf\delta_{n} = f(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - f(\mathbf x_{n-1})
-= P_{n-1} (\mathbf x_{n-1} + \mathbf\delta_{n-1}) - P_{n-1}(\mathbf x_{n-1}) = P_{n-1}\mathbf\delta_{n-1}
-= \ldots = \prod_{i = n - 1}^{0}P_i\mathbf\delta_0
-$$
-and 
-$$
-\mathbf\delta_{n} = P_nP_{n-1}P_{n-2}\ldots P_1 P_0\mathbf\delta_0 \Rightarrow {\delta_n \over \mathbf\delta_0} = \prod_{i = 1}^{0}P_i
-$$
-So we have 
-$$
-\Lambda = \lim_{n \rightarrow \infty}\left[\log\left|\prod_{i = n}^{0}P_i\right|^{1\over n}\right] = \lim_{n \rightarrow \infty}\left[\log\left|\prod_{i = n}^{0}J_i\right|^{1\over n}\right]
-$$
-where $J_i$ is Jordan norm form of Jacobian matrix $P_i$
-
-Fianlly, we summaried an algorithm to calculate the Lyapunov spectrum for arbitrary map.
-
-\begin{algorithm}[H]
-\caption{Calculation of Lyapunov spectrum}\label{Lyapunov-spectrum}
-\begin{algorithmic}
-\State \textbf{INPUT:} Values of system: $x_0, x_1, \ldots x_N$;
-\State \Procedure{Eigenvalue}{matrix};\Comment{Return the eigenvalue vector of input matrix.}\EndProcedure
-\State \Procedure{Jacobian}{value};\Comment{Return the Jacobian matrix at input value}\EndProcedure
-
-\State \Procedure{LyapunovSpectrumCalculation}{}
-\State \textit{float} $\text{Power} = \text{Eigenvalue}(J(x_0))$; 
-\State \textit{list} LyapunovSpectrum;
-\For {$i = 1, i \leq N, i ++$} 
-    \State $\text{Power} = \text{Eigenvalue}(J(x_i))\text{Power}^{i-1\over i}$;
-    \State $\text{LyapunovSpectrum.push}(\log|\text{Power}|)$;
-\EndFor
-\State \Return LyapunovSpectrum
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
-
-
-
-\begin{example}\textbf{Lyapunov spectrum in Henon's map}
-\\\noindent Firstly we consider the Henon's map
-$$
-\left\{\begin{array}{l}
-x = 1 - ax^2 + by \\
-y = x
-\end{array}\right. \text{ and the Jacobian matrix is } J(x, y) = \left[\begin{array}{lll}
--2ax    & b \\
-1       & 0
-\end{array}\right]
-$$
-Based on the Algo. \ref{Lyapunov-spectrum}, we can calculate the Lyapunov spectrum numerically.
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Henon.png} \\
-\caption{Lyapunov spectrum in Henon's map($a = 2, b = 0.3$)}
-\end{center}
-\end{figure}
-\end{example}
-
-
-Now we consider a continuous system s.t. $\dot x = f(x), x(0) = x_0$ where $x_0$ is a constant vector at initial time $t_0$. With Ronge-kutta method, we can find a group of value to simulate the system. So we can change the system to a map formed 
-$$
-x_{n+1} = g(x_n, t_n), x_0 = x(0), t_{n+1} = t_n + \Delta t
-$$
-where $g$ is based on the Ronge-kutta method. 
-\\\noindent Here we don't care about the formula $g$, we just consider for a certain $n$, if we still find a Jacobian matrix $J_n$, then $x_{n+1} = J_n x_n$.
-\\\noindent On the other hand, we know that 
-$$
-\dot x = {x(t_0+(n+1)\Delta t) - x(t_0+n\Delta t) \over \Delta t} = {x_{n+1} - x_n \over \Delta t} = f(x_n)
-$$
-            In a certain model, we know the formula of $f$ as well as parameter $\Delta t$. Let $\bar J(x)$ is Jacobian matrix of $f(x)$, then
-$$
-x_{n+1} - x_n = \Delta t \bar J(x_n)x_n = (J_n - I_n) x_n \Rightarrow J_n = \Delta t\bar J(x_n) + I_n
-$$
-
-
-
-\begin{example}\textbf{Lyapunov spectrum in Lorenz system}
-\\\noindent Now we consider the Lorenz system:
-$$
-\left\{\begin{array}{lll}
-\dot x & = & \sigma(y - x) \\
-\dot y & = & x(\rho - z) - y \\
-\dot z & = & xy - \beta z
-\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z) = \left[\begin{array}{lll}
--\sigma     & \sigma    & 0         \\
-(\rho-z)    & -1        & -x        \\
-y           & x         & -\beta
-\end{array}\right]
-$$
-So the Jacobian matrix of the discrete maps is 
-$$
-J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
-1 - \sigma \Delta t     & \sigma \Delta t       & 0                     \\
-(\rho-z) \Delta t       & 1 -\Delta t           & -x\Delta t            \\
-y\Delta t               & x\Delta t             & 1 -\beta \Delta t
-\end{array}\right]
-$$
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
-\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
-\end{center}
-\end{figure}
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-2.png} \\
-\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.001)$)}
-\end{center}
-\end{figure}
-\end{example}
-
-
-
-
-\begin{example}\textbf{Lyapunov spectrum in Rossler system}
-\\\noindent Now we consider the Rossler system:
-$$
-\left\{\begin{array}{lll}
-\dot x & = & -y-z \\
-\dot y & = & x+ay \\
-\dot z & = & b+z(x-c)
-\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z) = \left[\begin{array}{lll}
-0           & -1        & -1        \\
-1           & a         & 0         \\
-z           & 0         & x-c
-\end{array}\right]
-$$
-So the Jacobian matrix of the discrete maps is 
-$$
-J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
--1                  & -\Delta t         & -\Delta t         \\
-\Delta t            & a\Delta t -1      & 0                 \\
-z\Delta t           & 0                 & (x-c)\Delta t - 1
-\end{array}\right]
-$$
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
-\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
-\end{center}
-\end{figure}
-{\color{red}[TODO]}
-\end{example}
-
-
-
-\begin{example}\textbf{Lyapunov spectrum in Duffing system}
-\\\noindent Now we consider the Duffing system:
-$$
-\left\{\begin{array}{lll}
-\dot x & = & -y-z \\
-\dot y & = & x+ay \\
-\dot z & = & b+z(x-c)
-\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z) = \left[\begin{array}{lll}
-0           & -1        & -1        \\
-1           & a         & 0         \\
-z           & 0         & x-c
-\end{array}\right]
-$$
-So the Jacobian matrix of the discrete maps is 
-$$
-J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
--1                  & -\Delta t         & -\Delta t         \\
-\Delta t            & a\Delta t -1      & 0                 \\
-z\Delta t           & 0                 & (x-c)\Delta t - 1
-\end{array}\right]
-$$
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
-\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
-\end{center}
-\end{figure}
-
-\end{example}
-
-
-
-
 
 \begin{figure}[H]
 \begin{center}
@@ -2583,7 +2367,16 @@ $$
 M = \{c: 0 \text{ is not in the basin of infinity for the map } P_c(z) = z^2 + c\}
 $$
 
-We can analysis the convergence and disconvergence of this complex map too. For a certain $c$, now we consider the convergence and disconvergence for every point in the space.\\[4ex]
+We can analysis the convergence and disconvergence of this complex map too. For a certain $c$, now we consider the convergence and disconvergence for every point in the space. We called this set as Julia set.
+\begin{definition} \textbf{Julia set}
+\\\noindent Consider a map $f: \mathcal R^n \rightarrow \mathcal R^n$
+$$
+J(f) = \{x | x \in R^n, \forall \varepsilon > 0, \exists x_1, x_2 \in N(x, \varepsilon) s.t. \left(\lim_{n \rightarrow \infty}f^n(x_1) < \infty \land \lim_{n \rightarrow \infty}f^n(x_2) = \infty\right)\}
+$$
+which is the boundary points between convergence area and disconvergence area.
+\end{definition}
+
+\newpage
 \begin{figure}[H]
 \begin{minipage}[c][0.24\width]{
    0.24\textwidth}
@@ -2627,7 +2420,102 @@ img & x & y & img & x & y\\
 
 
 
+
+
 \subsection{Fractal dimension}
+Finally, we try to analysis the calculation of these fractal. In analysis we know that \textbf{measure} is a describe of area, also we define the Lebesgue outer measure in follow
+
+
+\begin{definition}\textbf{Eculidean rectangle Neighbourhood}
+\\\noindent 1. Opened box $I = \{x = (x_1, x_2, \ldots ,x_n) | a_i < x_i < b_i, i \in N\}$, where $a_i, b_i$ are constant;
+\\\noindent 2. Closed box $I = \{x = (x_1, x_2, \ldots ,x_n) | a_i \leq x_i \leq b_i, i \in N\}$, where $a_i, b_i$ are constant;
+\\\noindent Called the $b_i - a_i$ is side length of a box. If $|b_1 - a_1| = |b_2 - a_2| = \ldots = |b_n - a_n|$, then called this box as cube.
+\end{definition}
+
+
+
+\begin{definition}\textbf{Lebesuge outer measure}
+$$
+\mu^*E = \inf \left\{ \sum_{i = 1}^{\infty}|I_i|: E \subset \bigcup_{i = 1}^{\infty} I_i, I_i\text{ is an opened box}\right\}
+$$
+  \noindent Also, we can define the outer measure with $\varepsilon$ (Familiar with Cauchy's limitation)
+$$
+\forall \varepsilon >0, \exists \{I_i\}\text{ open cover } s.t. E\subset\bigcup_{i = 1}^{\infty} I_i \land \mu^*E\leq \sum_{i = 1}^{\infty}|I_i| + \varepsilon
+$$
+\end{definition}
+
+In this subsection, we mainly focus on the area based on the cube. 
+
+
+
+\begin{definition}\textbf{$C(1/\varepsilon)$ cube}
+\\\noindent Now we consider a special type of cover.
+\\\noindent \textbf{[i]} Firstly, for a interval $I_1 = [a_1, b_1]$, let the side length of boxes is $\varepsilon$, then we have $N = \text{int}(C/\varepsilon) + 1$ subintervals to cover the original interval. (e.g. $[a_1 + (p - 1)C/\varepsilon, a_1 + pC/\varepsilon], p = 1, 2, \ldots N$)
+\\\noindent \textbf{[ii]} Now we consider a surface in $R^n$ space, let the projection on $x_i$ axis is $I_i = [a_i, b_i]$, and $C = \max\{\mu(I_i)\}, i = 1, 2, \ldots, n$, then we have a group of cube total $N(\varepsilon) = (C\varepsilon)^n$ and 
+$$
+d = {\ln N(\varepsilon) - \ln C \over \ln(1/ \varepsilon)}
+$$
+\end{definition}
+
+
+\begin{definition}\textbf{$C(1/\varepsilon)$ cube}
+\\\noindent A bounded set $s \subset R^n$ has box-counting dimension 
+$$
+bd(S) = \lim_{\varepsilon \rightarrow \infty} {\ln(N(\varepsilon)) \over \ln(1 /\varepsilon)}
+$$
+when the limit exists.
+\end{definition}
+
+\begin{conclusion}Based on the Bolzano–Weierstrass theorem, we know that if we have a sequence $\{b_n\}$ s.t. $\lim_{n \rightarrow \infty}b_n = 0$, if $b_n$ is $\varepsilon$ then $\lim_{n \rightarrow \infty}{\ln b_{n+1} \over \ln b_n} = 1$
+\end{conclusion}
+
+
+\begin{conclusion}We still consider the sequence above, then 
+$$
+{N(b_n) \over 4} \leq N(b_n) \leq 4N(b_{n+1})
+$$
+and the proof is simple with figure follows
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.25\textwidth]{figure/section4/mandelbrot.png} \\
+\end{center}
+\end{figure}
+\end{conclusion}
+
+\begin{theorem} If $\{b_n\}$ is monotony, or assume $b_1 > b_2 > \ldots > b_n > \ldots > b_\infty = 0$ If
+$$
+\lim_{n \rightarrow \infty} \left(\ln b_{n+1} \over \ln b_n\right) = 1 \land \lim_{n - >\infty}\left({\ln N(b_n) \over \ln(1 / b_n)}\right) = d=
+$$
+then $\lim_{\varepsilon \rightarrow 0}{\ln N(\varepsilon) \over \ln (1 / \varepsilon)} = d$ and therefore the box-counting dimension is $d$.
+\end{theorem}
+
+
+\begin{theorem} If $S \subset R^n$ is bounded and $bd(S) = d < n$, then $\mu(S) = 0$
+\end{theorem}
+
+
+Another way to calculate the measure of a area is based on the statistic, 
+\begin{definition}\textbf{Correlation dimension}
+Let $S = \{v_0, v_1, \ldots\}$ be an orbit of the map $f: \mathcal R^n \rightarrow \mathcal R^n$, then for ever $r > 0$, define $C(r)$ s.t.
+$$
+C(r) = \lim_{N \rightarrow \infty}{\left|\left\{(p, q)| p, q \in S, |p - q| < r\right\}\right| \over \left|\left\{(p, q)| p, q \in S\right\}\right|}
+$$
+Moreover, if $C(r) \approx r^d$, then
+$$
+d \approx cd(S) = \lim_{r \rightarrow \infty}{\ln C(r) \over \ln(r)}
+$$
+\end{definition}
+
+And here we found another way to calculation the area of attractor.
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2636,41 +2524,219 @@ img & x & y & img & x & y\\
 
 
 \newpage
-\appendix
-\section{The toolbox in real analysis}
-
-Outline: $\sigma -$ algebra(Upper set, $A^c$ include, countable union include) $\rightarrow$ (Lebesgue) measure, measurable space, measurable set $\rightarrow$ measurable function $\rightarrow$ function sequence　$\rightarrow $ Lebesgue integrable $\rightarrow$ $L^p$ space and norm.
-
-
-\begin{conclusion} $\lim$ and $\int$ will exchange their location like 
+\section{Chaos in high dimension map}
+\subsection{Lyapunov Spectrum}
+In the section 3, we mainly discussed the judgement of chaos in 1 dimension. Here we will focus on the Lyapunov exponent in high dimension. Obviously, in high dimension, the $\delta_n$ function we used in Discussion \ref{Lyapunov-exp-discussion} will be a $m$ dimension vector $\mathbf \delta_n$ and we have
 $$
-\lim_{n\rightarrow \infty}\int_{X}f_n(x) d\mu = \int_{X}f(x)d\mu\ \ \ \ (\{f_n\} \xrightarrow {a.e.} f)
+\mathbf \delta_n = \exp(\lambda t)\mathbf\delta_0
 $$
-if $|f_n(x)| < g(x)$ and $g(x)$ is a (Lebesgue) integrable function.
-\end{conclusion}
+However, we know that in high dimension problem it is difficult to find every orbit convergence together and in most time some of them decreasing and the others are increasing. So we want to know the Lyapunov exponent for every dimension rather than in all dimension. Note that the exponent of a matrix still a matrix, let $\lambda$ to $\Lambda$ which is a $m\times m$ dimension matrix, then
+$$
+n\rightarrow \infty, \mathbf \delta_n = \exp(\Lambda t)\mathbf\delta_0 =  \mathbf\delta_0 
+\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[{1\over n}\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|\right] 
+= \lim_{n \rightarrow \infty}\left[\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|^{1\over n}\right] 
+$$
 
-\begin{theorem}\textbf{Radon-Nikodym theorem} 
-\\\noindent Let $(X, \mathcal A, \mu)$ is a measure space and $\nu$ be a second finite measure s.t. 
+\textbf{[i] $f$ is linear map}
+\\\noindent If $f$ is a linear map, then $\exists P \text{ s.t. } f(\mathbf x) = P\mathbf x$ and 
 $$
-\forall A \in \mathcal A, \mu(A) = 0 \Rightarrow \nu(A) = 0
+\mathbf\delta_{n} = f(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - f(\mathbf x_{n-1}) = P(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - P\mathbf x_{n-1}= P\mathbf \mathbf\delta_n = P^{n} \delta_0
 $$
-then, there exists a non-negative integrable function $f:X \rightarrow R$ s.t.
+Let the Jordian norm form of $P$ is $J$ and $P$ s.t. $P = V^{-1} J V$, then 
 $$
-\forall A \in \mathcal A, \nu(A) = \int_{A}f(x) \mu(dx)
+\left|{\delta_n \over \delta_0}\right| = |P^{n}| = V^{-1} J^n V 
+\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|^{1\over n}\right] 
+\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[\log\left|J^n\right|^{1\over n}\right] = \log|J|
 $$
-\end{theorem}
+where $J$ is based on the eigenvalue of $P$. So we found that for a linear system, the Lyapunov spectrum is based on the eigenvalue of the matrix $P$.
+
+
+\textbf{[ii] $f$ is non-linear map}
+\\\noindent Now we focus on the problem that $f$ is not a linear map. Typically, we will use Jacobian matrix to linearize the problem and for a sequence $x_i$ we have 
+$$
+\mathbf x_{i+1} = f(\mathbf x_i) = P_i \mathbf x_i
+$$
+where $P_i$ is Jacobian matrix near the point $x_i$, and 
+$$
+\mathbf x_{i+1} + \mathbf\delta_{i+1} = f(\mathbf x_i + \mathbf\delta_{i}) = P_i \mathbf x_i + P_i\mathbf\delta_{i+1}
+$$
+Then we have 
+$$
+\mathbf\delta_{n} = f(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - f(\mathbf x_{n-1})
+= P_{n-1} (\mathbf x_{n-1} + \mathbf\delta_{n-1}) - P_{n-1}(\mathbf x_{n-1}) = P_{n-1}\mathbf\delta_{n-1}
+= \ldots = \prod_{i = n - 1}^{0}P_i\mathbf\delta_0
+$$
+and 
+$$
+\mathbf\delta_{n} = P_nP_{n-1}P_{n-2}\ldots P_1 P_0\mathbf\delta_0 \Rightarrow {\delta_n \over \mathbf\delta_0} = \prod_{i = 1}^{0}P_i
+$$
+So we have 
+$$
+\Lambda = \lim_{n \rightarrow \infty}\left[\log\left|\prod_{i = n}^{0}P_i\right|^{1\over n}\right] = \lim_{n \rightarrow \infty}\left[\log\left|\prod_{i = n}^{0}J_i\right|^{1\over n}\right]
+$$
+where $J_i$ is Jordan norm form of Jacobian matrix $P_i$
+
+Fianlly, we summaried an algorithm to calculate the Lyapunov spectrum for arbitrary map.
+
+\begin{algorithm}[H]
+\caption{Calculation of Lyapunov spectrum}\label{Lyapunov-spectrum}
+\begin{algorithmic}
+\State \textbf{INPUT:} Values of system: $x_0, x_1, \ldots x_N$;
+\State \Procedure{Eigenvalue}{matrix};\Comment{Return the eigenvalue vector of input matrix.}\EndProcedure
+\State \Procedure{Jacobian}{value};\Comment{Return the Jacobian matrix at input value}\EndProcedure
+
+\State \Procedure{LyapunovSpectrumCalculation}{}
+\State \textit{float} $\text{Power} = \text{Eigenvalue}(J(x_0))$; 
+\State \textit{list} LyapunovSpectrum;
+\For {$i = 1, i \leq N, i ++$} 
+    \State $\text{Power} = \text{Eigenvalue}(J(x_i))\text{Power}^{i-1\over i}$;
+    \State $\text{LyapunovSpectrum.push}(\log|\text{Power}|)$;
+\EndFor
+\State \Return LyapunovSpectrum
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
 
 
-\begin{definition}\textbf{Space Adjoint}
-\\\noindent Let $(X, \mathcal A, \mu)$ be a measure space, the space adjoint to $L^p(X, \mathcal A, \mu)$ is $L^{p'}(X, \mathcal A, \mu)$, where 
-$$
-{1\over p } + {1\over p' }  = 1
-$$
-         Also, if $p = 1$, then $p' \rightarrow \infty$.
-\end{definition}
-%* In this section, we just review some basic definition and theory in real analysis. If you are interested in this part, please the ``Note of the real analysis and functional analysis''
 
+\begin{example}\textbf{Lyapunov spectrum in Henon's map}
+\\\noindent Firstly we consider the Henon's map
+$$
+\left\{\begin{array}{l}
+x = 1 - ax^2 + by \\
+y = x
+\end{array}\right. \text{ and the Jacobian matrix is } J(x, y) = \left[\begin{array}{lll}
+-2ax    & b \\
+1       & 0
+\end{array}\right]
+$$
+Based on the Algo. \ref{Lyapunov-spectrum}, we can calculate the Lyapunov spectrum numerically.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Henon.png} \\
+\caption{Lyapunov spectrum in Henon's map($a = 2, b = 0.3$)}
+\end{center}
+\end{figure}
+\end{example}
+
+
+Now we consider a continuous system s.t. $\dot x = f(x), x(0) = x_0$ where $x_0$ is a constant vector at initial time $t_0$. With Ronge-kutta method, we can find a group of value to simulate the system. So we can change the system to a map formed 
+$$
+x_{n+1} = g(x_n, t_n), x_0 = x(0), t_{n+1} = t_n + \Delta t
+$$
+where $g$ is based on the Ronge-kutta method. 
+\\\noindent Here we don't care about the formula $g$, we just consider for a certain $n$, if we still find a Jacobian matrix $J_n$, then $x_{n+1} = J_n x_n$.
+\\\noindent On the other hand, we know that 
+$$
+\dot x = {x(t_0+(n+1)\Delta t) - x(t_0+n\Delta t) \over \Delta t} = {x_{n+1} - x_n \over \Delta t} = f(x_n)
+$$
+            In a certain model, we know the formula of $f$ as well as parameter $\Delta t$. Let $\bar J(x)$ is Jacobian matrix of $f(x)$, then
+$$
+x_{n+1} - x_n = \Delta t \bar J(x_n)x_n = (J_n - I_n) x_n \Rightarrow J_n = \Delta t\bar J(x_n) + I_n
+$$
+
+
+
+\begin{example}\textbf{Lyapunov spectrum in Lorenz system}
+\\\noindent Now we consider the Lorenz system:
+$$
+\left\{\begin{array}{lll}
+\dot x & = & \sigma(y - x) \\
+\dot y & = & x(\rho - z) - y \\
+\dot z & = & xy - \beta z
+\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z) = \left[\begin{array}{lll}
+-\sigma     & \sigma    & 0         \\
+(\rho-z)    & -1        & -x        \\
+y           & x         & -\beta
+\end{array}\right]
+$$
+So the Jacobian matrix of the discrete maps is 
+$$
+J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
+1 - \sigma \Delta t     & \sigma \Delta t       & 0                     \\
+(\rho-z) \Delta t       & 1 -\Delta t           & -x\Delta t            \\
+y\Delta t               & x\Delta t             & 1 -\beta \Delta t
+\end{array}\right]
+$$
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
+\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-2.png} \\
+\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.001)$)}
+\end{center}
+\end{figure}
+\end{example}
+
+
+
+
+\begin{example}\textbf{Lyapunov spectrum in Rossler system}
+\\\noindent Now we consider the Rossler system:
+$$
+\left\{\begin{array}{lll}
+\dot x & = & -y-z \\
+\dot y & = & x+ay \\
+\dot z & = & b+z(x-c)
+\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z) = \left[\begin{array}{lll}
+0           & -1        & -1        \\
+1           & a         & 0         \\
+z           & 0         & x-c
+\end{array}\right]
+$$
+So the Jacobian matrix of the discrete maps is 
+$$
+J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
+-1                  & -\Delta t         & -\Delta t         \\
+\Delta t            & a\Delta t -1      & 0                 \\
+z\Delta t           & 0                 & (x-c)\Delta t - 1
+\end{array}\right]
+$$
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
+\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
+\end{center}
+\end{figure}
+{\color{red}[TODO]}
+\end{example}
+
+
+
+\begin{example}\textbf{Lyapunov spectrum in Duffing system}
+\\\noindent Now we consider the Duffing system:
+$$
+\left\{\begin{array}{lll}
+\dot x & = & -y-z \\
+\dot y & = & x+ay \\
+\dot z & = & b+z(x-c)
+\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z) = \left[\begin{array}{lll}
+0           & -1        & -1        \\
+1           & a         & 0         \\
+z           & 0         & x-c
+\end{array}\right]
+$$
+So the Jacobian matrix of the discrete maps is 
+$$
+J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
+-1                  & -\Delta t         & -\Delta t         \\
+\Delta t            & a\Delta t -1      & 0                 \\
+z\Delta t           & 0                 & (x-c)\Delta t - 1
+\end{array}\right]
+$$
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
+\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
+\end{center}
+\end{figure}
+
+\end{example}
 
 
 
