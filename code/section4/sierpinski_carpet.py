@@ -1,9 +1,38 @@
 import Init
 import numpy as np
-
+import copy
 FILE_DIR = "./img"
-iteration_time = 9
+iteration_time = 8
 
+
+def main():
+    basic_block = [[0, 0, 0], [0, 255, 0], [0, 0, 0]]
+    for kase in range(1, iteration_time+1):
+        new_block = [[255 for n in range(pow(3, kase+1))]for n in range(pow(3, kase+1))]
+        for p in range(0, 3):
+            for q in range(0, 3):
+                print(kase, iteration_time + 1, p, q ,end = "\r")
+                if p == 1 and q == 1:
+                    continue
+                for i in range(0, len(basic_block)):
+                    for j in range(0, len(basic_block[i])):
+                        #print(p, q, i, j)
+                        new_block[p * len(basic_block) + i][q * len(basic_block[0]) + j] = basic_block[i][j]
+        #print(new_block)
+        basic_block = new_block
+    print()
+    for i in range(0, len(basic_block)):
+        for j in range(0, len(basic_block[i])):
+            if basic_block[i][j] == 0:
+                basic_block[i][j] = [0, 0, 0]
+            else:
+                basic_block[i][j] = [255, 255, 255]
+    Filename = FILE_DIR + str(iteration_time+1) + ".png"
+
+    Init.ImageIO(file_dir = Filename, img = np.float32(basic_block), io = "o", mode = "grey", backend = "Pillow")
+
+
+"""
 def main():
     kase = iteration_time
     vals = [[[0]] for n in range(pow(pow(3, kase), 2))]
@@ -48,7 +77,7 @@ def main():
                 img[i][j] = [255, 255, 255]
     Init.ImageIO(file_dir = Filename, img = np.float32(img), io = "o", mode = "grey", backend = "Pillow")
     return
-
+"""
 
 if __name__ == '__main__':
     main()
