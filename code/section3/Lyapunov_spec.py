@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 import random
-
-
+from scipy import linalg
+import copy
 COLOR_LOOP = ["r", "g", "b", "c", "m"]
 
 #=========================================
@@ -140,34 +140,30 @@ def main():
 
     plt.show()  
     
-
-
     """
+
+
     curr_states = states()
-    matrix_eigen = []
-    for kase in range(0, len(curr_states)):
-        Jacobian = [Jf(curr_states[kase])]
-        eig_val, _ = np.linalg.eig(Jacobian)
-        eig_val = np.abs(np.real(eig_val))
-        matrix_eigen.append(eig_val)
+    output_vals = [[0 for n in range((len(initial_value)))]]
+    orth_mat = np.eye(len(initial_value))
+    for kase in range(0, len(curr_states) - 1):
+        Jacobian = np.matrix(Jf(curr_states[kase]))
+        orth_mat = np.matrix(linalg.orth(np.matrix(Jacobian * np.matrix(orth_mat))))
+        new_output = copy.deepcopy(output_vals[len(output_vals) - 1])
+        for i in range(0, len(initial_value)):
+            norm = np.linalg.norm(orth_mat[:, i])
+            new_output[i] += ((new_output[i] * kase) + np.log(norm)) / (kase + 1)
+        output_vals.append(new_output)
 
-    curr_expo = matrix_eigen[0]
-    Lyapunov_spec = [np.log(curr_expo)]
-    last_expo = curr_expo
-    for kase in range(1, len(curr_states)):
-        print(kase, len(curr_states), end = "\r")
-        curr_expo = np.power(matrix_eigen[kase], 1/(kase + 1))
-        curr_expo = curr_expo * np.power(last_expo, kase/(kase + 1))
-        Lyapunov_spec.append(np.log(curr_expo))
-        last_expo = curr_expo
 
+    output_vals = np.matrix(output_vals)
     val_x = x_axis
     plt.grid(True)
     for i in range(0, len(initial_value)):
-        val = []
-        for j in range(0, len(Lyapunov_spec)):
-            val.append(Lyapunov_spec[j][0][i])
-        plt.plot(val_x, val, COLOR_LOOP[i % len(COLOR_LOOP)])
+        val = np.array(output_vals[:, i].reshape(-1).reshape(-1))
+        print(val[0])
+        print(val_x)
+        plt.plot(val_x, val[0], COLOR_LOOP[i % len(COLOR_LOOP)])
 
     plt.show()  
     

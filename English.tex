@@ -2569,11 +2569,21 @@ $$
 where $n \in \mathcal N, x_n, y_n, c_x, c_y \in \mathcal R$ are $c_x, c_y$ is constant.
 
 We know that if we consider a map formed $f(x,y) = x^2 + y^2$, then the unit circle is important, for ever point inside the unit circle, the are all sink to zero point and for every point outside the unit circle, they will go to infinity after enough iteration. 
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figure/section4/mandelbrot.png} \\
+\caption{Mandelbrot set}\label{mandelbrot-set}
+\end{center}
+\end{figure}
 \end{example}
 
+We called the Black area in the image above as Mandelbrot set, more mathematically, the \textbf{Mandelbrot set} is
+$$
+M = \{c: 0 \text{ is not in the basin of infinity for the map } P_c(z) = z^2 + c\}
+$$
 
-
-
+We can analysis the attractor of this complex map too. If we consider a certain $c$ like $ c = -0.17+0.78i = c_{x0} + ic_{y0}$, then 
 
 \subsection{Fractal dimension}
 

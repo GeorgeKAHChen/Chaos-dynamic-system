@@ -22,12 +22,12 @@ center = [-0.3, -0.3]               # [C] Center of Neighborhood
 epsilon = 0.3                       # [C] Radius of the circle neighborhood
 
 # Self-similar Check parameter group
-
+"""
 # G1
 interval_x = [-2.5, 2.5]            # [S] Interval of x in square neighborhood
 interval_y = [-2.5, 2.5]            # [S] Interval of y in square neighborhood
 distance = 0.01                     # [C][S] Distant of point, both in circle and square neighborhood
-
+"""
 
 """
 # G2
@@ -53,6 +53,7 @@ distance = 1e-5                     # [C][S] Distant of point, both in circle an
 initial_value = [1 , 1]             # [O] Initial value of the function
 #iteration_time = 50                # [C][S][O][A] Iteration time
 iteration_time = 1000               # [C][S][O][A] Iteration time
+print(iteration_time)
 mark_time = 1000                    # [A] mark time: program will plot the point after this iterate time
 total_max = 1                       # [A] total initial point in figure (normal = 1)
 boundary = [-10, 10, -10, 10]       # [S] "Infinity" boundary
@@ -61,6 +62,7 @@ iteration_color_loop = ["r", "g", "b", "c", "m"]
 point_size = 0.1
 
 image_name = "./Output" + "128--03234" + ".png"
+"""
 def f(group_x):
     #print(group_x[0], group_x[1], -group_x[0] * group_x[0] + 0.4 * group_x[1], group_x[0])
     #a, b = 1.4, -0.3
@@ -75,6 +77,44 @@ def f(group_x):
     a, b = 1.4, 0.3
     #a, b = 1.2, 0.4
     return [a - group_x[0] * group_x[0] + b * group_x[1], group_x[0]]
+"""
+
+#G1
+print("G1")
+interval_x = [-1.5, 1.5]            # [S] Interval of x in square neighborhood
+interval_y = [-1.5, 1.5]            # [S] Interval of y in square neighborhood
+distance = 0.001                     # [C][S] Distant of point, both in circle and square neighborhood
+parameters = [-0.17, 0.78]
+
+"""
+#G2
+print("G2")
+interval_x = [-0.19, 0.01]            # [S] Interval of x in square neighborhood
+interval_y = [0.89, 1.09]            # [S] Interval of y in square neighborhood
+distance = 0.0002                   # [C][S] Distant of point, both in circle and square neighborhood
+parameters = [-0.17, 0.78]
+"""
+"""
+#G3
+print("G3")
+interval_x = [-1.3, 1.3]            # [S] Interval of x in square neighborhood
+interval_y = [-1.3, 1.3]            # [S] Interval of y in square neighborhood
+distance = 0.001                    # [C][S] Distant of point, both in circle and square neighborhood
+parameters = [0.38, 0.32]
+"""
+"""
+#G4
+print("G4")
+interval_x = [-1.5, 1.5]            # [S] Interval of x in square neighborhood
+interval_y = [-1.5, 1.5]            # [S] Interval of y in square neighborhood
+distance = 0.0002                   # [C][S] Distant of point, both in circle and square neighborhood
+parameters = [0.32, 0.043]
+"""
+def f(group_x):
+    val_x, val_y = -0.17, 0.78
+    c_x, c_y = parameters
+    return [val_x * val_x - val_y * val_y + c_x, 2 * val_x * val_y + c_y]
+
 #============================================
 
 
@@ -144,7 +184,7 @@ def square(interval_x, interval_y):
     size_x = int((interval_x[1] - interval_x[0]) / distance) + 1
     size_y = int((interval_y[1] - interval_y[0]) / distance) + 1
     x_all = np.linspace(interval_x[0], interval_x[1], size_x)
-    y_all = np.linspace(interval_x[0], interval_x[1], size_y)
+    y_all = np.linspace(interval_y[0], interval_y[1], size_y)
     return_vec = []
     return_code = []
     for i in range(0, len(x_all)):
