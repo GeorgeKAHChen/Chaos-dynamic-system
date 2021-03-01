@@ -2526,16 +2526,44 @@ And here we found another way to calculation the area of attractor.
 \newpage
 \section{Chaos in high dimension map}
 \subsection{Lyapunov Spectrum}
-In the section 3, we mainly discussed the judgement of chaos in 1 dimension. Here we will focus on the Lyapunov exponent in high dimension. Obviously, in high dimension, the $\delta_n$ function we used in Discussion \ref{Lyapunov-exp-discussion} will be a $m$ dimension vector $\mathbf \delta_n$ and we have
+In the section 3, we mainly discussed the judgement of chaos in 1 dimension. Here we focus on the Lyapunov exponent in high dimension. Obviously, in high dimension, the $\delta_n$ function which we used in Discussion \ref{Lyapunov-exp-discussion} will be a $m$ dimension vector $\delta_n$ and we mainly focus on the length(or norm) of this vector.
 $$
-\mathbf \delta_n = \exp(\lambda t)\mathbf\delta_0
+||\delta_n|| = \exp(\lambda t) ||\delta_0||
 $$
+$$
+n\rightarrow \infty, \mathbf ||\delta_n|| = \exp(\lambda n)\mathbf||\delta_0||
+$$
+$$
+\Rightarrow \lambda = \lim_{n \rightarrow \infty}{1\over n}\log{\mathbf||\delta_n|| \over \mathbf ||\delta_0||}
+= \lim_{n \rightarrow \infty}\log\left[\mathbf||\delta_n|| \over \mathbf ||\delta_0||\right]^{1\over n}
+$$
+
+However, in high dimension problem, it is different from 1-dim because during the iteration, some direct of vector increase and the others decrease. Fig. \ref{Lyapunov-spec-proof-1} showed us an example of this evolution.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figure/section5/Lyapunov-spec-proof-1.png} \\
+\caption{Evolution of unit vector in 3d}\label{Lyapunov-spec-proof-1}
+\end{center}
+\end{figure}
+
+To solve this problem, we should consider the evolution of every direct in the space. 
+
+Let $\omega^{(1)}_0, \omega^{(2)}_0, \ldots, \omega^{(m)}_0$ is a group of orthogonal basis in $\mathcal R^m$ space which satisfied $\forall i, j = 1, 2, \ldots, m, i \neq j, $ the inner production $ <\omega^{(i)}_0, \omega^{(j)}_0> = 0$ , then for every direction, we have a $\lambda$ value based on the formula above, that means
+
+$$
+\forall i = 1, 2, \ldots m, \lambda_i = \lim_{n \rightarrow \infty}\log\left[\mathbf||\omega^{(i)}_n|| \over \mathbf ||\omega^{(i)}_0||\right]^{1\over n}
+$$
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figure/section5/Lyapunov-spec-proof-3.png} \\
+\caption{Analysis in two dimension problem}\label{Lyapunov-spec-proof-3}
+\end{center}
+\end{figure}
+
 However, we know that in high dimension problem it is difficult to find every orbit convergence together and in most time some of them decreasing and the others are increasing. So we want to know the Lyapunov exponent for every dimension rather than in all dimension. Note that the exponent of a matrix still a matrix, let $\lambda$ to $\Lambda$ which is a $m\times m$ dimension matrix, then
-$$
-n\rightarrow \infty, \mathbf \delta_n = \exp(\Lambda t)\mathbf\delta_0 =  \mathbf\delta_0 
-\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[{1\over n}\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|\right] 
-= \lim_{n \rightarrow \infty}\left[\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|^{1\over n}\right] 
-$$
+
 
 \textbf{[i] $f$ is linear map}
 \\\noindent If $f$ is a linear map, then $\exists P \text{ s.t. } f(\mathbf x) = P\mathbf x$ and 
@@ -2653,10 +2681,12 @@ $$
 Based on the Algo. \ref{Lyapunov-spectrum}, we can calculate the Lyapunov spectrum numerically.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Henon.png} \\
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Henon.png} \\
 \caption{Lyapunov spectrum in Henon's map($a = 2, b = 0.3$)}
 \end{center}
 \end{figure}
+
+$\text{Lyapunov spectrum} = (0.44004674, 0.01101559), \text{sum} = 0.4510623256923707$
 \end{example}
 
 
@@ -2700,16 +2730,18 @@ y\Delta t               & x\Delta t             & 1 -\beta \Delta t
 $$
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
-\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Lorenz-1.png} \\
+\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.0001)$)}
 \end{center}
 \end{figure}
+$\text{Lyapunov spectrum} = (4.00544221, -2.24674614, -15.42821896), \text{sum} = -13.669522889292935$
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-2.png} \\
-\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.001)$)}
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Lorenz-2.png} \\
+\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.0001)$)}
 \end{center}
 \end{figure}
+$\text{Lyapunov spectrum} = (4.8857278, -1.61501712, -18.23236088), \text{sum} = -14.961650200700317$
 \end{example}
 
 
@@ -2731,54 +2763,55 @@ $$
 So the Jacobian matrix of the discrete maps is 
 $$
 J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
--1                  & -\Delta t         & -\Delta t         \\
-\Delta t            & a\Delta t -1      & 0                 \\
-z\Delta t           & 0                 & (x-c)\Delta t - 1
+1                   & -\Delta t         & -\Delta t         \\
+\Delta t            & a\Delta t + 1     & 0                 \\
+z\Delta t           & 0                 & (x-c)\Delta t + 1
 \end{array}\right]
 $$
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
-\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Rossler.png} \\
+\caption{Lyapunov spectrum in Rossler system($(a, b, c, \Delta t) = (0.2, 0.3, 9, 0.001)$)}
 \end{center}
 \end{figure}
-{\color{red}[TODO]}
+$\text{Lyapunov spectrum} = (0.65174245, 0.04364673, -10.32448076), \text{sum} = -9.629091584454333$
 \end{example}
 
 
-
 \begin{example}\textbf{Lyapunov spectrum in Duffing system}
-\\\noindent Now we consider the Duffing system:
+\\\noindent Now we consider the Duffing equation:
+$$
+\ddot x + \delta \dot x + \alpha x + \beta x^3 = \gamma \cos(\omega t)
+$$
+Let $y = \dot x$, then 
+$$
+\dot y = \ddot x = \gamma \cos(\omega t) - \delta\dot x - \alpha x - \beta x^3 = \gamma \cos(\omega t) - \delta y - \alpha x - \beta x^3
+$$
+So we have 
 $$
 \left\{\begin{array}{lll}
-\dot x & = & -y-z \\
-\dot y & = & x+ay \\
-\dot z & = & b+z(x-c)
-\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z) = \left[\begin{array}{lll}
-0           & -1        & -1        \\
-1           & a         & 0         \\
-z           & 0         & x-c
+\dot x & = & y \\
+\dot y & = & \gamma \cos(\omega t) - \alpha x - \beta x^3 - \delta y 
+\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y) = \left[\begin{array}{ll}
+0                               & 1             \\
+-\alpha -3\beta x^2             & \delta        \\
 \end{array}\right]
 $$
 So the Jacobian matrix of the discrete maps is 
 $$
-J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
--1                  & -\Delta t         & -\Delta t         \\
-\Delta t            & a\Delta t -1      & 0                 \\
-z\Delta t           & 0                 & (x-c)\Delta t - 1
+J(x, y, z) = \Delta t\bar J(x, y) + I = \left[\begin{array}{lll}
+1                               & \Delta t              \\
+(-\alpha -3\beta x^2)\Delta t   & \delta \Delta t + 1   \\
 \end{array}\right]
 $$
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section3/Lya-spec-Lorenz-1.png} \\
-\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.001)$)}
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Duffing.png} \\
+\caption{Lyapunov spectrum in Duffing equation($(\alpha, \beta, \gamma, \delta, \omega, \Delta t) = (1, 0.04, 1, 0.1, \pi/2, 0.001)$)}
 \end{center}
 \end{figure}
-
+$\text{Lyapunov spectrum} = (1.0913024, -0.99141093), \text{sum} = 0.09989146956531447$
 \end{example}
-
-
-
 
 
 \end{document}
