@@ -2572,12 +2572,51 @@ $$
 $$
 So we have 
 $$
-\Lambda = \lim_{n \rightarrow \infty}\left[\log\left|\prod_{i = n}^{0}P_i\right|^{1\over n}\right] = \lim_{n \rightarrow \infty}\left[\log\left|\prod_{i = n}^{0}J_i\right|^{1\over n}\right]
+\Lambda = \lim_{n \rightarrow \infty}\left[\log\left|\prod_{i = n}^{0}P_i\right|^{1\over n}\right]
 $$
+
+And we can calculate the Lyapunov spectrum with the formula above, however if we try to calculate the formula, we found that is difficult to calculate the $P = \prod_{i = n}^{0}P_i$ of formula above. Based on the discussion of sink and source, we know that if the eigenvalue of the matrix is greater than 1, then the matrix is disconvergence, or disconvergence for a line. So to solve the Lyapunov spectrum of high dimension function, we need some basic method in orthogonal decomposition.
+
+Firstly, we have these conclusions
+\begin{conclusion}\textbf{[i]} If we have a orthogonal basis, then based on the Gram-Schmidt method, we have a group of normal orthogonal basis.
+\begin{algorithm}[H]
+\caption{Gram-Schmidt process in orthogonal decomposition}\label{gram-schmidt}
+\begin{algorithmic}
+\State \textbf{INPUT:} A n-dimension Euclidean space, a basis $\{\alpha_1, \alpha_2, \ldots \alpha_n\}$ of the space.
+\State \Procedure{Gram-Schmidt process}{}
+\For {$i = 1, i \leq n, i ++$} 
+    \State $\beta_{i} = -\sum_{j = 1}^{i-1}{<\beta_j, \alpha_{i}> \over <\beta_j, \beta_j>}\beta_j + \alpha_i$
+    \State $\beta_i = \text{normalization}(\beta_i) = {\beta_i \over ||\beta_i||}$
+\EndFor
+\State \Return Normal orthogonal basis $\{\beta\}$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+  \noindent\textbf{[ii]} Consider a matrix $Y = XN$ where $N$ is normal orthogonal decomposition matrix
+\end{conclusion}
+
+
+{\color{blue}
+\begin{conclusion} \textbf{Calculation of Lyapunov spectrum in high dimension problem}
+
+
+
+
+
+
+
+
+
+
+
+
+
 where $J_i$ is Jordan norm form of Jacobian matrix $P_i$
 
 Fianlly, we summaried an algorithm to calculate the Lyapunov spectrum for arbitrary map.
-
+\end{conclusion}
+}
 \begin{algorithm}[H]
 \caption{Calculation of Lyapunov spectrum}\label{Lyapunov-spectrum}
 \begin{algorithmic}
@@ -2737,6 +2776,7 @@ $$
 \end{figure}
 
 \end{example}
+
 
 
 
