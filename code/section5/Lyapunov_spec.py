@@ -17,7 +17,7 @@ COLOR_LOOP = ["r", "g", "b", "c", "m"]
 #
 #
 #=========================================
-
+"""
 rho = 28.0
 sigma = 10.0
 beta = 8.0 / 3.0
@@ -26,8 +26,7 @@ beta = 8.0 / 3.0
 #sigma = 4
 #beta = 10
 
-#Delta_t = 0.001
-#Delta_t = 1
+#Delta_t = 0.01     #For test
 Delta_t = 0.0001
 initial_value = [1.0, 1.0, 1.0]
 x_axis = np.arange(0.0, 50.0, Delta_t)
@@ -46,7 +45,7 @@ def Jf(state):
 
 def states():
     return odeint(f, initial_value, x_axis)
-
+"""
 
 
 
@@ -186,12 +185,69 @@ def states():
 
 
 
+#=========================================
+#
+#   4-dim system
+#
+#
+#=========================================
+
+Delta_t = 0.001
+initial_value = [random.random(), random.random(), random.random(), random.random()]
+x_axis = np.arange(0.0, 50.0, Delta_t)
+
+def f(state, t):
+    x, y, z, w = state
+    return -y-z, x+0.25*y+w, 3+x*y, -0.5*z+0.05*w
+
+def Jf(state):
+    x, y, z, w = state
+    return np.matrix([[1        , -Delta_t      , -Delta_t      , 0             ],
+                      [Delta_t  , 1+0.25*Delta_t, 0             , Delta_t       ],
+                      [z*Delta_t, 0             , 1+x*Delta_t   ,0              ],
+                      [0        , 0             , -0.5*Delta_t  , 1+0.05*Delta_t]])
+
+
+def states():
+    return odeint(f, initial_value, x_axis)
+
+
+
 
 
 
 """
 #   Main function: Lyapunov Spec
 """
+def Gram_Schmidt(input_matrix):
+    input_matrix = np.array(input_matrix)
+    input_matrix = np.transpose(input_matrix)
+    size1 = np.size(input_matrix[:, 0])
+    size2 = np.size(input_matrix[0, :])
+    if size1 != size2:
+        ValueError("Input matrix in Gram_Schmidt must be a square.")
+    squ_vals = []
+    return_matrix = []
+    for kase in range(0, size1):
+        curr_mat = input_matrix[kase, :]
+        final_mat = input_matrix[kase, :]
+        for i in range(0, kase):
+            final_mat -= (sum(return_matrix[i] * curr_mat) / squ_vals[i]) * return_matrix[i]
+        return_matrix.append(final_mat)
+        squ_vals.append(sum(final_mat * final_mat))
+    
+    final_mat = []
+    for kase in range(0, size1):
+        curr_vec = return_matrix[kase]
+        curr_vec /= np.linalg.norm(curr_vec)
+        final_mat.append(curr_vec)
+    return np.matrix(np.transpose(final_mat))
+
+
+
+
+
+
 
 
 def main():
@@ -199,9 +255,12 @@ def main():
     output_vals = [[0 for n in range((len(initial_value)))]]
     orth_mat = np.eye(len(initial_value))
     for kase in range(0, len(curr_states) - 1):
+        if kase % 1000 == 0:
+            print(kase, len(curr_states) - 2, end = "\r")
         Jacobian = np.matrix(Jf(curr_states[kase]))
         tmp = np.matrix(Jacobian) * np.matrix(orth_mat)
-        orth_mat = np.matrix(linalg.orth(tmp))
+        #orth_mat = np.matrix(linalg.orth(tmp))
+        orth_mat = Gram_Schmidt(tmp)
         new_output = copy.deepcopy(output_vals[len(output_vals) - 1])
         for i in range(0, len(new_output)):
             norm = np.linalg.norm(tmp[:, i])

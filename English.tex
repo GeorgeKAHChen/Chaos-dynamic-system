@@ -1532,7 +1532,6 @@ h_{f_q}(x_1) = \lim_{n \rightarrow \infty}{1\over n}\left[\sum_{i = 1}^{n}\ln\le
 $$
 And\\[2ex]
 
-%[TODO] Lyapunov exponent = 0 and < 0, conclusion and prove
 
 
 
@@ -1822,7 +1821,6 @@ This shift mape chops the leftmost symbol, which is the analogue on the itinerar
 \end{definition}
 
 
-%[TODO]https://math.stackexchange.com/questions/913761/how-did-ulam-and-neumann-find-this-solution
 
 
 
@@ -2528,14 +2526,12 @@ And here we found another way to calculation the area of attractor.
 \subsection{Lyapunov Spectrum}
 In the section 3, we mainly discussed the judgement of chaos in 1 dimension. Here we focus on the Lyapunov exponent in high dimension. Obviously, in high dimension, the $\delta_n$ function which we used in Discussion \ref{Lyapunov-exp-discussion} will be a $m$ dimension vector $\delta_n$ and we mainly focus on the length(or norm) of this vector.
 $$
-||\delta_n|| = \exp(\lambda t) ||\delta_0||
+||\delta_t|| = \exp(\lambda t) ||\delta_0||
 $$
 $$
-n\rightarrow \infty, \mathbf ||\delta_n|| = \exp(\lambda n)\mathbf||\delta_0||
-$$
-$$
-\Rightarrow \lambda = \lim_{n \rightarrow \infty}{1\over n}\log{\mathbf||\delta_n|| \over \mathbf ||\delta_0||}
-= \lim_{n \rightarrow \infty}\log\left[\mathbf||\delta_n|| \over \mathbf ||\delta_0||\right]^{1\over n}
+t\rightarrow \infty, \mathbf ||\delta_t|| = \exp(\lambda t)\mathbf||\delta_0||
+\Rightarrow \lambda = \lim_{t \rightarrow \infty}{1\over t}\ln{\mathbf||\delta_t|| \over \mathbf ||\delta_0||}
+= \lim_{t \rightarrow \infty}\ln\left[\mathbf||\delta_t|| \over \mathbf ||\delta_0||\right]^{1\over t}
 $$
 
 However, in high dimension problem, it is different from 1-dim because during the iteration, some direct of vector increase and the others decrease. Fig. \ref{Lyapunov-spec-proof-1} showed us an example of this evolution.
@@ -2550,9 +2546,8 @@ However, in high dimension problem, it is different from 1-dim because during th
 To solve this problem, we should consider the evolution of every direct in the space. 
 
 Let $\omega^{(1)}_0, \omega^{(2)}_0, \ldots, \omega^{(m)}_0$ is a group of orthogonal basis in $\mathcal R^m$ space which satisfied $\forall i, j = 1, 2, \ldots, m, i \neq j, $ the inner production $ <\omega^{(i)}_0, \omega^{(j)}_0> = 0$ , then for every direction, we have a $\lambda$ value based on the formula above, that means
-
 $$
-\forall i = 1, 2, \ldots m, \lambda_i = \lim_{n \rightarrow \infty}\log\left[\mathbf||\omega^{(i)}_n|| \over \mathbf ||\omega^{(i)}_0||\right]^{1\over n}
+\forall i = 1, 2, \ldots m, \lambda_i = \lim_{t \rightarrow \infty}{1\over t}\ln{\mathbf||\omega^{(i)}_t|| \over \mathbf ||\omega^{(i)}_0||}
 $$
 
 \begin{figure}[H]
@@ -2562,51 +2557,148 @@ $$
 \end{center}
 \end{figure}
 
-However, we know that in high dimension problem it is difficult to find every orbit convergence together and in most time some of them decreasing and the others are increasing. So we want to know the Lyapunov exponent for every dimension rather than in all dimension. Note that the exponent of a matrix still a matrix, let $\lambda$ to $\Lambda$ which is a $m\times m$ dimension matrix, then
+Basically, a simple basis in $\mathcal R^m$ space is $\omega^{(1)}_0 = (1, 0, \ldots, 0)^T, \omega^{(2)}_0 = (0, 1, \ldots, 0)^T, \ldots, \omega^{(m)}_0 = (0, 0, \ldots, 1)^T$ and 
+$$
+\Omega_0 = (\omega^{(1)}_0, \omega^{(2)}_0, \ldots, \omega^{(m)}_0) = I
+$$
+In this situation, $||\omega^{(i)}_0|| = 1(i = 1, 2, \ldots, m)$, let 
+$$
+\Lambda = (\lambda_1, \lambda_2, \ldots \lambda_m) 
+= \lim_{t \rightarrow \infty}{1\over t}\left(\ln{||\omega^{(1)}_t|| }, \ln{||\omega^{(2)}_t|| }, \ldots, \ln{||\omega^{(m)}_t|| }\right)
+$$
+Let $p_1, p_2, \ldots p_m$ s.t. $\{p_1, p_2, \ldots, p_m\} = \{1, 2, \ldots, m\} \land \forall i, j = 1, 2, \ldots m, i \neq j, p_i \neq p_j$ and 
+$$
+\ln{||\omega^{(i_1)}_t|| }\geq \ln{||\omega^{(i_2)}_t|| } \geq \ldots \geq \ln{||\omega^{(i_m)}_t|| }
+$$
+In the discrete time processing, we know that $t = 0, 1, 2, \ldots$ so $r_t^{(k)} = r_n^{(k)}$ where $n \in \mathcal N$. 
+
+Let $r_n^{(k)} = \ln{||\omega^{(i_1)}_n||}$ be the length of the kth longest orthogonal axis after $n$ time iterate for an initial point $\omega^{(i_1)}_0$. Obviously, these $r_n^{(k)}$ sequence (with $k$, not $n$) measured the expansion of initial vectors, so we can define the Lyapunov exponent in follows.
+
+
+{\color{red}
+\begin{definition}\textbf{Lyapunov number, Lyapunov exponent in high dimension problem}
+\\\noindent Let $f \in C^\infty(\mathcal R^m)$, $J_n = Df^n(\mathbf x_0)$, $r_n^{(k)}$ be the length of the kth logenst orthogonal axis which defined by the explanation above. Then the kth \textbf{Lyapunov number} of $\mathbf x_0$ is defined by 
+$$
+L_k = \lim_{n \rightarrow \infty}\left(r_n^{(k)}\right)^{1 \over n} , \text{ and the \textbf{Lyapunov exponent} }h_k = \ln L_k
+$$
+Obviously, 
+$$
+\left(L_1 \geq L_2 \geq \ldots \geq L_m\right) \land \left(h_1 \geq h_2 \geq \ldots \geq h_m\right)
+$$
+\end{definition}
+}
+
+
+For every single $r_n^{(k)}$ we know that is familiar with $\lambda$ in 1-dim Lyapunov exponent, so we have 
+\\\noindent The orbit is \textbf{chaotic} if it satisfied both
+\\\noindent \textbf{[i]} $\{x_1, x_2, \ldots \}$ is no asymptotically periodic, and
+\\\noindent \textbf{[ii]} the Lyapunov exponent $h_k$ is \textbf{greater} than zero.
+
+As $h_1 \geq h_2 \geq \ldots \geq h_m$, so if $h_1 < 0$, then every Lyapunov exponent is less than zero, that means, we can simplify the definition and only care about $h_1$
+
+{\color{red}
+\begin{definition}\textbf{Orbit chaotic in high dimension}
+\\\noindent let $f$ be a map of $\mathcal R^m$, and $\mathbf x_0, \mathbf x_1, \mathbf x_1, \ldots $ be a bounded orbit of $f$, if 
+\\\noindent \textbf{[i]} orbit is not asymptotically periodic; and
+\\\noindent \textbf{[ii]} $\forall i = 1, 2, \ldots m, h_m \neq 0$ and $h_1 > 0$
+then the orbit is \textbf{chaotic}.
+\end{definition} 
+}
+
+
+
+
+
+
+
+
+
+
+
+%$$
+% = \lim_{t \rightarrow \infty}{1\over t}\left(\ln{||\omega^{(1)}_t|| }, \ln{||\omega^{(2)}_t|| }, \ldots, \ln{||\omega^{(m)}_t|| }\right)
+%$$
+
+
+Now we consider how to calculate this Lyapunov exponent in normal problem.
+
 
 
 \textbf{[i] $f$ is linear map}
 \\\noindent If $f$ is a linear map, then $\exists P \text{ s.t. } f(\mathbf x) = P\mathbf x$ and 
-$$
-\mathbf\delta_{n} = f(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - f(\mathbf x_{n-1}) = P(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - P\mathbf x_{n-1}= P\mathbf \mathbf\delta_n = P^{n} \delta_0
-$$
-Let the Jordian norm form of $P$ is $J$ and $P$ s.t. $P = V^{-1} J V$, then 
-$$
-\left|{\delta_n \over \delta_0}\right| = |P^{n}| = V^{-1} J^n V 
-\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[\log\left|\mathbf\delta_n \over \mathbf \delta_0\right|^{1\over n}\right] 
-\Rightarrow \Lambda = \lim_{n \rightarrow \infty}\left[\log\left|J^n\right|^{1\over n}\right] = \log|J|
-$$
-where $J$ is based on the eigenvalue of $P$. So we found that for a linear system, the Lyapunov spectrum is based on the eigenvalue of the matrix $P$.
 
-
-\textbf{[ii] $f$ is non-linear map}
-\\\noindent Now we focus on the problem that $f$ is not a linear map. Typically, we will use Jacobian matrix to linearize the problem and for a sequence $x_i$ we have 
 $$
-\mathbf x_{i+1} = f(\mathbf x_i) = P_i \mathbf x_i
-$$
-where $P_i$ is Jacobian matrix near the point $x_i$, and 
-$$
-\mathbf x_{i+1} + \mathbf\delta_{i+1} = f(\mathbf x_i + \mathbf\delta_{i}) = P_i \mathbf x_i + P_i\mathbf\delta_{i+1}
-$$
-Then we have 
-$$
-\mathbf\delta_{n} = f(\mathbf x_{n-1} + \mathbf\delta_{n-1}) - f(\mathbf x_{n-1})
-= P_{n-1} (\mathbf x_{n-1} + \mathbf\delta_{n-1}) - P_{n-1}(\mathbf x_{n-1}) = P_{n-1}\mathbf\delta_{n-1}
-= \ldots = \prod_{i = n - 1}^{0}P_i\mathbf\delta_0
-$$
-and 
-$$
-\mathbf\delta_{n} = P_nP_{n-1}P_{n-2}\ldots P_1 P_0\mathbf\delta_0 \Rightarrow {\delta_n \over \mathbf\delta_0} = \prod_{i = 1}^{0}P_i
+\forall i = 1, 2, \ldots, m, \omega^{(i)}_n = f(\mathbf x_{n-1} + \omega^{(i)}_{n-1}) - f(\mathbf x_{n-1}) = P(\mathbf x_{n-1} + \omega^{(i)}_{n-1}) - P\mathbf x_{n-1}= P\mathbf \omega^{(i)}_{n-1} = P^{n} \omega^{(i)}_0
 $$
 So we have 
 $$
-\Lambda = \lim_{n \rightarrow \infty}\left[\log\left|\prod_{i = n}^{0}P_i\right|^{1\over n}\right]
+\Lambda 
+= \lim_{n \rightarrow \infty}{1\over n}\left(\ln{||\omega^{(1)}_n|| }, \ln{||\omega^{(2)}_n|| }, \ldots, \ln{||\omega^{(m)}_n|| }\right)
+= \lim_{n \rightarrow \infty}{1\over n}\ln\left({||P^n\omega^{(1)}_0|| }, {||P^n\omega^{(2)}_0|| }, \ldots, {||P^n\omega^{(m)}_0|| }\right)
+$$
+Define the vector norm function $\xi_p(X)$, where $X = (\mathbf x_1, \mathbf x_2, \ldots, \mathbf x_n)$ s.t.
+$$
+\xi_p(X) = \left(||\mathbf x_1||_p, ||\mathbf x_2||_p, \ldots, ||\mathbf x_n||_p\right)
+$$
+is the $p-$norm of every vector in the matrix. Then we have 
+$$
+\Lambda = \lim_{n \rightarrow \infty}{1\over n}\ln\left(\xi(P^n\Omega_0)\right)
 $$
 
-And we can calculate the Lyapunov spectrum with the formula above, however if we try to calculate the formula, we found that is difficult to calculate the $P = \prod_{i = n}^{0}P_i$ of formula above. Based on the discussion of sink and source, we know that if the eigenvalue of the matrix is greater than 1, then the matrix is disconvergence, or disconvergence for a line. So to solve the Lyapunov spectrum of high dimension function, we need some basic method in orthogonal decomposition.
+We know that $\Omega_0$ is a normal orthogonal basis, and we said the most useful and simple orthogonal basis is $I$, so here we let $\Omega_0 = I$ then 
+$$
+\Lambda = \lim_{n \rightarrow \infty}{1\over n}\ln\left(\xi(P^n)\right)
+$$
 
-Firstly, we have these conclusions
-\begin{conclusion}\textbf{[i]} If we have a orthogonal basis, then based on the Gram-Schmidt method, we have a group of normal orthogonal basis.
+And now, the problem is how to calculate this $P^n$, we know that if the eigenvector and eigenvalue of $P$ is $V$ and $E$, then $P^n = V^{-1} E^n V$, that means, if there is a eigenvalue of $P$ absolute greater than $1$, then some element in $P^n$ will satisfy $n \rightarrow \infty, p_{i,j} \rightarrow \infty$. So now we will try to put the $1/n$ into the $\xi$ function.
+
+We know that in the begining of the discussion, $\Lambda$ satisfied
+
+$$
+\Lambda 
+= \lim_{n \rightarrow \infty}{1\over n}\left[
+\ln\left({||\omega^{(1)}_n|| \over ||\omega^{(1)}_{n-1}||}
+         {||\omega^{(1)}_{n-1}|| \over ||\omega^{(1)}_{n-2}||}
+         \ldots
+         {||\omega^{(1)}_1|| \over ||\omega^{(1)}_0||}
+\right), 
+\ln\left({||\omega^{(2)}_n|| \over ||\omega^{(2)}_{n-1}||}
+         {||\omega^{(2)}_{n-1}|| \over ||\omega^{(2)}_{n-2}||}
+         \ldots
+         {||\omega^{(2)}_1|| \over ||\omega^{(2)}_0||}
+\right), \right.
+\ldots
+$$
+$$
+\left.
+\ln\left({||\omega^{(m)}_n|| \over ||\omega^{(m)}_{n-1}||}
+         {||\omega^{(m)}_{n-1}|| \over ||\omega^{(m)}_{n-2}||}
+         \ldots
+         {||\omega^{(m)}_1|| \over ||\omega^{(m)}_0||}
+\right), 
+\right]
+$$
+$$
+= \lim_{n \rightarrow \infty}{1\over n}\left[
+\sum_{i = 1}^{n}\ln\left({||\omega^{(1)}_i|| \over ||\omega^{(1)}_{i-1}||}\right), 
+\sum_{i = 1}^{n}\ln\left({||\omega^{(2)}_i|| \over ||\omega^{(2)}_{i-1}||}\right), 
+\ldots
+\sum_{i = 1}^{n}\ln\left({||\omega^{(m)}_i|| \over ||\omega^{(m)}_{i-1}||}\right), 
+\right.
+$$
+$$
+= \lim_{n \rightarrow \infty}{1\over n}\left\{
+\sum_{i = 1}^{n}
+\left[
+\ln\left({||\omega^{(1)}_i|| \over ||\omega^{(1)}_{i-1}||}\right),
+\ln\left({||\omega^{(2)}_i|| \over ||\omega^{(2)}_{i-1}||}\right),
+\ldots,
+\ln\left({||\omega^{(m)}_i|| \over ||\omega^{(m)}_{i-1}||}\right)
+\right]\right\}
+$$
+
+Notice for every $\omega^{(j)}_{i-1}, j = 1, 2, \ldots, m$ we can find a normal orthogonal basis of $\mathcal R^m$ space based on the \textbf{Gram Schmidt Processing}
+
 \begin{algorithm}[H]
 \caption{Gram-Schmidt process in orthogonal decomposition}\label{gram-schmidt}
 \begin{algorithmic}
@@ -2621,50 +2713,108 @@ Firstly, we have these conclusions
 \end{algorithmic}
 \end{algorithm}
 
-  \noindent\textbf{[ii]} Consider a matrix $Y = XN$ where $N$ is normal orthogonal decomposition matrix
-\end{conclusion}
+Let the basis of $\omega^{(j)}_{i-1}$ is $B_{i-1} = (\beta^{(1)}_{i-1}, \beta^{(2)}_{i-1}, \ldots \beta^{(m)}_{i-1})$, and $Q_{i-1} = (q^{(1)}_{i-1}, q^{(2)}_{i-1}), \ldots , q^{(m)}_{i-1}$ s.t.
+$$
+\forall j = 1, 2, \ldots, m, \omega^{(j)}_{i-1} = B_{i-1}q^{(j)}_{i-1} \land ||q^{(j)}_{i-1}|| = 1
+$$
+$$
+\left[
+\ln\left({||\omega^{(1)}_i|| \over ||\omega^{(1)}_{i-1}||}\right),
+\ln\left({||\omega^{(2)}_i|| \over ||\omega^{(2)}_{i-1}||}\right),
+\ldots,
+\ln\left({||\omega^{(m)}_i|| \over ||\omega^{(m)}_{i-1}||}\right)
+\right] 
+$$
+$$
+= 
+\left[
+\ln\left({||PB_{i-1}q^{(1)}_{i-1}|| \over ||B_{i-1}q^{(1)}_{i-1}||}\right),
+\ln\left({||PB_{i-1}q^{(2)}_{i-1}|| \over ||B_{i-1}q^{(2)}_{i-1}||}\right),
+\ldots,
+\ln\left({||PB_{i-1}q^{(m)}_{i-1}|| \over ||B_{i-1}q^{(m)}_{i-1}||}\right)
+\right] 
+= 
+\xi(P) \ \ \ \ \ \ \ \ (*)
+$$
+And finally, we have
+$$
+\Lambda
+= \lim_{n \rightarrow \infty}{1\over n}\left\{
+\sum_{i = 1}^{n}
+\left[
+\xi(P)
+\right]\right\} = \xi(P)
+$$
+
+{\color{red}[TODO] WRONG PROOF?}
 
 
-{\color{blue}
-\begin{conclusion} \textbf{Calculation of Lyapunov spectrum in high dimension problem}
+\textbf{[ii] $f$ is non-linear map}
+\\\noindent Now we focus on the problem that $f$ is not a linear map. Typically, we will use Jacobian matrix to linearize the problem and for a sequence $x_i$ we have 
+$$
+\mathbf x_{i+1} = f(\mathbf x_i) = P_i \mathbf x_i
+$$
+where $P_i$ is Jacobian matrix near the point $x_i$, so we just need to change the $P$ matrix to $P_i$ matrix in non-linear problems. We found in formula $(*)$ we have
+$$
+\left[
+\ln\left({||\omega^{(1)}_i|| \over ||\omega^{(1)}_{i-1}||}\right),
+\ln\left({||\omega^{(2)}_i|| \over ||\omega^{(2)}_{i-1}||}\right),
+\ldots,
+\ln\left({||\omega^{(m)}_i|| \over ||\omega^{(m)}_{i-1}||}\right)
+\right] 
+$$
+$$
+= 
+\left[
+\ln\left({||P_{i-1}B_{i-1}q^{(1)}_{i-1}|| \over ||B_{i-1}q^{(1)}_{i-1}||}\right),
+\ln\left({||P_{i-1}B_{i-1}q^{(2)}_{i-1}|| \over ||B_{i-1}q^{(2)}_{i-1}||}\right),
+\ldots,
+\ln\left({||P_{i-1}B_{i-1}q^{(m)}_{i-1}|| \over ||B_{i-1}q^{(m)}_{i-1}||}\right)
+\right] 
+= 
+\xi(P_{i-1}) \ \ \ \ \ \ \ \ (*)
+$$
+then, we have
+$$
+\Lambda
+= \lim_{n \rightarrow \infty}{1\over n}\left\{
+\sum_{i = 1}^{n}
+\left[
+\xi(P_{i-1})
+\right]\right\}
+$$
+Finally, we can summary this processing in algorithm follows
 
 
 
-
-
-
-
-
-
-
-
-
-
-where $J_i$ is Jordan norm form of Jacobian matrix $P_i$
-
-Fianlly, we summaried an algorithm to calculate the Lyapunov spectrum for arbitrary map.
-\end{conclusion}
-}
 \begin{algorithm}[H]
 \caption{Calculation of Lyapunov spectrum}\label{Lyapunov-spectrum}
 \begin{algorithmic}
 \State \textbf{INPUT:} Values of system: $x_0, x_1, \ldots x_N$;
-\State \Procedure{Eigenvalue}{matrix};\Comment{Return the eigenvalue vector of input matrix.}\EndProcedure
-\State \Procedure{Jacobian}{value};\Comment{Return the Jacobian matrix at input value}\EndProcedure
 
-\State \Procedure{LyapunovSpectrumCalculation}{}
-\State \textit{float} $\text{Power} = \text{Eigenvalue}(J(x_0))$; 
-\State \textit{list} LyapunovSpectrum;
+\State \Procedure{GramSchmidt}{matrix};\Comment{Return the Gram-Schmidt orthogonal matrix.}\EndProcedure
+\State \Procedure{Jacobian}{value};\Comment{Return the Jacobian matrix at input value}\EndProcedure
+\State \Procedure{VecNorm}{matrix};\Comment{Return the norm of every vector in the matrix}\EndProcedure
+
+\State \Procedure{LyaSpec}{}
+\State \textit{float} $P = I$; 
+\State \textit{list} LyaSpec;
 \For {$i = 1, i \leq N, i ++$} 
-    \State $\text{Power} = \text{Eigenvalue}(J(x_i))\text{Power}^{i-1\over i}$;
-    \State $\text{LyapunovSpectrum.push}(\log|\text{Power}|)$;
+    \State $\text{P} = \text{Jacobian}(x_i) \cdot P$
+    \State $\text{LyaSpec} = \text{LyaSpec} + (\ln\text{VecNorm}(P))$;
+    \State $\text{P} = \text{VecNorm}(P)$
 \EndFor
-\State \Return LyapunovSpectrum
+\State $LyaSpec = \text{LyaSpec} / N$
+\State \Return LyaSpec
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
 
 
+
+
+
+Now we will apply the method with several example.
 
 
 \begin{example}\textbf{Lyapunov spectrum in Henon's map}
@@ -2688,6 +2838,16 @@ Based on the Algo. \ref{Lyapunov-spectrum}, we can calculate the Lyapunov spectr
 
 $\text{Lyapunov spectrum} = (0.44004674, 0.01101559), \text{sum} = 0.4510623256923707$
 \end{example}
+
+We can check the conclusion with the volumn of the map.
+\begin{theorem}\textbf{Volumn of the map}
+\\\noindent Consider a map $f = (f_1, f_2, \ldots, f_m)$ in $\mathcal R^m$ the volumn of the map can be defined in follows
+$$
+V = \sum_{i = 1}^{m}{\partial \dot f_m\over \partial x_m}
+$$
+and the sum of the Lyapunov spectrum is equal to the volumn $V$.
+\end{theorem}
+
 
 
 Now we consider a continuous system s.t. $\dot x = f(x), x(0) = x_0$ where $x_0$ is a constant vector at initial time $t_0$. With Ronge-kutta method, we can find a group of value to simulate the system. So we can change the system to a map formed 
@@ -2734,7 +2894,7 @@ $$
 \caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.0001)$)}
 \end{center}
 \end{figure}
-$\text{Lyapunov spectrum} = (4.00544221, -2.24674614, -15.42821896), \text{sum} = -13.669522889292935$
+$\text{Lyapunov spectrum} = (0.903833632, 0.00483117315 -14.5749841), \text{sum} = -13.666319315391025$
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Lorenz-2.png} \\
@@ -2743,7 +2903,6 @@ $\text{Lyapunov spectrum} = (4.00544221, -2.24674614, -15.42821896), \text{sum} 
 \end{figure}
 $\text{Lyapunov spectrum} = (4.8857278, -1.61501712, -18.23236088), \text{sum} = -14.961650200700317$
 \end{example}
-
 
 
 
@@ -2813,6 +2972,43 @@ $$
 $\text{Lyapunov spectrum} = (1.0913024, -0.99141093), \text{sum} = 0.09989146956531447$
 \end{example}
 
+
+
+
+
+\begin{example}\textbf{Lyapunov spectrum in Duffing system}
+\\\noindent In the last of this part, we consider a 4-dim dynamic system:
+$$
+\left\{\begin{array}{lll}
+\dot x & = & -y-z \\
+\dot y & = & x+0.25y+w \\
+\dot z & = & 3+xz\\
+\dot w & = & -0.5 z + 0.05w
+\end{array}\right. \text{ and the Jacobian matrix of $f$ is } \bar J(x, y, z, w) = \left[\begin{array}{llll}
+0   & -1    & -1    & 0     \\
+1   & 0.25  & 0     & 1     \\
+z   & 0     & x     & 0     \\
+0   & 0     & -0.5  & 0.05
+\end{array}\right]
+$$
+
+So the Jacobian matrix of the discrete maps is 
+$$
+J(x, y, z, w) = \Delta t\bar J(x, y, z, w) + I = \left[\begin{array}{llll}
+1           & -\Delta t         & -\Delta t     & 0             \\
+\Delta t    & 1 + 0.25\Delta t  & 0             & \Delta t      \\
+z\Delta t   & 0                 & 1 + x\Delta t & 0             \\
+0           & 0                 & -0.5 \Delta t & 1+0.05\Delta t\\
+\end{array}\right]
+$$
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Duffing.png} \\
+\caption{Lyapunov spectrum in Duffing equation($(\alpha, \beta, \gamma, \delta, \omega, \Delta t) = (1, 0.04, 1, 0.1, \pi/2, 0.001)$)}
+\end{center}
+\end{figure}
+$\text{Lyapunov spectrum} = (1.0913024, -0.99141093), \text{sum} = 0.09989146956531447$
+\end{example}
 
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
