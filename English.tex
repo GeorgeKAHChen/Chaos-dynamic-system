@@ -18,8 +18,6 @@
 \usepackage{appendix}  
 \usepackage{color}
 \usepackage{wrapfig}
-\usepackage{algpseudocode}
-\usepackage{algorithm}
 \usepackage[dvipsnames]{xcolor}
 %\usepackage{subcaption}
 
@@ -2746,7 +2744,6 @@ $$
 \right]\right\} = \xi(P)
 $$
 
-{\color{red}[TODO] WRONG PROOF?}
 
 
 \textbf{[ii] $f$ is non-linear map}
@@ -2814,6 +2811,14 @@ Finally, we can summary this processing in algorithm follows
 
 
 
+
+
+
+
+
+
+
+
 Now we will apply the method with several example.
 
 
@@ -2836,7 +2841,7 @@ Based on the Algo. \ref{Lyapunov-spectrum}, we can calculate the Lyapunov spectr
 \end{center}
 \end{figure}
 
-$\text{Lyapunov spectrum} = (0.44004674, 0.01101559), \text{sum} = 0.4510623256923707$
+$\text{Lyapunov spectrum} = (0.42040807, 0.01305949), \text{sum} = 0.4334675666638811$
 \end{example}
 
 We can check the conclusion with the volumn of the map.
@@ -2901,7 +2906,7 @@ $\text{Lyapunov spectrum} = (0.903833632, 0.00483117315 -14.5749841), \text{sum}
 \caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.0001)$)}
 \end{center}
 \end{figure}
-$\text{Lyapunov spectrum} = (4.8857278, -1.61501712, -18.23236088), \text{sum} = -14.961650200700317$
+$\text{Lyapunov spectrum} = (0.104081796, 0.00285865072 -9.75901813), \text{sum} = -9.652077679944226$
 \end{example}
 
 
@@ -2933,7 +2938,7 @@ $$
 \caption{Lyapunov spectrum in Rossler system($(a, b, c, \Delta t) = (0.2, 0.3, 9, 0.001)$)}
 \end{center}
 \end{figure}
-$\text{Lyapunov spectrum} = (0.65174245, 0.04364673, -10.32448076), \text{sum} = -9.629091584454333$
+$\text{Lyapunov spectrum} = (0.104081796, 0.002.85865072, -9.75901813), \text{sum} = -9.629091584454333$
 \end{example}
 
 
@@ -2969,8 +2974,15 @@ $$
 \caption{Lyapunov spectrum in Duffing equation($(\alpha, \beta, \gamma, \delta, \omega, \Delta t) = (1, 0.04, 1, 0.1, \pi/2, 0.001)$)}
 \end{center}
 \end{figure}
-$\text{Lyapunov spectrum} = (1.0913024, -0.99141093), \text{sum} = 0.09989146956531447$
+$\text{Lyapunov spectrum} = (1.06601852, -0.96612192), \text{sum} = 0.09989660859631133$
 \end{example}
+
+
+
+
+
+
+
 
 
 
@@ -3003,11 +3015,12 @@ z\Delta t   & 0                 & 1 + x\Delta t & 0             \\
 $$
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Duffing.png} \\
-\caption{Lyapunov spectrum in Duffing equation($(\alpha, \beta, \gamma, \delta, \omega, \Delta t) = (1, 0.04, 1, 0.1, \pi/2, 0.001)$)}
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-4-dim-full.png} \\
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-4-dim-partical.png} \\
+\caption{Lyapunov spectrum in this 4-dim equation}
 \end{center}
 \end{figure}
-$\text{Lyapunov spectrum} = (1.0913024, -0.99141093), \text{sum} = 0.09989146956531447$
+$\text{Lyapunov spectrum} = (3.44750533, 3.53053891, 2.70980462, 10.76963212), \text{sum} = 20.457480973829277$
 \end{example}
 
 \end{document}

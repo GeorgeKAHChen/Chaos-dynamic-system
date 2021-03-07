@@ -57,7 +57,7 @@ def states():
 #
 #
 #=========================================
-"""
+
 iteration_total = 50000
 initial_value = [random.random(), random.random()]
 x_axis = np.arange(0, iteration_total + 1, 1)
@@ -66,19 +66,21 @@ b = 0.3
 def f(int_x):
     x = int_x[0]
     y = int_x[1]
-    return [1 - a * x * x + b * y, x]
+    #return [1 - a * x * x + b * y, x]
+    #return [a -  x * x + b * y, x]
+    return [1 - a * x * x + y, b * x]
 
 def Jf(int_x):
     x = int_x[0]
     y = int_x[1]
-    return np.matrix([[-2*a*x, b], [1, 0]])
+    return np.matrix([[-2*a*x, 1], [b, 0]])
 
 def states():
     states = [initial_value]
     for i in range(0, iteration_total):
         states.append(f(states[len(states) - 1]))
     return states
-"""
+
 
 
 
@@ -94,14 +96,14 @@ def states():
 iteration_total = 10000
 initial_value = [random.random()]
 x_axis = np.arange(0, iteration_total + 1, 1)
-a = 4
+a = 3.9
 def f(int_x):
     x = int_x[0]
-    return [4 * x * (1 - x)]
+    return [a * x * (1 - x)]
 
 def Jf(int_x):
     x = int_x[0]
-    return np.matrix([4 - 8 * x])
+    return np.matrix([a - 2 * a * x])
 
 def states():
     states = [initial_value]
@@ -123,11 +125,11 @@ def states():
 #=========================================
 """
 a = 0.2
-b = 0.3
-c = 10
+b = 0.2
+c = 5.7
 
 
-Delta_t = 0.0001
+Delta_t = 0.01
 initial_value = [1.0, 1.0, 1.0]
 x_axis = np.arange(0.0, 50.0, Delta_t)
 
@@ -145,8 +147,8 @@ def Jf(state):
 
 def states():
     return odeint(f, initial_value, x_axis)
-"""
 
+"""
 
 
 
@@ -191,7 +193,7 @@ def states():
 #
 #
 #=========================================
-
+"""
 Delta_t = 0.001
 initial_value = [random.random(), random.random(), random.random(), random.random()]
 x_axis = np.arange(0.0, 50.0, Delta_t)
@@ -210,7 +212,7 @@ def Jf(state):
 
 def states():
     return odeint(f, initial_value, x_axis)
-
+"""
 
 
 
@@ -280,6 +282,7 @@ def main():
         sum_val.append(np.sum(output_vals[i][0]))
     plt.plot(x_axis, sum_val, COLOR_LOOP[0])
 
+    print()
     output_str = "Output Vals\nLyapunov vals: \t"
     output_str += str(output_vals[len(output_vals) - 1])
     output_str += "\n sum: " + str(sum_val[len(sum_val) - 1])
