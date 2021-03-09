@@ -58,8 +58,10 @@ def states():
 #
 #=========================================
 
+
 iteration_total = 50000
-initial_value = [random.random(), random.random()]
+#iteration_total = 50
+initial_value = [random.random()/10, random.random()/10]
 x_axis = np.arange(0, iteration_total + 1, 1)
 a = 1.4
 b = 0.3
@@ -67,18 +69,20 @@ def f(int_x):
     x = int_x[0]
     y = int_x[1]
     #return [1 - a * x * x + b * y, x]
-    #return [a -  x * x + b * y, x]
-    return [1 - a * x * x + y, b * x]
+    return [a -  x * x + b * y, x]
+    #return [1 - a * x * x + y, b * x]
 
 def Jf(int_x):
     x = int_x[0]
     y = int_x[1]
-    return np.matrix([[-2*a*x, 1], [b, 0]])
+    #return np.matrix([[-2*x+1, b], [1, 1]])
+    return np.matrix([[-2*x, 1], [b, 0]])
 
 def states():
     states = [initial_value]
     for i in range(0, iteration_total):
         states.append(f(states[len(states) - 1]))
+    #print(states)
     return states
 
 
@@ -93,10 +97,10 @@ def states():
 #
 #=========================================
 """
-iteration_total = 10000
+iteration_total = 100000
 initial_value = [random.random()]
 x_axis = np.arange(0, iteration_total + 1, 1)
-a = 3.9
+a = 3.95
 def f(int_x):
     x = int_x[0]
     return [a * x * (1 - x)]
@@ -216,12 +220,62 @@ def states():
 
 
 
+#=========================================
+#
+#   Ikeda map 
+#
+#
+#=========================================
+
+"""
+
+iteration_total = 50000
+#iteration_total = 50
+initial_value = [random.random(), random.random()]
+x_axis = np.arange(0, iteration_total + 1, 1)
+para_c1 = 0.4
+para_c2 = 0.9
+para_c3 = 6
+para_r = 1
+
+def f(int_x):
+    x = int_x[0]
+    y = int_x[1]
+    tau = para_c1 - para_c3 / (1 + x*x + y*y)
+    return [para_r + para_c2 * (x * np.cos(tau) - y * np.sin(tau)),
+                     para_c2 * (x * np.sin(tau) + y * cos(tau))]
+
+
+def Jf(int_x):
+    x = int_x[0]
+    y = int_x[1]
+    tmp = 1 / (1 + x*x + y*y)
+    tau = para_c1 - para_c3 * tmp
+    dtau_dx = 2 * para_c3 * x * tmp * tmp
+    dtau_dx = 2 * para_c3 * y * tmp * tmp
+    sin_tau = np.sin(tau)
+    cos_tau = np.cos(tau)
+    return np.matrix([para_c2 * cos_tau - [para_c2*x*sin_tau + para_c2*y*cos_tau] * dtau_dx, ]
+        )
+
+def states():
+    states = [initial_value]
+    for i in range(0, iteration_total):
+        states.append(f(states[len(states) - 1]))
+    #print(states)
+    return states
+
+"""
+
+
+
 
 
 """
 #   Main function: Lyapunov Spec
 """
 def Gram_Schmidt(input_matrix):
+    #print(input_matrix)
     input_matrix = np.array(input_matrix)
     input_matrix = np.transpose(input_matrix)
     size1 = np.size(input_matrix[:, 0])
@@ -243,6 +297,7 @@ def Gram_Schmidt(input_matrix):
         curr_vec = return_matrix[kase]
         curr_vec /= np.linalg.norm(curr_vec)
         final_mat.append(curr_vec)
+    #print(np.matrix(np.transpose(final_mat)))
     return np.matrix(np.transpose(final_mat))
 
 

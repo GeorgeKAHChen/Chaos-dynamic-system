@@ -2834,24 +2834,16 @@ y = x
 \end{array}\right]
 $$
 Based on the Algo. \ref{Lyapunov-spectrum}, we can calculate the Lyapunov spectrum numerically.
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Henon.png} \\
-\caption{Lyapunov spectrum in Henon's map($a = 2, b = 0.3$)}
-\end{center}
-\end{figure}
-
-$\text{Lyapunov spectrum} = (0.42040807, 0.01305949), \text{sum} = 0.4334675666638811$
+%\begin{figure}[H]
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Henon.png} \\
+%\caption{Lyapunov spectrum in Henon's map($a = 1.4, b = 0.3$)}
+%\end{center}
+%\end{figure}
+  \noindent $a = 1.4, b = 0.3$
+\\\noindent $\text{Lyapunov spectrum} = (0.42040807, -1.61305949), \text{sum} = -1.1665324333361191$
 \end{example}
 
-We can check the conclusion with the volumn of the map.
-\begin{theorem}\textbf{Volumn of the map}
-\\\noindent Consider a map $f = (f_1, f_2, \ldots, f_m)$ in $\mathcal R^m$ the volumn of the map can be defined in follows
-$$
-V = \sum_{i = 1}^{m}{\partial \dot f_m\over \partial x_m}
-$$
-and the sum of the Lyapunov spectrum is equal to the volumn $V$.
-\end{theorem}
 
 
 
@@ -2860,7 +2852,47 @@ $$
 x_{n+1} = g(x_n, t_n), x_0 = x(0), t_{n+1} = t_n + \Delta t
 $$
 where $g$ is based on the Ronge-kutta method. 
-\\\noindent Here we don't care about the formula $g$, we just consider for a certain $n$, if we still find a Jacobian matrix $J_n$, then $x_{n+1} = J_n x_n$.
+
+
+
+
+
+
+
+\newpage
+\begin{table}[H]
+\centering  
+\caption{Result of Lyapunov spectrum in differen problem ($\Delta t =0.0001$)}  
+\begin{tabular}{|l||llll|l||l|}
+\hline
+Model           & $\lambda_1$ & $\lambda_2$ & $\lambda_3$ & $\lambda_4$ 
+                                                        & $\sum\lambda_i$ 
+                                                                  & Parameter \\
+\hline
+\hline
+Logistic map    & 0.5769  &         &         &         & 0.5769  & $a = 3.95$ \\
+Henon's map     & 0.4204  & -1.6130 &         &         & -1.1665 & $(a, b) = 1.4, 0.3$ \\
+Duffing map     & 1.0660  & -0.9661 &         &         & 0.0998  & $(\alpha, \beta, \gamma, \delta, \omega) = (1, 0.04, 1, 0.1, \pi/2)$ \\
+Lorenz model    & 0.9038  & 0.0048  & 14.574  &         & -13.666 & $(\sigma, \rho, \beta) = (28, 10, 8/3)$ \\
+Lorenz model -2 & 0.1040  & 0.0028  & -9.7590 &         & -9.6520 & $(\sigma, \rho, \beta) = (45.92, 4, 10)$\\
+Rossler system  & 0.1040  & 0.0028  & -9.7590 &         & -9.6290 & $(a, b, c) = (0.2, 0.3, 9)$ \\
+4-dim model     & 3.4475  & 3.5305  & 2.7098  & 10.7696 & 20.4574 & /\\
+\hline
+\end{tabular}  
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+  \noindent Here we don't care about the formula $g$, we just consider for a certain $n$, if we still find a Jacobian matrix $J_n$, then $x_{n+1} = J_n x_n$.
 \\\noindent On the other hand, we know that 
 $$
 \dot x = {x(t_0+(n+1)\Delta t) - x(t_0+n\Delta t) \over \Delta t} = {x_{n+1} - x_n \over \Delta t} = f(x_n)
@@ -2899,14 +2931,16 @@ $$
 \caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.0001)$)}
 \end{center}
 \end{figure}
-$\text{Lyapunov spectrum} = (0.903833632, 0.00483117315 -14.5749841), \text{sum} = -13.666319315391025$
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Lorenz-2.png} \\
-\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.0001)$)}
-\end{center}
-\end{figure}
-$\text{Lyapunov spectrum} = (0.104081796, 0.00285865072 -9.75901813), \text{sum} = -9.652077679944226$
+  \noindent $(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.0001)$
+\\\noindent $\text{Lyapunov spectrum} = (0.903833632, 0.00483117315 -14.5749841), \text{sum} = -13.666319315391025$
+%\begin{figure}[H]
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Lorenz-2.png} \\
+%\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.0001)$)}
+%\end{center}
+%\end{figure}
+\\\noindent $(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.0001)$
+\\\noindent $\text{Lyapunov spectrum} = (0.104081796, 0.00285865072 -9.75901813), \text{sum} = -9.652077679944226$
 \end{example}
 
 
@@ -2932,13 +2966,14 @@ J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
 z\Delta t           & 0                 & (x-c)\Delta t + 1
 \end{array}\right]
 $$
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Rossler.png} \\
-\caption{Lyapunov spectrum in Rossler system($(a, b, c, \Delta t) = (0.2, 0.3, 9, 0.001)$)}
-\end{center}
-\end{figure}
-$\text{Lyapunov spectrum} = (0.104081796, 0.002.85865072, -9.75901813), \text{sum} = -9.629091584454333$
+%\begin{figure}[H]
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Rossler.png} \\
+%\caption{Lyapunov spectrum in Rossler system($(a, b, c, \Delta t) = (0.2, 0.3, 9, 0.001)$)}
+%\end{center}
+%end{figure}
+  \noindent $(a, b, c, \Delta t) = (0.2, 0.3, 9, 0.001)$
+\\\noindent$\text{Lyapunov spectrum} = (0.104081796, 0.002.85865072, -9.75901813), \text{sum} = -9.629091584454333$
 \end{example}
 
 
@@ -2968,12 +3003,12 @@ J(x, y, z) = \Delta t\bar J(x, y) + I = \left[\begin{array}{lll}
 (-\alpha -3\beta x^2)\Delta t   & \delta \Delta t + 1   \\
 \end{array}\right]
 $$
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Duffing.png} \\
-\caption{Lyapunov spectrum in Duffing equation($(\alpha, \beta, \gamma, \delta, \omega, \Delta t) = (1, 0.04, 1, 0.1, \pi/2, 0.001)$)}
-\end{center}
-\end{figure}
+%\begin{figure}[H]
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Duffing.png} \\
+%\caption{Lyapunov spectrum in Duffing equation($(\alpha, \beta, \gamma, \delta, \omega, \Delta t) = (1, 0.04, 1, 0.1, \pi/2, 0.001)$)}
+%\end{center}
+%\end{figure}
 $\text{Lyapunov spectrum} = (1.06601852, -0.96612192), \text{sum} = 0.09989660859631133$
 \end{example}
 
@@ -2988,7 +3023,7 @@ $\text{Lyapunov spectrum} = (1.06601852, -0.96612192), \text{sum} = 0.0998966085
 
 
 
-\begin{example}\textbf{Lyapunov spectrum in Duffing system}
+\begin{example}\textbf{Lyapunov spectrum in a 4-dim system}
 \\\noindent In the last of this part, we consider a 4-dim dynamic system:
 $$
 \left\{\begin{array}{lll}
@@ -3023,11 +3058,26 @@ $$
 $\text{Lyapunov spectrum} = (3.44750533, 3.53053891, 2.70980462, 10.76963212), \text{sum} = 20.457480973829277$
 \end{example}
 
+
+
+
+
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
+
+
+
+We can check the conclusion with the volumn of the map.
+\begin{theorem}\textbf{Volumn of the map}
+\\\noindent Consider a map $f = (f_1, f_2, \ldots, f_m)$ in $\mathcal R^m$ the volumn of the map can be defined in follows
+$$
+V = \sum_{i = 1}^{m}{\partial \dot f_m\over \partial x_m}
+$$
+and the sum of the Lyapunov spectrum is equal to the volumn $V$.
+\end{theorem}
 
 
 
