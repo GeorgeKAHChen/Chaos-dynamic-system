@@ -26,7 +26,7 @@
 \theoremseparator{\hspace{1em}} \theoremnumbering{arabic}
 \theoremsymbol{}
 \newtheorem{theorem}{\textbf{Theorem}}[section]
-\newtheorem{definition}{\textbf{Definition}}[section]
+\newtheorem{definition}{{\color{red}\textbf{Definition}}}[section]
 \newtheorem{lemma}{\textbf{Lemma}}[section]
 \newtheorem{property}{\textbf{Property}}[section]
 \newtheorem{proof}{\textit{PROOF}}[section]
@@ -2418,92 +2418,6 @@ img & x & y & img & x & y\\
 
 
 
-\subsection{Fractal dimension}
-Finally, we try to analysis the calculation of these fractal. In analysis we know that \textbf{measure} is a describe of area, also we define the Lebesgue outer measure in follow
-
-
-\begin{definition}\textbf{Eculidean rectangle Neighbourhood}
-\\\noindent 1. Opened box $I = \{x = (x_1, x_2, \ldots ,x_n) | a_i < x_i < b_i, i \in N\}$, where $a_i, b_i$ are constant;
-\\\noindent 2. Closed box $I = \{x = (x_1, x_2, \ldots ,x_n) | a_i \leq x_i \leq b_i, i \in N\}$, where $a_i, b_i$ are constant;
-\\\noindent Called the $b_i - a_i$ is side length of a box. If $|b_1 - a_1| = |b_2 - a_2| = \ldots = |b_n - a_n|$, then called this box as cube.
-\end{definition}
-
-
-
-\begin{definition}\textbf{Lebesuge outer measure}
-$$
-\mu^*E = \inf \left\{ \sum_{i = 1}^{\infty}|I_i|: E \subset \bigcup_{i = 1}^{\infty} I_i, I_i\text{ is an opened box}\right\}
-$$
-  \noindent Also, we can define the outer measure with $\varepsilon$ (Familiar with Cauchy's limitation)
-$$
-\forall \varepsilon >0, \exists \{I_i\}\text{ open cover } s.t. E\subset\bigcup_{i = 1}^{\infty} I_i \land \mu^*E\leq \sum_{i = 1}^{\infty}|I_i| + \varepsilon
-$$
-\end{definition}
-
-In this subsection, we mainly focus on the area based on the cube. 
-
-
-
-\begin{definition}\textbf{$C(1/\varepsilon)$ cube}
-\\\noindent Now we consider a special type of cover.
-\\\noindent \textbf{[i]} Firstly, for a interval $I_1 = [a_1, b_1]$, let the side length of boxes is $\varepsilon$, then we have $N = \text{int}(C/\varepsilon) + 1$ subintervals to cover the original interval. (e.g. $[a_1 + (p - 1)C/\varepsilon, a_1 + pC/\varepsilon], p = 1, 2, \ldots N$)
-\\\noindent \textbf{[ii]} Now we consider a surface in $R^n$ space, let the projection on $x_i$ axis is $I_i = [a_i, b_i]$, and $C = \max\{\mu(I_i)\}, i = 1, 2, \ldots, n$, then we have a group of cube total $N(\varepsilon) = (C\varepsilon)^n$ and 
-$$
-d = {\ln N(\varepsilon) - \ln C \over \ln(1/ \varepsilon)}
-$$
-\end{definition}
-
-
-\begin{definition}\textbf{$C(1/\varepsilon)$ cube}
-\\\noindent A bounded set $s \subset R^n$ has box-counting dimension 
-$$
-bd(S) = \lim_{\varepsilon \rightarrow \infty} {\ln(N(\varepsilon)) \over \ln(1 /\varepsilon)}
-$$
-when the limit exists.
-\end{definition}
-
-\begin{conclusion}Based on the Bolzano–Weierstrass theorem, we know that if we have a sequence $\{b_n\}$ s.t. $\lim_{n \rightarrow \infty}b_n = 0$, if $b_n$ is $\varepsilon$ then $\lim_{n \rightarrow \infty}{\ln b_{n+1} \over \ln b_n} = 1$
-\end{conclusion}
-
-
-\begin{conclusion}We still consider the sequence above, then 
-$$
-{N(b_n) \over 4} \leq N(b_n) \leq 4N(b_{n+1})
-$$
-and the proof is simple with figure follows
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.25\textwidth]{figure/section4/mandelbrot.png} \\
-\end{center}
-\end{figure}
-\end{conclusion}
-
-\begin{theorem} If $\{b_n\}$ is monotony, or assume $b_1 > b_2 > \ldots > b_n > \ldots > b_\infty = 0$ If
-$$
-\lim_{n \rightarrow \infty} \left(\ln b_{n+1} \over \ln b_n\right) = 1 \land \lim_{n - >\infty}\left({\ln N(b_n) \over \ln(1 / b_n)}\right) = d=
-$$
-then $\lim_{\varepsilon \rightarrow 0}{\ln N(\varepsilon) \over \ln (1 / \varepsilon)} = d$ and therefore the box-counting dimension is $d$.
-\end{theorem}
-
-
-\begin{theorem} If $S \subset R^n$ is bounded and $bd(S) = d < n$, then $\mu(S) = 0$
-\end{theorem}
-
-
-Another way to calculate the measure of a area is based on the statistic, 
-\begin{definition}\textbf{Correlation dimension}
-Let $S = \{v_0, v_1, \ldots\}$ be an orbit of the map $f: \mathcal R^n \rightarrow \mathcal R^n$, then for ever $r > 0$, define $C(r)$ s.t.
-$$
-C(r) = \lim_{N \rightarrow \infty}{\left|\left\{(p, q)| p, q \in S, |p - q| < r\right\}\right| \over \left|\left\{(p, q)| p, q \in S\right\}\right|}
-$$
-Moreover, if $C(r) \approx r^d$, then
-$$
-d \approx cd(S) = \lim_{r \rightarrow \infty}{\ln C(r) \over \ln(r)}
-$$
-\end{definition}
-
-And here we found another way to calculation the area of attractor.
-
 
 
 
@@ -3061,6 +2975,291 @@ $\text{Lyapunov spectrum} = (3.44750533, 3.53053891, 2.70980462, 10.76963212), \
 
 
 
+\subsection{Fixed-point theorem in high dimension}
+We introduced the fixed point theorem in section, we found that if an inital interval $I_0$ s.t. 
+$$
+I_{n+1} = f(I_n) \land I_0 \supset I_1 \supset I_2 \supset \ldots \supset I_n \supset \ldots
+$$
+then, based on the Nested interval theorem, exist at least one point $x_0$ s.t. $\forall i \in \mathcal N, x_0 \in I_i$ which is fixed point. 
+
+However, this condition is too strict, if we consider another group of set, for instance, with the relations in the figure follow.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figure/section5/different-fixed-point-theo.png} \\
+\end{center}
+\caption{Colorado corollary}
+\end{figure}
+
+Then we can found a fixed point in the center of every interval. And we called this kind of map as \textbf{Colorado corollary}
+
+Now the problem is how to describe this property that every $f(I_n)$ covered some part of the $I_n$. If $\mathbf x$ is a boundary point on $I_n$, then $f(\mathbf x)$ also be a boundary point of $f(I_n)$. If we consider this kind of vector $V(\mathbf x) = {f(\mathbf x) - \mathbf x \over ||f(\mathbf x) - \mathbf x||}$ which is the direction of these boundary vector, then we can easily found that the vectors will travel through a cumulative $k 2\pi$ where $k \in \mathcal N$
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figure/section5/fixed-point-theo-explain.png} \\
+\end{center}
+\caption{Proof of fixed point theorem}
+\end{figure}
+
+
+\begin{theorem} Let $f$ be a continuous map on $R^2$, $S$ is a ractangular region and $\partial S$ is the boundary of $S$. Now consider an point $\mathbf x = \mathbf x_0$ on $\partial S$, then we have the vector $V(\mathbf x) = {f(\mathbf x) - \mathbf x \over ||f(\mathbf x) - \mathbf x||}$. Move the point with the boundary continuous and sign every vector $V(\mathbf x)$ until the point back to the $\mathbf x_0$ and sum the total rotation of these vector sequence, if it is nonzero, then $f$ has a fixed point in $S$.
+\end{theorem}
+{\color{blue}
+\begin{proof} \textbf{[1]} If center $c$ of rectangle is fixed point, then there is nothing to do.
+\\\noindent \textbf{[2]} If center $c$ is not fixed point, we can shrink the rectangle down from its original size tothe point $c$. 
+\\\noindent \textbf{[2-1]} Obviously, the vector $V(\mathbf x)$ defined along the $\partial S$ and change continuously, and they must continue to make at least one full trun. So finally, some point $\mathbf x$ results $V(\mathbf x) = 0$ and $\mathbf x$ is fixed point because the definiton of $V(x)$
+\\\noindent \textbf{[3]} Now we consider the situation that the image move completely away from it. Obviously, there is no fixed point if the image move away. And in this condition, we can simply find net rorate of $V(\mathbf)$ is zero.$\blacksquare$
+\end{proof}
+}
+
+
+
+\begin{conclusion} The fixed point theorem is a property of the topology of the map alone, and doesn't depend on starting with a prefect rectangle, as long as region has \textbf{no holes}
+\end{conclusion}
+
+Now we back to consider the Colorado corollary. In some situation the region not only expand from the origin interval, but also fold from the original region. For instance in the image below, $S_T, S_B$ fold in the subimage 3. We found this kind of map have no influence of the conclusion we introduced before.
+
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figure/section5/colorado-corollary.png} \\
+\end{center}
+\caption{Colorado corollary after map}
+\end{figure}
+
+
+
+\begin{conclusion} \textbf{The Colorado Corollary}
+\\\noindent Let $f \in C(\mathcal R^2)$ is a map, $S$ be a rectangle in $\mathbf R^2$, with vertical sides $s_L, s_R$ and horizontal side $s_T, s_B$. Assume that $f(s_L), f(s_R)$ are surrounded by $s_L, s_R$ and $f(s_T), f(s_B)$ are surrounded by $s_T, s_B$, then $f$ has a fixed point in $S$
+\end{conclusion}
+
+Finally we consider a kind of map which is ``lying across'' from the original region.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figure/section5/lying-across.png} \\
+\end{center}
+\caption{Transitivity of ``lying across''}
+\end{figure}
+
+Obviously, that is a special condition of fixed point theorem and we have 
+\begin{conclusion} Let $f$ be a map and $S_1, S_2, \ldots S_k$ be rectangular sets in $\mathcal R^2$ s.t. $f(S_i)$ lies across the $S_{i+1}$ and $S_1$, then $f^k$ has a fixed point in $S_1$
+\end{conclusion}
+
+
+In the last of this section, we will dicsuss the definition of Markov partitions
+\newpage
+\begin{definition}\textbf{Markov Partitions}
+\\\noindent Assume $S$ is a rectangle set and $S_1, S_2, \ldots, S_r$ s.t. 
+$$
+\forall i, j = 1, 2, \ldots, r, i \neq j, \left(S_i \subset S\right) \land \left(S_i \bigcap S_j = \varnothing\right) \land \left( \partial S_i \text{ parallel to the coordinate axes }\right)
+$$
+and $f(S_i)$ lying across $S_i$, that means, in one direction of axis, $f$ stretches the rectangles and in the other directions the $f$ contract the rectangles. 
+\\\noindent Then, the stretching directions are mapped to stretching directions, and shrinking directions to shrinking directions. Then we called this $S_1, S_2, \ldots, S_r$ as \textbf{Markov partition} of $S$ for $f$.
+\end{definition}
+
+Based on the Markov partition, we can define the itinerary in high dimension problems and find the fixed point easier. Here we will discuss two example, one is \textbf{skinny baker map}, and the other is Henon's map, or the \textbf{Horseshoe map}.
+
+
+
+\subsection{Example: Skinny baker map}
+
+
+
+
+
+\subsection{Example: Horseshoe map}
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Fractal dimension}
+
+In real analysis, if we consider the size of a subspace, we basically use \textbf{measure} to describe that.
+
+\begin{definition}\textbf{Eculidean rectangle Neighbourhood}
+\\\noindent 1. Opened box $I = \{x = (x_1, x_2, \ldots ,x_n) | a_i < x_i < b_i, i \in N\}$, where $a_i, b_i$ are constant;
+\\\noindent 2. Closed box $I = \{x = (x_1, x_2, \ldots ,x_n) | a_i \leq x_i \leq b_i, i \in N\}$, where $a_i, b_i$ are constant;
+\\\noindent Called the $b_i - a_i$ is side length of a box. If $|b_1 - a_1| = |b_2 - a_2| = \ldots = |b_n - a_n|$, then called this box as cube.
+\end{definition}
+
+
+
+\begin{definition}\textbf{Lebesuge outer measure}
+$$
+\mu^*E = \inf \left\{ \sum_{i = 1}^{\infty}|I_i|: E \subset \bigcup_{i = 1}^{\infty} I_i, I_i\text{ is an opened box}\right\}
+$$
+  \noindent Also, we can define the outer measure with $\varepsilon$ (Familiar with Cauchy's limitation)
+$$
+\forall \varepsilon >0, \exists \{I_i\}\text{ open cover } s.t. E\subset\bigcup_{i = 1}^{\infty} I_i \land \mu^*E\leq \sum_{i = 1}^{\infty}|I_i| + \varepsilon
+$$
+\end{definition}
+
+Now, we consider a cube with side length 1, and neigibourhood cube with side length $\varepsilon$, the total of the neigibourhood include in the unix cube as $V = N(\varepsilon)$, the dimension of subspace as $k$, then 
+$$
+V = N(\varepsilon) = \left(1 \over \varepsilon\right)^k \Rightarrow k = \log_{1/\varepsilon}N(\varepsilon) = - {\ln N(\varepsilon)\over \ln(\varepsilon)}
+$$
+
+In normal problem, $k \in \mathcal N^+$ called \textbf{Lebesgue covering dimension} or \textbf{topological dimension}.
+\begin{definition}\textbf{Lebesgue covering dimension} 
+\\\noindent A topological space $X$ is said to have the Lebesgue covering dimension $d < \infty$ if $d$ is the smallest \textbf{non-negative integer} with the property that each open cover of $X$ has a refinement in which no point of $X$ is included in more than $d + 1$ elements.
+\end{definition}
+
+
+
+
+
+\begin{definition}\textbf{$C(1/\varepsilon)$ cube}
+\\\noindent Now we consider a special type of cover.
+\\\noindent \textbf{[i]} Firstly, for a interval $I_1 = [a_1, b_1]$, let the side length of boxes is $\varepsilon$, then we have $N = \text{int}(C/\varepsilon) + 1$ subintervals to cover the original interval. (e.g. $[a_1 + (p - 1)C/\varepsilon, a_1 + pC/\varepsilon], p = 1, 2, \ldots N$)
+\\\noindent \textbf{[ii]} Now we consider a surface in $R^n$ space, let the projection on $x_i$ axis is $I_i = [a_i, b_i]$, and $C = \max\{\mu(I_i)\}, i = 1, 2, \ldots, n$, then we have a group of cube total $N(\varepsilon) = (C\varepsilon)^n$ and 
+$$
+d = {\ln N(\varepsilon) - \ln C \over \ln(1/ \varepsilon)}
+$$
+\end{definition}
+
+
+\begin{definition}\textbf{$C(1/\varepsilon)$ cube}
+\\\noindent A bounded set $s \subset R^n$ has box-counting dimension 
+$$
+bd(S) = \lim_{\varepsilon \rightarrow \infty} {\ln(N(\varepsilon)) \over \ln(1 /\varepsilon)}
+$$
+when the limit exists.
+\end{definition}
+
+\begin{conclusion}Based on the Bolzano–Weierstrass theorem, we know that if we have a sequence $\{b_n\}$ s.t. $\lim_{n \rightarrow \infty}b_n = 0$, if $b_n$ is $\varepsilon$ then $\lim_{n \rightarrow \infty}{\ln b_{n+1} \over \ln b_n} = 1$
+\end{conclusion}
+
+
+\begin{conclusion}We still consider the sequence above, then 
+$$
+{N(b_n) \over 4} \leq N(b_n) \leq 4N(b_{n+1})
+$$
+and the proof is simple with figure follows
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.25\textwidth]{figure/section4/mandelbrot.png} \\
+\end{center}
+\end{figure}
+\end{conclusion}
+
+\begin{theorem} If $\{b_n\}$ is monotony, or assume $b_1 > b_2 > \ldots > b_n > \ldots > b_\infty = 0$ If
+$$
+\lim_{n \rightarrow \infty} \left(\ln b_{n+1} \over \ln b_n\right) = 1 \land \lim_{n - >\infty}\left({\ln N(b_n) \over \ln(1 / b_n)}\right) = d=
+$$
+then $\lim_{\varepsilon \rightarrow 0}{\ln N(\varepsilon) \over \ln (1 / \varepsilon)} = d$ and therefore the box-counting dimension is $d$.
+\end{theorem}
+
+
+\begin{theorem} If $S \subset R^n$ is bounded and $bd(S) = d < n$, then $\mu(S) = 0$
+\end{theorem}
+
+
+Another way to calculate the measure of a area is based on the statistic, 
+\begin{definition}\textbf{Correlation dimension}
+Let $S = \{v_0, v_1, \ldots\}$ be an orbit of the map $f: \mathcal R^n \rightarrow \mathcal R^n$, then for ever $r > 0$, define $C(r)$ s.t.
+$$
+C(r) = \lim_{N \rightarrow \infty}{\left|\left\{(p, q)| p, q \in S, |p - q| < r\right\}\right| \over \left|\left\{(p, q)| p, q \in S\right\}\right|}
+$$
+Moreover, if $C(r) \approx r^d$, then
+$$
+d \approx cd(S) = \lim_{r \rightarrow \infty}{\ln C(r) \over \ln(r)}
+$$
+\end{definition}
+
+And here we found another way to calculation the area of attractor.
+
+
+
+
+In the last section, we introduced the Lyapunov spectrum. However, if we want to analysis the whole system, the Lyapunov exponent is not a good choice because it described the property in every different direction.
+
+So to describe the property of a set, or a space, the basic element is the definition of open set. Now we consider a box neigibourhood rather than the circle one, signed as $I_0$ with certain side length $\omega_0$ and the volumn $V_0 = \omega_0^m$. Then let the set $I_1 = f(I_0), I_2 = f(I_1) \ldots$ and we now try to consider the volumn of these sets. If the Lyapunov spectrum of system is $(h_1, h_2, \ldots, h_m)$, then
+$$
+||\omega_n^{(j)}|| = \exp(nh_j)||\omega_0^{(j)}||
+$$
+and the volume of box neigibourhood is 
+$$
+V_i= \prod_{j = 1}^{m}||\omega_i^{(j)}|| = \prod_{j = 1}^{m}\exp(ih_j)||\omega_0^{(j)}||
+$$
+$$
+V_n = \prod_{j = 0}^{m}\exp(nh_j)||\omega_0^{(j)}||
+$$
+
+But that is not the all conclusion, as some of Lyapunov exponent is less than 0, the side length in that direction will decrease and decrease and finally equal to 0. And that is unnecessary to consider such direction.
+
+And now, the problem is ``Which dimension is enough to include the $f^\infty(I_0)$''
+
+We know that if the dimension is $3$ as normal world, then the volumn $V$ and side length $d$ have relationship as 
+$$
+V = d^3 \Rightarrow 3 = \log_d V = {\ln V \over \ln d}
+$$
+So if we assume the dimension of space is $k \leq m$, then 
+$$
+k = {\ln V_\infty \over \ln d_0} \ \ \ \ (*)
+$$
+
+
+  \noindent \textbf{[i] In 2-dim problem}
+Now we consider a 2-dim problem.
+\begin{figure}[H]
+\begin{minipage}[c][0.64\width]{
+   0.58\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/2-d-vector.png}
+\end{minipage}
+\begin{minipage}[c][0.35\width]{
+   0.35\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/square-under-map.png}
+\end{minipage}
+\caption{Volumn and vector change with Lyapunov exponent}
+\end{figure}
+Same as the figure above, if $h_1 > h_2 > 0$, then, obviously, we need a 2-dim neigibourhood to cover all the system after iteration. On the other hand, if $0 > h_1 > h_2$, then we just need a point to cover it. So the main problem is how can we cover the situation $h_1 > 0 > h_2$.
+
+$$
+V_{n} = \omega_0^{(1)}\exp(nh_1)\omega_0^{(2)}\exp(nh_2) = d^2\left(\exp(h_1 + h_2)\right)^n
+$$
+So if $h_1 + h_2 < 0$, the volumn will still decrese to 0, that means the dimension of $V_\infty$ is 0. And now we consider the condition $h_1 > 0 > h_2 \land h_1 + h_2 > 0$
+
+
+
+
+
+
+\begin{definition}\textbf{Lyapunov dimension}
+\\\noindent Let $f$ be a map on $\mathcal R^m$, the Lyapunov exponent of an orbit is $h_1 \geq h_2 \geq \ldots \geq h_m$, let $p$
+$$
+p = \arg\max_{p} \left(\sum_{i = 1}^{p} h_i \geq 0\right) \text{ then, the Lyapunov dimension is } D_L = 
+\left\{\begin{array}{ll}
+0                                           & \text{if $p$ is not exists }\\
+p + {1\over |h_{p+1}|} \sum_{i = 1}^{p} h_i & \text{if $p < m$}\\
+m                                           & \text{if $p = m$}\\
+\end{array}\right.
+$$
+\end{definition}
+\begin{discussion}\textbf{What can Lyapunov dimension describe?}
+We just introduced the definition of Lyapunov dimension above, and here, we will explain why we are interested in Lyapunov dimension.
+\end{discussion}
+
+
+
+
+
+%However, if we want to analysis the change of map during the iteration, we may need to analysis every Lyapunov exponent and that is a little difficult. So in this part, we will introduce the Lyapunov dimension, which can describe the system is convergence or divergence. 
+
+%We know that if Lyapunov exponent is greater than 0, then the vector in that dimension will be longer than original one. In the lase subsection, we used the circle neigibourhood to explain the necessity of improve the 1-dim vector to m-dim vectors. Now we consider a box neigibourhood which still have the center of initial point. Obviously, the volume of this neigibourhood is multiply norm of every vector which has been used in calculation of Lyapunov spectrum. And if the volume is increasing during the iteration, then the system will used more and more area and vice versa. 
+
+
 
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3078,6 +3277,11 @@ V = \sum_{i = 1}^{m}{\partial \dot f_m\over \partial x_m}
 $$
 and the sum of the Lyapunov spectrum is equal to the volumn $V$.
 \end{theorem}
+
+
+
+
+
 
 
 

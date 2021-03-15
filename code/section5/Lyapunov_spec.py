@@ -17,7 +17,6 @@ COLOR_LOOP = ["r", "g", "b", "c", "m"]
 #
 #
 #=========================================
-"""
 rho = 28.0
 sigma = 10.0
 beta = 8.0 / 3.0
@@ -26,8 +25,8 @@ beta = 8.0 / 3.0
 #sigma = 4
 #beta = 10
 
-#Delta_t = 0.01     #For test
-Delta_t = 0.0001
+Delta_t = 0.01     #For test
+#Delta_t = 0.0001
 initial_value = [1.0, 1.0, 1.0]
 x_axis = np.arange(0.0, 50.0, Delta_t)
 
@@ -45,7 +44,7 @@ def Jf(state):
 
 def states():
     return odeint(f, initial_value, x_axis)
-"""
+
 
 
 
@@ -57,7 +56,7 @@ def states():
 #
 #
 #=========================================
-
+"""
 
 iteration_total = 50000
 #iteration_total = 50
@@ -84,7 +83,7 @@ def states():
         states.append(f(states[len(states) - 1]))
     #print(states)
     return states
-
+"""
 
 
 
