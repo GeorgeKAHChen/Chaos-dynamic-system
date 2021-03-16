@@ -3065,14 +3065,137 @@ Based on the Markov partition, we can define the itinerary in high dimension pro
 
 
 \subsection{Example: Skinny baker map}
+The skinny baker map is 
+$$
+B(x_1, x_2) = \left\{\begin{array}{ll}
+    \left(\begin{array}{cc}
+        a   & 0 \\
+        0   & 2 \\
+    \end{array}\right)
+    \left(\begin{array}{c}
+        x_1 \\
+        x_2 \\
+    \end{array}\right) 
+& 
+    x_2 \in [0, 1/2]\\
+    \left(\begin{array}{cc}
+        a   & 0 \\
+        0   & 2 \\
+    \end{array}\right)
+    \left(\begin{array}{c}
+        x_1 \\
+        x_2 \\
+    \end{array}\right) +
+    \left(\begin{array}{c}
+        b  \\
+        -1 \\
+    \end{array}\right) 
+& 
+    x_2 \in (1/2, 1]\\
+\end{array}\right.
+$$
+
+If we consider the itinerary of the map, let $x_1 < 1/2$ as \textbf{L} and $x_1 > 1/2$ as \textbf{R}($\forall x_1, x_2 \in [0, 1], \text{ point }(x_1, x_2)$)then \\[2ex]
+
+\begin{figure}[H]
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-0.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-1-0*5-0*5.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-2-0*5-0*5.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-3-0*5-0*5.png}
+\end{minipage}
+\\[2ex]\caption{Baker map($a = 0.5, b = 0.5$)}
+\end{figure}
 
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figure/section5/baker-intro.png} \\
+\end{center}
+\caption{Baker map iteration}
+\end{figure}
+
+We found that the map is similar as baker. However, if we change the parameter, the map will show a little different from baker.\\[2ex]
+
+
+
+\begin{figure}[H]
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-0.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-1-0*33-0*67.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-2-0*33-0*67.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-3-0*33-0*67.png}
+\end{minipage}
+\\[2ex]\caption{Baker map($a = 1/3, b = 2/3$)}
+\end{figure}
+
+And we now discuss the change of $b$. \\[2ex]
+
+\begin{figure}[H]
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-0.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-1-0*33-0*5.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-2-0*33-0*5.png}
+\end{minipage}
+\begin{minipage}[c][0.24\width]{
+   0.24\textwidth}
+   \centering
+   \includegraphics[width=1\textwidth]{figure/section5/baker-3-0*33-0*5.png}
+\end{minipage}
+\\[2ex]\caption{Baker map($a = 1/3, b = 0.5$)}
+\end{figure}
 
 
 
 \subsection{Example: Horseshoe map}
+Before we consider the horseshoe map, we consider the Henon's map firstly and explain why are we interested in horseshoe map.
 
+Consider a rectangle region same as we discussed in the fixed point theorem above, 
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figure/section5/henon-horseshoe.png} \\
+\end{center}
+\caption{Henon's map, transform to horseshoe map}
+\end{figure}
 
 
 
