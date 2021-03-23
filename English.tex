@@ -3561,15 +3561,17 @@ $$
 \dot y = C_2(x \sin \tau + y \cos \tau)
 \end{array}\right. \tau = C_1 - {C_3 \over 1 + x^2 + y^2}
 $$
-To analysis the problem with Lyapunov exponent, we need to calculate the partical differential of the function.
+To analysis the problem with Lyapunov exponent, we need to calculate the partical differential of the function. Let $\xi =  (1 + x^2 + y^2)^{-1}$, then
 $$
-{\partial\tau \over \partial x} = {-2C_3x \over (1 + x^2 + y^2)^2} \ \ \ \ 
-{\partial\tau \over \partial y} = {-2C_3y \over (1 + x^2 + y^2)^2} \ \ \ \  
 {\partial \sin \tau \over \partial *} = {\partial \tau \over \partial *}\cos \tau \ \ \ \
 {\partial \cos \tau \over \partial *} = -{\partial \tau \over \partial *}\sin \tau \ \ \ \ \ \ \ \ 
-(* = x, y)
+(* = x, y) \text{ and }
 $$
-then
+$$
+{\partial\tau \over \partial x} = {2C_3x \over (1 + x^2 + y^2)^2} = 2C_3x \xi^2 \ \ \ \ 
+{\partial\tau \over \partial y} = {2C_3y \over (1 + x^2 + y^2)^2} = 2C_3y \xi^2
+$$
+Now we consider $\partial\dot * /\partial -$, where $*= x,y$ and $- = x,y$
 $$
 {\partial \dot x \over \partial x} 
 = C_2\left({\partial(x\cos\tau)\over\partial x} - y {\partial \sin\tau \over \partial x}\right) 
@@ -3590,7 +3592,7 @@ $$
 = C_2\left(x{\partial\sin\tau\over\partial y} + {\partial (y \cos\tau) \over \partial y}\right) 
 = C_2\left(\cos \tau + {{\partial \tau \over \partial y}x\cos \tau} - {\partial \tau \over \partial y} y \sin \tau\right) 
 $$
-And finally, if we consider the Jacobian matrix $J$, then
+Summarize the formula we wrote above in matrix, then
 $$
 J = C_2 \cdot
 \left[\begin{array}{cc}
@@ -3603,17 +3605,17 @@ J = C_2 \cdot
     x  
 \end{array}\right]
 \cdot
-\left[\begin{array}{c}
-    {\partial \tau \over \partial x} \\
+\left[\begin{array}{cc}
+    {\partial \tau \over \partial x} &
     {\partial \tau \over \partial y} 
 \end{array}\right] 
 \right)
 $$
 $$
-= {-2C_2C_3 \over (1 + x^2 + y^2)^2} \cdot
+= C_2 \cdot
 \left[\begin{array}{cc}
-    \cos \tau & -\sin \tau \\
-    \sin \tau & \cos \tau  
+    \cos (\tau) & -\sin (\tau) \\
+    \sin (\tau) &  \cos (\tau)  
 \end{array}\right]
 \cdot\left(I + 
 \left[\begin{array}{c}
@@ -3621,24 +3623,36 @@ $$
     x  
 \end{array}\right]
 \cdot
-\left[\begin{array}{c}
-    x \\
-    y
-\end{array}\right]
-\right) 
-$$
-Finally, 
-$$
-J = {-2C_2C_3 \over (1 + x^2 + y^2)^2} \cdot
 \left[\begin{array}{cc}
-    \cos \tau & -\sin \tau \\
-    \sin \tau & \cos \tau  
+    2C_3x \xi^2 &
+    2C_3y \xi^2
+\end{array}\right] 
+\right)
+$$
+$$
+= \alpha C_2 \cdot
+\left[\begin{array}{cc}
+    \cos (\tau) & -\sin (\tau) \\
+    \sin (\tau) &  \cos (\tau)  
 \end{array}\right]
 \cdot 
 \left[\begin{array}{cc}
-    1-xy & -y^2 \\
-    x^2 & 1+xy  
-\end{array}\right] \left(\tau = C_1 - {C_3 \over 1+x^2+y^2}\right)
+    1/\alpha-xy & -y^2                  \\
+    x^2         & 1/\alpha+xy
+\end{array}\right] 
+$$
+Finally, we have 
+$$
+J = \alpha C_2 \cdot
+\left[\begin{array}{cc}
+    \cos (\tau) & -\sin (\tau) \\
+    \sin (\tau) &  \cos (\tau)  
+\end{array}\right]
+\cdot 
+\left[\begin{array}{cc}
+    1/\alpha-xy & -y^2                  \\
+    x^2         & 1/\alpha+xy
+\end{array}\right], \alpha = 2C_3\xi^2, \tau = C_1 - C_3\xi, \xi = {1\over (1+x^2+y^2)}
 $$
 
 Lyapunov spectrum = (+, -)
