@@ -3003,7 +3003,7 @@ Now the problem is how to describe this property that every $f(I_n)$ covered som
 \end{figure}
 
 
-\begin{theorem} Let $f$ be a continuous map on $R^2$, $S$ is a ractangular region and $\partial S$ is the boundary of $S$. Now consider an point $\mathbf x = \mathbf x_0$ on $\partial S$, then we have the vector $V(\mathbf x) = {f(\mathbf x) - \mathbf x \over ||f(\mathbf x) - \mathbf x||}$. Move the point with the boundary continuous and sign every vector $V(\mathbf x)$ until the point back to the $\mathbf x_0$ and sum the total rotation of these vector sequence, if it is nonzero, then $f$ has a fixed point in $S$.
+\begin{theorem} \textbf{Index theory} Let $f$ be a continuous map on $R^2$, $S$ is a ractangular region and $\partial S$ is the boundary of $S$. Now consider an point $\mathbf x = \mathbf x_0$ on $\partial S$, then we have the vector $V(\mathbf x) = {f(\mathbf x) - \mathbf x \over ||f(\mathbf x) - \mathbf x||}$. Move the point with the boundary continuous and sign every vector $V(\mathbf x)$ until the point back to the $\mathbf x_0$ and sum the total rotation of these vector sequence, if it is nonzero, then $f$ has a fixed point in $S$.
 \end{theorem}
 {\color{blue}
 \begin{proof} \textbf{[1]} If center $c$ of rectangle is fixed point, then there is nothing to do.
@@ -3520,6 +3520,156 @@ On the other hand, we found calculation of Hausforff dimension is difficult or i
 
 \newpage
 \section{Chaos in attractor}
+
+
+\subsection{Attractor and chaotic attractor}
+
+\begin{definition} Let $f$ be a map and $x_0$ be an initial condition. The \textbf{forward limit set} of the orbit $\{f^n(X_0)\}$ is 
+$$
+\omega(x_0) = \{x| \forall \varepsilon > 0, \forall N > 0, \exists n > N s.t. |f^n(x_0) - x| < \varepsilon\}
+$$
+\end{definition}
+
+
+\begin{definition}\textbf{Attractor}
+\\\noindent Attractor is a forward limit set which attracts a set of initial values that has nonzero measure (nonzero length, area, or volume, depending on whether the dimension of the map’s domain is one, two, or higher). 
+\\\noindent This set of initial conditions is called the basin of attraction (or just basin), of the attractor.
+\end{definition}
+
+
+\begin{definition} \textbf{Chaos set}
+\\\noindent Let $\{f^n(x)\}$ be a chaotic orbit. 
+\\\noindent If $x_0 \in \omega(x_0)$, then $\omega(x_0)$ us called a \textbf{chaotic set}.
+\end{definition}
+
+
+\begin{conclusion}\label{prop-chaos-attractor} \textbf{[i]} A chaotic set is the forward limit set of a chaotic orbit which itself is contained in its forward limit set.
+\\\noindent \textbf{[ii]} A chaotic attractor is a chaotic set that is also an attractor.
+\\\noindent \textbf{[iii]} A sink is an attractor, since it attracts at least a small neighborhood of initial values.
+\end{conclusion}
+
+
+\begin{example}\textbf{Ikeda map}
+\\\noindent Ikeda map map was proposed first by Kensuke Ikeda as a model of light going around across a nonlinear optical resonator. Is is a discrete-time dynamical system given by the complex map.
+$$
+z_{{n+1}}=A+Bz_{n}e^{{i(|z_{n}|^{2}+C)}}
+$$ 
+Based on the Euler formula, we can transform this complex map to real map
+$$
+\left\{\begin{array}{l}
+\dot x = R + C_2(x \cos \tau - y \sin \tau) \\
+\dot y = C_2(x \sin \tau + y \cos \tau)
+\end{array}\right. \tau = C_1 - {C_3 \over 1 + x^2 + y^2}
+$$
+To analysis the problem with Lyapunov exponent, we need to calculate the partical differential of the function.
+$$
+{\partial\tau \over \partial x} = {-2C_3x \over (1 + x^2 + y^2)^2} \ \ \ \ 
+{\partial\tau \over \partial y} = {-2C_3y \over (1 + x^2 + y^2)^2} \ \ \ \  
+{\partial \sin \tau \over \partial *} = {\partial \tau \over \partial *}\cos \tau \ \ \ \
+{\partial \cos \tau \over \partial *} = -{\partial \tau \over \partial *}\sin \tau \ \ \ \ \ \ \ \ 
+(* = x, y)
+$$
+then
+$$
+{\partial \dot x \over \partial x} 
+= C_2\left({\partial(x\cos\tau)\over\partial x} - y {\partial \sin\tau \over \partial x}\right) 
+= C_2\left(cos \tau - {{\partial \tau \over \partial x}x\sin \tau} - {\partial \tau \over \partial x} y \cos \tau\right) 
+$$
+$$
+{\partial \dot x \over \partial y} 
+= C_2\left(x{\partial\cos\tau\over\partial y} - {\partial (y \sin\tau) \over \partial y}\right) 
+= C_2\left(-\sin \tau - {{\partial \tau \over \partial y}x\sin \tau} - {\partial \tau \over \partial y} y \cos \tau\right) 
+$$
+$$
+{\partial \dot y \over \partial x} 
+= C_2\left({\partial(x\sin\tau)\over\partial x} + y {\partial \cos\tau \over \partial x}\right) 
+= C_2\left(sin \tau + {{\partial \tau \over \partial x}x\cos \tau} - {\partial \tau \over \partial x} y \sin \tau\right) 
+$$
+$$
+{\partial \dot y \over \partial y} 
+= C_2\left(x{\partial\sin\tau\over\partial y} + {\partial (y \cos\tau) \over \partial y}\right) 
+= C_2\left(\cos \tau + {{\partial \tau \over \partial y}x\cos \tau} - {\partial \tau \over \partial y} y \sin \tau\right) 
+$$
+And finally, if we consider the Jacobian matrix $J$, then
+$$
+J = C_2 \cdot
+\left[\begin{array}{cc}
+    \cos \tau & -\sin \tau \\
+    \sin \tau & \cos \tau  
+\end{array}\right]
+\cdot\left(I + 
+\left[\begin{array}{c}
+    -y \\
+    x  
+\end{array}\right]
+\cdot
+\left[\begin{array}{c}
+    {\partial \tau \over \partial x} \\
+    {\partial \tau \over \partial y} 
+\end{array}\right] 
+\right)
+$$
+$$
+= {-2C_2C_3 \over (1 + x^2 + y^2)^2} \cdot
+\left[\begin{array}{cc}
+    \cos \tau & -\sin \tau \\
+    \sin \tau & \cos \tau  
+\end{array}\right]
+\cdot\left(I + 
+\left[\begin{array}{c}
+    -y \\
+    x  
+\end{array}\right]
+\cdot
+\left[\begin{array}{c}
+    x \\
+    y
+\end{array}\right]
+\right) 
+$$
+Finally, 
+$$
+J = {-2C_2C_3 \over (1 + x^2 + y^2)^2} \cdot
+\left[\begin{array}{cc}
+    \cos \tau & -\sin \tau \\
+    \sin \tau & \cos \tau  
+\end{array}\right]
+\cdot 
+\left[\begin{array}{cc}
+    1-xy & -y^2 \\
+    x^2 & 1+xy  
+\end{array}\right] \left(\tau = C_1 - {C_3 \over 1+x^2+y^2}\right)
+$$
+
+Lyapunov spectrum = (+, -)
+
+$(\text{Ikeda}(R=1, C_1=0.4, C_2=0.9, C_3=6) = (0.51, -0.72))$
+
+So obviously, Ikeda map is a chaotic system.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figure/section7/Ikeda-intro-attrractor.png} \\
+\caption{Forward map of Ikeda map}\label{Ikeda-intro}
+\end{center}
+\end{figure}
+
+Now we consider two different initial value(+ point in Fig.\ref{Ikeda-intro}, (1)), we ignore first 1,000,000 result and plot 1,000,001 - 2,000,000 in the Fig.\ref{Ikeda-intro}, (2). Obviously, we can assume these points are forward limit set, or the attractor of the system,which has one chaotic set and a sink point. 
+
+We can found Conclusion \ref{prop-chaos-attractor}(i), (ii) and (iii) are established in this Ikeda map easily.
+\end{example}
+
+
+Now we discuss what will be included in attractor set.
+\begin{conclusion}\textbf{Attractor set include: }
+\\\noindent \textbf{[i]} Fixed point sink
+\\\noindent \textbf{[ii]} Periodic-k points
+
+\text{Or in summary, a attractor should be a set satisfied:}
+\\\noindent \textbf{[iii]} Attractor should be \textbf{irreducible} in the sense that it includes only what is necessary. 
+\\\noindent \textbf{[iv]} The attractor must have the property that a point chosen at random should have a \textbf{greater-than-zero probability of converging} to the set.
+\\\noindent \textbf{[vi]} Chaos introduces a new twist. Chaotic orbits can be attracting.
+\end{conclusion}
 
 
 \end{document}
