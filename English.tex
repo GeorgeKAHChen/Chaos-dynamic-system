@@ -2694,29 +2694,30 @@ $$
 \xi(P_{i-1})
 \right]\right\}
 $$
-Finally, we can summary this processing in algorithm follows
+Finally, we can summary this processing in algorithm follows\footnote{Reference: Malik Hassanaly, Venkat Raman, Numerical convergence of the Lyapunov spectrum computed using low Mach number solvers, Journal of Computational Physics, Volume 386, 2019, Pages 467-485, ISSN 0021-9991.}
 
 
 
 \begin{algorithm}[H]
-\caption{Calculation of Lyapunov spectrum}\label{Lyapunov-spectrum}
+\caption{Benettin's algorithm (Jacobian differential)}\label{Lyapunov-spectrum}
 \begin{algorithmic}
-\State \textbf{INPUT:} Values of system: $x_0, x_1, \ldots x_N$;
+\State \textbf{INPUT:} Jacobian matrix for every point: $J_0, J_1, \ldots J_N$;
 
-\State \Procedure{GramSchmidt}{matrix};\Comment{Return the Gram-Schmidt orthogonal matrix.}\EndProcedure
-\State \Procedure{Jacobian}{value};\Comment{Return the Jacobian matrix at input value}\EndProcedure
-\State \Procedure{VecNorm}{matrix};\Comment{Return the norm of every vector in the matrix}\EndProcedure
+\State \Procedure{Gram Schmidt}{matrix};\Comment{Return the Gram-Schmidt orthogonal matrix.}\EndProcedure
+\State \Procedure{Normalization}{matrix};\Comment{Normalization every vector in the matrix}\EndProcedure
+\State \Procedure{VectorNorm}{matrix};\Comment{Return the norm of every vector in the matrix}\EndProcedure
 
-\State \Procedure{LyaSpec}{}
+\State \Procedure{Lyapunov Spectrum}{}
 \State \textit{float} $P = I$; 
-\State \textit{list} LyaSpec;
+\State \textit{list} Spectrum;
 \For {$i = 1, i \leq N, i ++$} 
-    \State $\text{P} = \text{Jacobian}(x_i) \cdot P$
-    \State $\text{LyaSpec} = \text{LyaSpec} + (\ln\text{VecNorm}(P))$;
-    \State $\text{P} = \text{VecNorm}(P)$
+    \State $P = J_i \cdot P$
+    \State $P = \text{Gram Schmidt}(P)$
+    \State $\text{Spectrum} = \text{Spectrum} + (\ln\text{VectorNorm}(P))$;
+    \State $\text{P} = \text{Normalization}(P)$
 \EndFor
-\State $LyaSpec = \text{LyaSpec} / N$
-\State \Return LyaSpec
+\State $Spectrum = \text{Spectrum} / N$
+\State \Return Spectrum
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
@@ -2748,27 +2749,13 @@ y = x
 \end{array}\right]
 $$
 Based on the Algo. \ref{Lyapunov-spectrum}, we can calculate the Lyapunov spectrum numerically.
-%\begin{figure}[H]
-%\begin{center}
-%\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Henon.png} \\
-%\caption{Lyapunov spectrum in Henon's map($a = 1.4, b = 0.3$)}
-%\end{center}
-%\end{figure}
-  \noindent $a = 1.4, b = 0.3$
-\\\noindent $\text{Lyapunov spectrum} = (0.42040807, -1.61305949), \text{sum} = -1.1665324333361191$
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Henon.png} \\
+\caption{Lyapunov spectrum in Henon's map($a = 1.4, b = 0.3$)}
+\end{center}
+\end{figure}
 \end{example}
-
-
-
-
-Now we consider a continuous system s.t. $\dot x = f(x), x(0) = x_0$ where $x_0$ is a constant vector at initial time $t_0$. With Ronge-kutta method, we can find a group of value to simulate the system. So we can change the system to a map formed 
-$$
-x_{n+1} = g(x_n, t_n), x_0 = x(0), t_{n+1} = t_n + \Delta t
-$$
-where $g$ is based on the Ronge-kutta method. 
-
-
-
 
 
 
@@ -2784,13 +2771,12 @@ Model           & $\lambda_1$ & $\lambda_2$ & $\lambda_3$ & $\lambda_4$
                                                                   & Parameter \\
 \hline
 \hline
-Logistic map    & 0.5769  &         &         &         & 0.5769  & $a = 3.95$ \\
-Henon's map     & 0.4204  & -1.6130 &         &         & -1.1665 & $(a, b) = 1.4, 0.3$ \\
-Duffing map     & 1.0660  & -0.9661 &         &         & 0.0998  & $(\alpha, \beta, \gamma, \delta, \omega) = (1, 0.04, 1, 0.1, \pi/2)$ \\
-Lorenz model    & 0.9038  & 0.0048  & 14.574  &         & -13.666 & $(\sigma, \rho, \beta) = (28, 10, 8/3)$ \\
-Lorenz model -2 & 0.1040  & 0.0028  & -9.7590 &         & -9.6520 & $(\sigma, \rho, \beta) = (45.92, 4, 10)$\\
-Rossler system  & 0.1040  & 0.0028  & -9.7590 &         & -9.6290 & $(a, b, c) = (0.2, 0.3, 9)$ \\
-4-dim model     & 3.4475  & 3.5305  & 2.7098  & 10.7696 & 20.4574 & /\\
+Logistic map    & 0.4961  &         &         &         & 0.4961(+)           & $3.9$ \\
+Henon's map     & 0.4204  & -1.6130 &         &         & -1.1665(+, -)       & $1.4, 0.3$ \\
+Duffing map     & 1.0660  & -0.9661 &         &         & 0.0998(+, -)        & $1, 0.04, 1, 0.1, \pi/2$ \\
+Lorenz model    & 0.9170  & 0.0031  & -14.590 &         & -13.666(+, 0, -)    & $28, 10, 8/3$ \\
+Rossler system  & 0.0705  & 0.0020  & -5.3882 &         & -5.3157(+, 0, -)    & $0.2, 0.2, 5.7$ \\
+Extend Rossler  & 3.4475  & 3.5305  & 2.7098  & 10.7696 & 20.4574(+, +, 0, -) & /\\
 \hline
 \end{tabular}  
 \end{table}
@@ -2803,6 +2789,11 @@ Rossler system  & 0.1040  & 0.0028  & -9.7590 &         & -9.6290 & $(a, b, c) =
 
 
 
+Now we consider a continuous system s.t. $\dot x = f(x), x(0) = x_0$ where $x_0$ is a constant vector at initial time $t_0$. With Ronge-kutta method, we can find a group of value to simulate the system. So we can change the system to a map formed 
+$$
+x_{n+1} = g(x_n, t_n), x_0 = x(0), t_{n+1} = t_n + \Delta t
+$$
+where $g$ is based on the Ronge-kutta method. 
 
 
 
@@ -2845,16 +2836,6 @@ $$
 \caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.0001)$)}
 \end{center}
 \end{figure}
-  \noindent $(\sigma, \rho, \beta, \Delta t) = (28, 10, 8/3, 0.0001)$
-\\\noindent $\text{Lyapunov spectrum} = (0.903833632, 0.00483117315 -14.5749841), \text{sum} = -13.666319315391025$
-%\begin{figure}[H]
-%\begin{center}
-%\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Lorenz-2.png} \\
-%\caption{Lyapunov spectrum in Lorenz system($(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.0001)$)}
-%\end{center}
-%\end{figure}
-\\\noindent $(\sigma, \rho, \beta, \Delta t) = (45.92, 4, 10, 0.0001)$
-\\\noindent $\text{Lyapunov spectrum} = (0.104081796, 0.00285865072 -9.75901813), \text{sum} = -9.652077679944226$
 \end{example}
 
 
@@ -2880,14 +2861,12 @@ J(x, y, z) = \Delta t\bar J(x, y, z) + I = \left[\begin{array}{lll}
 z\Delta t           & 0                 & (x-c)\Delta t + 1
 \end{array}\right]
 $$
-%\begin{figure}[H]
-%\begin{center}
-%\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Rossler.png} \\
-%\caption{Lyapunov spectrum in Rossler system($(a, b, c, \Delta t) = (0.2, 0.3, 9, 0.001)$)}
-%\end{center}
-%end{figure}
-  \noindent $(a, b, c, \Delta t) = (0.2, 0.3, 9, 0.001)$
-\\\noindent$\text{Lyapunov spectrum} = (0.104081796, 0.002.85865072, -9.75901813), \text{sum} = -9.629091584454333$
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Rossler.png} \\
+\caption{Lyapunov spectrum in Rossler system($(a, b, c, \Delta t) = (0.2, 0.3, 9, 0.001)$)}
+\end{center}
+\end{figure}
 \end{example}
 
 
@@ -2917,13 +2896,12 @@ J(x, y, z) = \Delta t\bar J(x, y) + I = \left[\begin{array}{lll}
 (-\alpha -3\beta x^2)\Delta t   & \delta \Delta t + 1   \\
 \end{array}\right]
 $$
-%\begin{figure}[H]
-%\begin{center}
-%\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Duffing.png} \\
-%\caption{Lyapunov spectrum in Duffing equation($(\alpha, \beta, \gamma, \delta, \omega, \Delta t) = (1, 0.04, 1, 0.1, \pi/2, 0.001)$)}
-%\end{center}
-%\end{figure}
-$\text{Lyapunov spectrum} = (1.06601852, -0.96612192), \text{sum} = 0.09989660859631133$
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section5/Lya-spe-Duffing.png} \\
+\caption{Lyapunov spectrum in Duffing equation($(\alpha, \beta, \gamma, \delta, \omega, \Delta t) = (1, 0.04, 1, 0.1, \pi/2, 0.001)$)}
+\end{center}
+\end{figure}
 \end{example}
 
 
@@ -2937,8 +2915,18 @@ $\text{Lyapunov spectrum} = (1.06601852, -0.96612192), \text{sum} = 0.0998966085
 
 
 
-\begin{example}\textbf{Lyapunov spectrum in a 4-dim system}
-\\\noindent In the last of this part, we consider a 4-dim dynamic system:
+
+
+
+
+
+
+
+
+
+
+\begin{example}\textbf{Lyapunov spectrum in Extend Rossler system}
+\\\noindent In the last of this part, we consider Extend Rossler system:
 $$
 \left\{\begin{array}{lll}
 \dot x & = & -y-z \\
@@ -2969,7 +2957,6 @@ $$
 \caption{Lyapunov spectrum in this 4-dim equation}
 \end{center}
 \end{figure}
-$\text{Lyapunov spectrum} = (3.44750533, 3.53053891, 2.70980462, 10.76963212), \text{sum} = 20.457480973829277$
 \end{example}
 
 
@@ -3685,6 +3672,22 @@ Now we discuss what will be included in attractor set.
 \\\noindent \textbf{[vi]} Chaos introduces a new twist. Chaotic orbits can be attracting.
 \end{conclusion}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{n-dim Itinerary}
+\begin{definition}\textbf{Piecewise expanding map}
+\end{definition}
 
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
