@@ -3642,6 +3642,12 @@ J = \alpha C_2 \cdot
 \end{array}\right], \alpha = 2C_3\xi^2, \tau = C_1 - C_3\xi, \xi = {1\over (1+x^2+y^2)}
 $$
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/section7/Lya-spe-Ikeda.png} \\
+\caption{Lyapunov spectrum of Ikeda map}
+\end{center}
+\end{figure}
 Lyapunov spectrum = (+, -)
 
 $(\text{Ikeda}(R=1, C_1=0.4, C_2=0.9, C_3=6) = (0.51, -0.72))$
@@ -3686,9 +3692,85 @@ Now we discuss what will be included in attractor set.
 
 
 \subsection{n-dim Itinerary}
+
+In itinerary we introduced before, we just used two subinterval(\textbf{L} and \textbf{R} in Tent map(1-dim) and baker map(high-dim))
+
 \begin{definition}\textbf{Piecewise expanding map}
+\\\noindent Consider a interval $I = [p_0, p_k]$ and $\{p_0, p_1, \ldots, p_k\}$ is a partition of $I$ s.t. 
+$$
+p_0 < p_1 < p_2 < \ldots < p_k, \text{ and } I_i = [p_{i-1}, p_i], I = \bigcup_{i = 1}^{k}I_i
+$$
+Let $f:I \rightarrow I$ be a map s.t. $|f'(x)|\geq \alpha > $1 except possibly at the $p_i$ point (that means, $f$ may have dicountinuous point). We will call such a map a \textbf{piecewise expanding map} with \textbf{stretching factor} $\alpha$. 
+\\\noindent We say that $\{p_0, p_1, \ldots, p_k\}$ is a \textbf{stretching partition} for the piecewise expanding map $f$ if, for each $i$, $f(I_i)$ is exactly the union of some of the intervals $I_1, I_2, \ldots I_k$.
 \end{definition}
 
+
+and we have these conclusion:
+\begin{conclusion} \textbf{[i]} A stretching partition satisfies the covering rule, which allows the construction of transition graphs for the partition intervals $I_i$. 
+\\\noindent \textbf{[ii]} It is also the one-dimensional analogue of the concept of Markov partition.
+\end{conclusion}
+
+Now we consider the itinerary of a system, we can use $I_1, I_2, \ldots, I_k$ instead of \textbf{L} and \textbf{R} to describe the symbol of a orbit.
+
+\begin{example}\textbf{W-map}
+\\\noindent Consider a 1-dim map $f$ s.t.
+$$
+f(x) = \left\{
+\begin{array}{ll}
+2|(x - 1/4)| & x \in [0, 1/2] \\
+2|(x - 3/4)| & x \in [1/2, 1] \\
+\end{array}
+\right.
+$$
+
+\newpage
+\begin{figure}[H]
+\begin{minipage}[c][0.3\width]{
+   0.3\textwidth}
+   \centering
+   \includegraphics[width=0.8\textwidth]{figure/section7/W-map-intro.png}\\
+\end{minipage}
+\begin{minipage}[c][0.3\width]{
+   0.3\textwidth}
+   \centering
+   \includegraphics[width=0.8\textwidth]{figure/section7/W-map-tran.png}
+\end{minipage}
+\\[4ex]\caption{W map}
+\end{figure}
+
+Let $p_0, p_1, p_2, p_3, p_4 = 0, 1/4, 2/4, 3/4, 1$, $A_1 = [0, 1/4], A_2 = [1/4, 2/4], A_3 = [2/4, 3/4], A_4 = [3/4, 1]$, then we can easily found the transition graph of the map.
+$$
+f(A_1) = f(A_2) = f(A_3) = f(A_4) = A_2 \bigcup A_3 \Rightarrow f\left(\bigcup_{i = 1}^{4}A_i\right) = A_2\bigcup A_3
+$$
+Now we consider the itinerary of the map.
+\\\noindent \textbf{*} If $S_1S_2\ldots$ is itinerary, then $S_1S_2 = A_1A_2$ is an allowable symbol sequence, but $A_2A_1$ is not. In general, we have 
+\begin{conclusion} If $B, C$ are two subintervals for a stretching partition, C allowed to follow B in the symbol sequence of a poitn of the interval I if and only if $f(B) = C \bigcup (\text{other subintervals})$
+\end{conclusion}
+
+  \noindent \textbf{**} As $|f'| \equiv = 2 = \alpha$ and for every interval $L = \mu([0, 1]) = 1 \Rightarrow \mu(f(I)) = \mu([0, 1])/\alpha = 1/2$. On the other hand, for ever interval $[0, 1] = \bigcup_{i = 1}^{4}A_i, f(\bigcup_{i = 1}^{4}A_i) = A_2 \bigcup A_3 \Rightarrow \mu(f(I)) = \mu(A_2\bigcup A_3) = 1/2$. Generally, we have 
+\begin{conclusion} For an allowable sequence $B_1B_2\ldots B_n$ of n symbols, there is a subinterval of length at most $L \over \alpha^n$ which we call an \textbf{order n subinterval}
+\end{conclusion}
+
+\end{example}
+
+
+
+\begin{theorem}Let $f$ be a continuous piecewise expanding map on an interval $I$ of length $L$ with stretching factor $\alpha$, and let $p_0 < p_1 < \ldots < p_k$ be a stretching partition for $f$.
+\\\noindent \textbf{[i]} Each allowable finite symbol sequence $S_1S_2\ldots S_n$corresponds to a subinterval of length at most $L / \alpha^{n-1}$
+\\\noindent \textbf{[ii]} Each allowable infinite symbol sequence $S_1S_2\ldots S_n$ corresponds to a single point x of $I$ such that $\forall i \geq 1, f^i(x) \in A_{i+1}$, and if the symbol sequence is not periodic or eventually periodic, then $x$ generates a chaotic orbit.
+\\\noindent \textbf{[iii]} If, in addition, each pair of symbols B and C (possibly B $=$ C) can be connected by allowable finite symbol sequences B$\ldots$C and C$\ldots$B, then $f$ has a dense chaotic orbit on $I$, and $I$ is a chaotic attractor.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+\subsection{Measure with fractal dimension}
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
