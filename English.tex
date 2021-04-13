@@ -3308,7 +3308,7 @@ We know that itinerary is a tool to consider a map is asymptotically periodic or
 
 
 \newpage
-\section{Fractal dimension}
+\section*{Fractal dimension}
 
 In real analysis, if we consider the size of a subspace, we basically use \textbf{measure} to describe that.
 
@@ -3958,6 +3958,168 @@ On the other hand, if we consider the $X_\infty$ for a dynamical system, we can 
 \end{center}
 }
 \section{Differential equations}
+\subsection{Basic Definition}
+\begin{definition}\textbf{Terms}
+\\\noindent {\color{red}\textbf{Autonomous}}: The time variable t does not explicitly appear, for instance
+$$
+\text{Autonomous: }\dot x = ax \text{, Nonautonomous:} \ddot x = -c\dot x - \sin x + \rho \sin x
+$$
+\\\noindent {\color{red}\textbf{Initial Value}} The number $x_0 = x(0)$ is called the \textbf{initial value} of the function x.
+\\\noindent {\color{red}\textbf{Flow}} The \textbf{flow} $F$ of an autonomous differential equation is the function of time $t$ and initial value $x_0$ which represents the set of solutions. Thus $F(t, x_0)$ is the value at time $t$ of the solution with initial value $x_0$ . We will often use the slightly different notation $F_t(x_0)$ to mean the same thing.
+\\\noindent {\color{red}\textbf{Equilibrium}} A constant solution of the autonomous differential equation $\dot x = f(x)$ is called an \textbf{equilibrium} of the equation.
+\\\noindent {\color{red}\textbf{Sink}} An equilibrium solution is called \textbf{attracting} or a \textbf{sink} if the trajectories of nearby initial conditions converge to it.
+\\\noindent {\color{red}\textbf{Source}} It is called \textbf{repelling} or a \textbf{source} if the solutions through nearby initial conditions diverge from it. 
+\end{definition}
+
+
+
+  \noindent {\large * \textit{I. One dimension system.}}
+\begin{example}\textbf{Logistic differential equation}
+\\\noindent Consider a differential equation $\dot x = ax(1-x)$ where $a > 0$ is a constant.
+\begin{figure}[H]
+\begin{minipage}[c][0.5\width]{
+   0.5\textwidth}
+   \centering
+   \includegraphics[width=0.7\textwidth]{figure/section8/logistic-OD-tx.png}
+\end{minipage}
+\begin{minipage}[c][0.5\width]{
+   0.5\textwidth}
+   \centering
+   \includegraphics[width=0.7\textwidth]{figure/section8/logistic-OD-txv.png}
+\end{minipage}
+\caption{$x_0-t$ plot of logistic DE}\label{logistic-DE}
+\end{figure}
+  \noindent \textbf{[i] Existence} Each point in the $(t,x)$-plane has a solution passing through it. The solution has slope given by the differential equation at that point.
+\\\noindent \textbf{[ii] Uniqueness} Only one solution passes through any particular $(t, x)$.
+\\\noindent \textbf{[iii] Continuous dependence} Solutions through nearby initial conditions remain close over short time intervals. In other words, the flow $F(t, x_0)$ is a continuous function of $x_0$ as well as $t$.
+\\\noindent Using the first concept, we can draw a \textbf{slope field} in the $(t, x)$-plane by evaluating $\dot x = ax(1 - x)$ at several points and putting a short line segment with the evaluated slope at each point
+\end{example}
+
+
+
+  \noindent {\large * \textit{II. High dimension linear system.}}
+\begin{definition}\textbf{Lyapunov Stable}
+An equilibrium point $\mathbf{v}$ is called \textbf{stable or Lyapunov stable} if every initial point $\mathbf{v_0}$ that is chosen very close to $\mathbf{v}$ has the property that the solution $F(t, \mathbf{v_0})$ stays close to $v$ for $t \geq 0$.
+\\\noindent More formally, for any neighborhood $N$ of $\mathbf{v}$ there exists a neighborhood $N_1$ of $\mathbf{v}$, contained in $N$, such that for each initial point $\mathbf{v_0}$ in $N_1$, the solution $F(t, \mathbf{v_0})$ is in $N$ for all $t \geq 0$. 
+\\\noindent An equilibrium is called \textbf{asymptotically stable} if it is both stable and attracting. 
+\\\noindent An equilibrium is called \textbf{unstable} if it is not stable. 
+\\\noindent Finally, an equilibrium is \textbf{globally asymptotically stable} if it is asymptotically stable and all initial values converge to the equilibrium.
+\end{definition}
+
+
+
+\begin{theorem}\textbf{Stability of Origin}
+Let $A$ be an $n \times n$ matrix, and consider the equation $ {\mathbf{\dot v}} = A \mathbf{v}$. If the real parts of all eigenvalues of $A$ are negative, then the equilibrium $\mathbf v = 0$ is globally asymptotically stable. If $A$ has $n$ distinct eigenvalues and if the real parts of all eigenvalues of $A$ are nonpositive, then $\mathbf v = 0$ is stable.
+\end{theorem}
+
+
+
+  \noindent {\large \textit{III. High dimension nonlinear system.}}
+\begin{conclusion} For all high dimension ODE, it can be transformed into a first-order system.
+\end{conclusion}
+
+
+So if we consider a high dimension nonlinear equation, that is same as consider a 1-dim ODE system.
+
+
+\begin{theorem}\textbf{Existence and Uniqueness}
+\\\noindent Consider the first-order differential equation $\dot {\mathbf v} = f(\mathbf v)$ where both $f$ and its first partial derivatives with respect to $v$ are continuous on an open set $U$. Then for any real number $t_0$ and real vector $v_0$, there is an open interval containing $t_0$, on which there exists a solution satisfying the initial condition $v(t_0) = v_0$, and this solution is unique.
+\end{theorem}
+
+
+
+\begin{definition}\textbf{Lipschitz Constant}
+\\\noindent Let $U$ be an open set in $\mathcal R^n$. A function $f$ on $\mathcal R^n$ is said to be Lipschitz on $U$ if there exists a constant $L$ s.t.
+$$
+\forall v, w \in U, ||f(v) - f(w)|| \leq L||v - w||
+$$
+The constant $L$ is called a Lipschitz constant for f.
+\end{definition}
+
+
+
+
+\begin{theorem}\textbf{Continuous dependence on initial conditions}
+\\\noindent Let $f$ be defined on the open set $U$ in $\mathcal R^n$, and assume that $f$ has Lipschitz constant $L$ in the variables $v$ on $U$. Let $v(t)$ and $w(t)$ be solutions of $\dot {\mathbf v} = f(\mathbf v)$, and let $[t_0,t_1]$ be a subset of the domains of both solutions. Then
+$$
+\forall t \in [t_0, t_1], ||v(t) - w(t)|| \leq ||v(t_0) - w(t_0)||\exp(L(t - t_0))
+$$
+
+\end{theorem}
+
+
+
+Next two definition introduced the sink, source and saddle in continuous problem.
+\begin{definition}An equilibrium $v_0$ of $\dot v = f(v)$ is called hyperbolic if none of the eigenvalues of $Df(v_0$ has real part 0.
+\end{definition}
+
+
+\begin{definition}
+Let $v_0$ be an equilibrium of $\dot v = f(v)$. If the real part of each eigenvalue of $Df(v_0)$ is strictly negative, then $v_0$ is asymptotically stable. If the real part of at least one eigenvalue is strictly positive, then $v_0$ is unstable.
+\end{definition}
+
+
+
+
+
+\subsection{Energy Function, Lyapunov Function}
+
+\begin{definition}\textbf{Level curve}
+\\\noindent Given a real number $c$ and a function $E : \mathcal R^2 \rightarrow \mathcal R$, the
+set $E_c = \{(x, y)| E(x, y) = c\}$ is called a \textbf{level curve} of the function $E$.
+\end{definition}
+
+
+
+\begin{definition}\textbf{Lyapunov Function}
+\\\noindent Let $v_0$ be an equilibrium of $\dot {\mathbf v} = f(\mathbf v)$. A function $E : \mathcal R^n \rightarrow \mathcal R$ is called a Lyapunov function for $v_0$ if for some neighborhood $N(v_0)$, the following conditions are satisfied:
+\\\noindent \textbf{[i]} $\forall v\in N(v_0) \backslash \{v_0\}, E(v_0) = 0 \land E(v) > 0$
+\\\noindent \textbf{[ii]} $ \forall v \in N(V_0), \dot E(v) \leq 0$\\[1ex]
+\noindent If the stronger inequality
+$$
+\textbf{[ii']} \forall v \in N(V_0), \dot E(v) < 0\\[1ex]
+$$
+holds, then $E$ is called a strict Lyapunov function.
+\end{definition}
+
+
+
+\begin{theorem} Let $v_0$ be an equilibrium of $\dot {\mathbf v} = f(\mathbf v)$. If there exists a Lyapunov function for $v$, then $v$ is stable. If there exists a strict Lyapunov function for $v$, then $v$ is asymptotically stable.
+\end{theorem}
+
+
+
+\begin{definition}\textbf{Basin of attraction}
+\\\noindent Let $v_0$ be an asymptotically stable equilibrium of $\dot {\mathbf v} = f(\mathbf v)$. Then the basin of attraction of $v_0$, denoted $B(v_0)$, is the set of initial conditions $v_{init}$ s.t. 
+$$
+\lim_{t \rightarrow \infty} F(t, v_{init}) = v_0
+$$
+\end{definition}
+
+
+
+\begin{definition}
+A set $U\subset \mathcal R^n$ is called a forward invariant set for $\dot {\mathbf v} = f(\mathbf v)$ if for each $v_0 \in U$, the forward orbit $\{F(t, v_0) : t \geq 0\}$ is contained in $U$. A forward invariant set that is bounded is called a \textbf{trapping region}. We also require that a trapping region be an n-dimensional set.
+\end{definition}
+
+
+
+\begin{conclusion}\textbf{Barbashin-LaSalle}
+\\\noindent Let $E$ be a Lyapunov function for $v_0$ on the neighborhood $N(v_0)$. Let $Q = \{v \in N: \dot E(v) = 0\}$. Assume that $N$ is forward invariant. If the only forward-invariant set contained completely in $Q$ is $v_0$, then $v_0$ is asymptotically stable. Furthermore, $N$ is contained in the basin of $v_0$; that is, $\forall v \in N, \lim_{t \rightarrow \infty}F(t, v) = v_0$
+\end{conclusion}
+
+
+
+
+
+
+
+\newpage
+\section{Periodic Orbits and Limit Sets}
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{./reference.bib}
 
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
