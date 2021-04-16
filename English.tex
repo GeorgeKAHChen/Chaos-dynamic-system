@@ -2995,7 +2995,7 @@ Now the problem is how to describe this property that every $f(I_n)$ covered som
 {\color{blue}
 \begin{proof} \textbf{[1]} If center $c$ of rectangle is fixed point, then there is nothing to do.
 \\\noindent \textbf{[2]} If center $c$ is not fixed point, we can shrink the rectangle down from its original size tothe point $c$. 
-\\\noindent \textbf{[2-1]} Obviously, the vector $V(\mathbf x)$ defined along the $\partial S$ and change continuously, and they must continue to make at least one full trun. So finally, some point $\mathbf x$ results $V(\mathbf x) = 0$ and $\mathbf x$ is fixed point because the definiton of $V(x)$
+\\\noindent \textbf{[2-1]} Obviously, the vector $V(\mathbf x)$ defined along the $\partial S$ and change continuously, and they must continue to make at least one full trun. So finally, some point $\mathbf x$ results $V(\mathbf x) = 0$ and $\mathbf x$ is fixed point because the definition of $V(x)$
 \\\noindent \textbf{[3]} Now we consider the situation that the image move completely away from it. Obviously, there is no fixed point if the image move away. And in this condition, we can simply find net rorate of $V(\mathbf)$ is zero.$\blacksquare$
 \end{proof}
 }
@@ -4104,11 +4104,11 @@ A set $U\subset \mathcal R^n$ is called a forward invariant set for $\dot {\math
 
 
 
-\begin{conclusion}\textbf{Barbashin-LaSalle}
+\begin{conclusion}\label{Barbashin-LaSalle-theo}\textbf{Barbashin-LaSalle}
 \\\noindent Let $E$ be a Lyapunov function for $v_0$ on the neighborhood $N(v_0)$. Let $Q = \{v \in N: \dot E(v) = 0\}$. Assume that $N$ is forward invariant. If the only forward-invariant set contained completely in $Q$ is $v_0$, then $v_0$ is asymptotically stable. Furthermore, $N$ is contained in the basin of $v_0$; that is, $\forall v \in N, \lim_{t \rightarrow \infty}F(t, v) = v_0$
 \end{conclusion}
 
-
+We will proof this conclusion in next section.
 
 
 
@@ -4116,14 +4116,125 @@ A set $U\subset \mathcal R^n$ is called a forward invariant set for $\dot {\math
 
 \newpage
 \section{Periodic Orbits and Limit Sets}
+In this section, we mainly consider the fixed point, periodic-k orbit in continuous problem.
+
+\textbf{I. Fixed point, Periodic-k points $\rightarrow$ Limit set}
+\begin{definition}\textbf{Limit set}
+\\\noindent A point $z \in \mathcal R^n$ is in the $\omega$-limit set $\omega(v_0)$(or $\alpha$-limit set $\alpha(v_0)$) of the solution curve $F(t, v_0)$ if there is a sequence of points increasingly(decreasingly) far out along the orbit which converges to $z$, or
+$$
+z \text{ is in } \omega(v_0) \text{ if } \exists \{t_n\} \text{ s.t. } \forall i < j, t_i < t_j, t_\infty = \infty, \text{ have } \lim_{n \rightarrow \infty}F(t_n, v_0) = z
+$$
+$$
+z \text{ is in } \alpha(v_0) \text{ if } \exists \{t_n\} \text{ s.t. } \forall i < j, t_i > t_j,t_\infty = - \infty, \text{ have } \lim_{n \rightarrow \infty}F(t_n, v_0) = z
+$$
+\end{definition}
+
+
+\begin{theorem}\label{limit-set}All solutions of the scalar differential equation $\dot x = f(x)$ are either monotonic increasing or monotonic decreasing as a function of t. For $x_0 \in R$, if the orbit $F(t, x0), t \geq 0$, is bounded, then $\omega(x_0)$ consists solely of an equilibrium.
+\end{theorem}
+
+
+\textbf{II. Asymptotically Periodic $\rightarrow$ Limit cycle}
+\begin{definition}\textbf{Limit Cycle}
+\\\noindent If there exists a $T > 0$ s.t. $\forall t > 0, F(t+T, v_0) = F(t, v_0)$ and $v_0$ is not an equilibrium, then the solution $F(t, v_0)$ is called a periodic orbit, or a limit cycle, and the smallest value $T$ is called the period of the orbit.
+\\\noindent If the limit cycle have same begining and endding, then called this curve is closed.
+\\\noindent A simple closed curve is one that does not cross itself.
+\end{definition}
+
+
+
+
+%Figure 
+
+\begin{theorem}\label{Poincare-Bendixson-theo}\textbf{Poincare-Bendixson theorem}
+\\\noindent Let $f$ be a smooth vector field of the plane, for which the equilibria of $\dot v = f(v)$ are isolated. If the forward orbit $F(t, v_0), t \geq 0$ is bounded, then either
+\\\noindent \textbf{[i]} $\omega(v_0)$ is an equilibrium, or 
+\\\noindent \textbf{[ii]} $\omega(v_0)$ is a periodic orbit(cycle), or
+\\\noindent \textbf{[iii]} $\forall u \in \omega(v_0)$, the limit set $\alpha(u)$ and $\omega(u)$ are equilibria.
+\end{theorem}
+If we explain the Poincare-Bendixson theorem in map, then it is for all bounded attractor, the forward orbit is fixed point([i]) or periodic-k orbit ([ii]), or asymptotically periodic orbit ([iii])
+
+We mainly introduced the definition and theorem, and the proof will be put in the end of this section.
+
+\begin{property}\label{property-omega-limit}\textbf{Property of $\omega$-limit sets}
+\\\noindent \textbf{Existence}: If the orbit $F(t,v_0)$ is bounded for all $t \geq 0$, then $\omega(v_0)$ is non-empty.
+\\\noindent \textbf{Closure}: $\omega(v_0)$ is closed, that means $\omega(v_0)$ contains all of its limit points.
+\\\noindent \textbf{Invariance}: $\omega(v_0)$ is invariant under the flow, that is, if $u \in \omega(v_0)$, then $\forall t \geq 0, F(t, u) \in \omega(v_0)$.
+\\\noindent \textbf{Connectedness}: If $\{F(t, v_0)\}$ is a bounded set, then $\omega(v_0)$ is connected.
+\\\noindent \textbf{Transitivity}: If $z \in \omega(u) \land u \in \omega(v_0)$, then $z \in \omega(v_0)$
+\end{property}
+
+We introduced the Barbashin-LaSalle theorem in last section, and here, we will try to proof that.
+\\\noindent \textbf{Barbashin-LaSalle}
+\\\noindent Let $E$ be a Lyapunov function for $v_0$ on the neighborhood $N(v_0)$. Let $Q = \{v \in N: \dot E(v) = 0\}$. Assume that $N$ is forward invariant. If the only forward-invariant set contained completely in $Q$ is $v_0$, then $v_0$ is asymptotically stable. Furthermore, $N$ is contained in the basin of $v_0$; that is, $\forall v \in N, \lim_{t \rightarrow \infty}F(t, v) = v_0$
+
+
+
+{\color{blue}
+\begin{proof}Theo. \ref{limit-set}
+{\color{black}
+\begin{lemma} Let $W_c = \{v \in R^n: E(v) \leq c\}$ and $v_0 \in W_c$, for some $c > 0$. Then there is a number $d, 0 \leq d \leq c$ s.t. $\forall v \in \omega(v_0), E(v) = d$
+\end{lemma}
+\begin{conclusion}
+$\forall v \in \omega(V_0), \dot E(v) = 0$
+\end{conclusion}
+}
+$\blacksquare$
+\end{proof}
+
+
+
+
+\begin{proof}Theo. \ref{property-omega-limit}
+$\blacksquare$
+\end{proof}
+
+
+
+\begin{proof}Theo. \ref{Barbashin-LaSalle-theo}
+$\blacksquare$
+\end{proof}
+
+
+\begin{proof}Theo. \ref{Poincare-Bendixson-theo}
+$\blacksquare$
+\end{proof}
+
+
+}
+
+
+
 
 \newpage
-\bibliographystyle{plain}
-\bibliography{./reference.bib}
+\section{Chaos Systems}
+\subsection{Lorenz System}
+
+
+\subsection{Lorenz Map}
+
+
+\subsection{Rossler System}
+
+
+\subsection{Other Systems}
+\subsubsection{Chua's Circuit}
+
+
+\subsubsection{Forced Oscillators}
+
+
+
+
+\subsection{Lyapunov Exponents in Flow}
+
+
+%\newpage
+%\bibliographystyle{plain}
+%\bibliography{./reference.bib}
 
 \end{document}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 
 
